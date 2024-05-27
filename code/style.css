@@ -39,7 +39,7 @@ body {
     position: fixed;
     top: 0;
     left: 65px;
-    width: 95%;
+    width: 96.5%;
     height: 25px;
     background-color: #444;
     display: flex;
@@ -79,7 +79,7 @@ body {
     display: flex;
     align-items: center;
     padding-left: 20px;
-    font-size: 70%;
+    font-size: 80%;
     margin-left: -10px;
     border-bottom-right-radius: 10px;
     box-shadow: -1px 2px 4px rgb(0, 0, 0);
@@ -99,14 +99,14 @@ body {
     color: white;
     padding: 5px;
     cursor: pointer;
-    font-size: 90%;
+    font-size: 100%;
 }
 
 .addTab {
     position: relative;
     padding: 0;
     background-color: #0000002a;
-    width: 15px;
+    width: 18px;
     height: 100%;
     cursor: pointer;
     flex-shrink: 0;
@@ -114,7 +114,7 @@ body {
     display: flex;
     align-items: center;
     padding-left: 10px;
-    font-size: 70%;
+    font-size: 100%;
     border-bottom-right-radius: 10px;
     margin-left: -10px;
 }
@@ -136,111 +136,111 @@ body {
     display: none;
 }
 
-
 #category-list.show {
-  display: block;
-  position: fixed;
-  left: 65px;
-  width: 300px;
-  height: 100vh; /* Juster høyden basert på topbar-høyden */
-  background-color: #444;
-  box-sizing: border-box;
-  overflow-x: hidden; /* Skjuler horisontal scrollbar */
-  overflow-y: auto;
-  z-index: 999;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+    display: block;
+    position: fixed;
+    left: 65px;
+    width: 300px;
+    height: 100vh; /* Juster høyden basert på topbar-høyden */
+    background-color: #444;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Skjuler horisontal scrollbar */
+    overflow-y: auto;
+    z-index: 999;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 #category-list.show::-webkit-scrollbar {
-  width: 2px;
-  background-color: transparent;
+    width: 2px;
+    background-color: transparent;
 }
 
 #category-list.show::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
 
 #category-list.show::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.377);
-  border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.377);
+    border-radius: 20px;
 }
 
 .category-item {
     padding: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
     background-color: #555;
     color: #ccc;
     cursor: pointer;
 }
 
 .category-item:hover {
-    background-color: #666;
+    background-color: #494949;
 }
-
 
 .plugin-list {
     list-style-type: none;
     padding: 0;
     margin: 0;
-  }
-  
-  .plugin-item {
+}
+
+.plugin-item {
     padding: 10px;
     padding-left: 20px;
+    width: 92%;
     cursor: pointer;
-  }
-  
-  .plugin-item:hover {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.281);
+    border-right: 2px solid rgba(0, 0, 0, 0.281);
+    border-bottom-right-radius: 10px;
+}
+
+.plugin-item:hover {
     background-color: #555;
-  }
-  
-  .plugin-description {
+}
+
+.plugin-description {
     padding: 10px;
     padding-left: 30px;
-    background-color: #333;
+    background-color: #444;
     color: #ccc;
     overflow-wrap: break-word;
     word-break: break-word;
-  }
-
+}
 
 /*############################### search #################################################################*/
 
-
 .search-container {
     padding: 10px;
-  }
-  
-  #searchInput {
+}
+
+#searchInput {
     width: 95%;
     padding: 5px;
     margin-bottom: 10px;
-  }
-  
-  #searchResults {
+}
+
+#searchResults {
     list-style-type: none;
     padding: 0;
     margin: 0;
-  }
-  
-  #searchResults li {
+}
+
+#searchResults li {
     padding: 5px;
     background-color: #555;
     color: #ccc;
     margin-bottom: 5px;
-  }
-  
-  #searchResults ul {
+}
+
+#searchResults ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-  }
-  
-  #searchResults ul li {
+}
+
+#searchResults ul li {
     padding: 5px;
     padding-left: 20px;
     background-color: #444;
     color: #ccc;
-  }
+}
