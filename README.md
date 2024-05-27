@@ -1,3 +1,3 @@
-Dette er readme -Tobias123
+Dette er readme -Tobias
 
 Kult! - Deadlyasskicker
