@@ -243,27 +243,38 @@ function closeOpenPlugin() {
   }
 }
 
+// Function to show or hide the categories
 function showCategories() {
+  // Get references to the category list, topbar, and add tab button elements
   const categoryList = document.getElementById('category-list');
   const topbar = document.getElementById('topbar');
   const addTabBtn = document.getElementById('addTab1');
 
+  // Check if the category list is currently shown
   if (categoryList.classList.contains('show')) {
+    // If shown, hide the category list
     hideCategoryList(categoryList, topbar);
   } else {
+    // If hidden, display the category list and add search functionality
     displayCategoryList(categoryList, topbar);
     addSearchFunctionality(categoryList);
   }
 
+  // Update the margin of the add tab button
   updateAddTabMargin();
 }
 
+// Function to hide the category list
 function hideCategoryList(categoryList, topbar) {
+  // Remove the 'show' class from the category list
   categoryList.classList.remove('show');
+  // Adjust the left position of the topbar
   topbar.style.left = '65px';
 }
 
+// Function to display the category list
 function displayCategoryList(categoryList, topbar) {
+  // Set the HTML content of the category list
   categoryList.innerHTML = `
     <div class="search-container">
       <input type="text" id="searchInput" placeholder="Search...">
@@ -271,67 +282,96 @@ function displayCategoryList(categoryList, topbar) {
     </div>
   `;
 
+  // Iterate over each category and create category items
   categories.forEach((category, index) => {
     const categoryItem = createCategoryItem(category, index);
     categoryList.appendChild(categoryItem);
   });
 
+  // Add the 'show' class to the category list
   categoryList.classList.add('show');
+  // Adjust the left position of the topbar
   topbar.style.left = '356px';
 }
 
+// Function to add search functionality to the category list
 function addSearchFunctionality(categoryList) {
+  // Get references to the search input and search results elements
   const searchInput = document.getElementById('searchInput');
   const searchResults = document.getElementById('searchResults');
 
+  // Add an event listener to the search input field
   searchInput.addEventListener('input', function() {
+    // Get the search term entered by the user and convert it to lowercase
     const searchTerm = this.value.toLowerCase();
 
+    // Check if the search term length is less than or equal to 2 characters
     if (searchTerm.length <= 2) {
+      // If the search term is too short, clear the search results
       clearSearchResults(searchResults);
     } else {
+      // If the search term is valid, filter the plugins based on the search term
       const filteredPlugins = filterPlugins(searchTerm);
+      // Display the filtered plugins in the search results
       displaySearchResults(filteredPlugins);
     }
   });
 }
 
-
+// Function to clear the search results
 function clearSearchResults(searchResults) {
+  // Set the HTML content of the search results to an empty string
   searchResults.innerHTML = '';
 }
 
+// Function to filter plugins based on the search term
 function filterPlugins(searchTerm) {
+  // Create an empty array to store the filtered plugins
   const filteredPlugins = [];
 
+  // Iterate over each category
   categories.forEach(category => {
+    // Filter the plugins within the category based on the search term
     const matchingPlugins = category.plugins.filter(plugin =>
       plugin.name.toLowerCase().includes(searchTerm) ||
       plugin.description.toLowerCase().includes(searchTerm)
     );
 
+    // Add the matching plugins to the filtered plugins array
     filteredPlugins.push(...matchingPlugins);
   });
 
+  // Return the filtered plugins
   return filteredPlugins;
 }
 
+// Function to display the search results
 function displaySearchResults(filteredPlugins) {
+  // Get a reference to the search results element
   const searchResults = document.getElementById('searchResults');
+  // Clear the existing search results
   searchResults.innerHTML = '';
 
+  // Check if there are any filtered plugins
   if (filteredPlugins.length > 0) {
+    // Create a new unordered list element for the plugin list
     const pluginList = document.createElement('ul');
 
+    // Iterate over each filtered plugin
     filteredPlugins.forEach(plugin => {
+      // Create a new list item element for the plugin
       const pluginItem = document.createElement('li');
+      // Set the text content of the plugin item to the plugin name and description
       pluginItem.textContent = `${plugin.name}: ${plugin.description}`;
+      // Append the plugin item to the plugin list
       pluginList.appendChild(pluginItem);
     });
 
+    // Append the plugin list to the search results
     searchResults.appendChild(pluginList);
   }
 }
+
 
 
   
