@@ -4,7 +4,8 @@ Graphical user interface for volatility3
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+We are making a GUI for the commandline program volatility.
+Volatility is a memory forensics program designed for security experts, to analyze data extracted for memory.
 
 ## Getting Started
 
