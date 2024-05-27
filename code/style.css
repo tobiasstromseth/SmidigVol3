@@ -136,19 +136,35 @@ body {
     display: none;
 }
 
+
 #category-list.show {
-    display: block;
-    position: fixed;
-    left: 65px; /* Plasseres ved siden av menu */
-    width: 200px; /* Juster bredden etter behov */
-    height: 100vh; /* Bruk hele høyden minus topbar */
-    background-color: #444;
-    box-sizing: border-box;
-    overflow-y: auto; /* Legger til vertikal scrollbar ved behov */
-    z-index: 999; /* Plasserer listen under topbar */
-    list-style-type: none; /* Fjerner prikkene */
-    padding: 0; /* Fjerner standard padding */
-    margin: 0; /* Fjerner standard margin */
+  display: block;
+  position: fixed;
+  left: 65px;
+  width: 300px;
+  height: 100vh; /* Juster høyden basert på topbar-høyden */
+  background-color: #444;
+  box-sizing: border-box;
+  overflow-x: hidden; /* Skjuler horisontal scrollbar */
+  overflow-y: auto;
+  z-index: 999;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#category-list.show::-webkit-scrollbar {
+  width: 2px;
+  background-color: transparent;
+}
+
+#category-list.show::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#category-list.show::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.377);
+  border-radius: 20px;
 }
 
 .category-item {
@@ -185,6 +201,8 @@ body {
     padding-left: 30px;
     background-color: #333;
     color: #ccc;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
 
