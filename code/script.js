@@ -283,7 +283,7 @@ function showCategories() {
       });
   
       categoryList.classList.add('show');
-      topbar.style.left = '256px';
+      topbar.style.left = '356px';
     }
   
     updateAddTabMargin();
