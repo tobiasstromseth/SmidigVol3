@@ -49,6 +49,7 @@ body {
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
+    border-bottom-right-radius: 15px;
 }
 
 #topbar::-webkit-scrollbar {
@@ -257,7 +258,7 @@ body {
     height: 98%;
     margin: 0;
     padding: 0;
-    background-color: #ff000060; /*#333*/
+    background-color: #333; /*#333*/
     color: #ccc;
     font-family: Arial, sans-serif;
 }
