@@ -243,51 +243,95 @@ function closeOpenPlugin() {
   }
 }
 
-// Function to show or hide the categories
 function showCategories() {
-    const categoryList = document.getElementById('category-list');
-    const topbar = document.getElementById('topbar');
-    const addTabBtn = document.getElementById('addTab1');
-  
-    if (categoryList.classList.contains('show')) {
-      categoryList.classList.remove('show');
-      topbar.style.left = '65px';
-    } else {
-      categoryList.innerHTML = `
-        <div class="search-container">
-          <input type="text" id="searchInput" placeholder="Search...">
-          <ul id="searchResults"></ul>
-        </div>
-      `;
-  
-      categories.forEach((category, index) => {
-        const categoryItem = createCategoryItem(category, index);
-        categoryList.appendChild(categoryItem);
-      });
-  
-      // Flytt denne koden inn i showCategories()-funksjonen
-      const searchInput = document.getElementById('searchInput');
-      const searchResults = document.getElementById('searchResults');
-  
-      searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        const filteredCategories = categories.filter(category => 
-          category.name.toLowerCase().includes(searchTerm) ||
-          category.plugins.some(plugin => 
-            plugin.name.toLowerCase().includes(searchTerm) ||
-            plugin.description.toLowerCase().includes(searchTerm)
-          )
-        );
-  
-        displaySearchResults(filteredCategories);
-      });
-  
-      categoryList.classList.add('show');
-      topbar.style.left = '356px';
-    }
-  
-    updateAddTabMargin();
+  const categoryList = document.getElementById('category-list');
+  const topbar = document.getElementById('topbar');
+  const addTabBtn = document.getElementById('addTab1');
+
+  if (categoryList.classList.contains('show')) {
+    hideCategoryList(categoryList, topbar);
+  } else {
+    displayCategoryList(categoryList, topbar);
+    addSearchFunctionality(categoryList);
   }
+
+  updateAddTabMargin();
+}
+
+function hideCategoryList(categoryList, topbar) {
+  categoryList.classList.remove('show');
+  topbar.style.left = '65px';
+}
+
+function displayCategoryList(categoryList, topbar) {
+  categoryList.innerHTML = `
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search...">
+      <ul id="searchResults"></ul>
+    </div>
+  `;
+
+  categories.forEach((category, index) => {
+    const categoryItem = createCategoryItem(category, index);
+    categoryList.appendChild(categoryItem);
+  });
+
+  categoryList.classList.add('show');
+  topbar.style.left = '356px';
+}
+
+function addSearchFunctionality(categoryList) {
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+
+  searchInput.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+
+    if (searchTerm.length <= 2) {
+      clearSearchResults(searchResults);
+    } else {
+      const filteredCategories = filterCategories(searchTerm);
+      displaySearchResults(filteredCategories);
+    }
+  });
+}
+
+function clearSearchResults(searchResults) {
+  searchResults.innerHTML = '';
+}
+
+function filterCategories(searchTerm) {
+  return categories.filter(category =>
+    category.name.toLowerCase().includes(searchTerm) ||
+    category.plugins.some(plugin =>
+      plugin.name.toLowerCase().includes(searchTerm) ||
+      plugin.description.toLowerCase().includes(searchTerm)
+    )
+  );
+}
+
+function displaySearchResults(filteredCategories) {
+  const searchResults = document.getElementById('searchResults');
+  searchResults.innerHTML = '';
+
+  if (filteredCategories.length > 0) {
+    filteredCategories.forEach(category => {
+      const categoryItem = document.createElement('li');
+      categoryItem.textContent = category.name;
+      searchResults.appendChild(categoryItem);
+
+      const pluginList = document.createElement('ul');
+      category.plugins.forEach(plugin => {
+        const pluginItem = document.createElement('li');
+        pluginItem.textContent = `${plugin.name}: ${plugin.description}`;
+        pluginList.appendChild(pluginItem);
+      });
+
+      searchResults.appendChild(pluginList);
+    });
+  }
+}
+
   
 
 // Function to remove a tab
@@ -343,34 +387,39 @@ topbar.addEventListener('wheel', (event) => {
 
 // search and shit ##########################################
 
-searchInput.addEventListener('input', function() {
-  const searchTerm = this.value.toLowerCase();
-  const filteredCategories = categories.filter(category => 
-    category.name.toLowerCase().includes(searchTerm) ||
-    category.plugins.some(plugin => 
-      plugin.name.toLowerCase().includes(searchTerm) ||
-      plugin.description.toLowerCase().includes(searchTerm)
-    )
-  );
-
-  displaySearchResults(filteredCategories);
-});
-
+// Function to display the search results
 function displaySearchResults(filteredCategories) {
+  // Clear any existing search results from the HTML
   searchResults.innerHTML = '';
 
-  filteredCategories.forEach(category => {
-    const categoryItem = document.createElement('li');
-    categoryItem.textContent = category.name;
-    searchResults.appendChild(categoryItem);
+  // Check if there are any filtered categories
+  if (filteredCategories.length > 0) {
+    // Iterate over each filtered category
+    filteredCategories.forEach(category => {
+      // Create a new list item element for the category
+      const categoryItem = document.createElement('li');
+      // Set the text content of the category item to the category name
+      categoryItem.textContent = category.name;
+      // Append the category item to the search results list
+      searchResults.appendChild(categoryItem);
 
-    const pluginList = document.createElement('ul');
-    category.plugins.forEach(plugin => {
-      const pluginItem = document.createElement('li');
-      pluginItem.textContent = `${plugin.name}: ${plugin.description}`;
-      pluginList.appendChild(pluginItem);
+      // Create a new unordered list element for the plugins
+      const pluginList = document.createElement('ul');
+      // Iterate over each plugin in the category
+      category.plugins.forEach(plugin => {
+        // Create a new list item element for the plugin
+        const pluginItem = document.createElement('li');
+        // Set the text content of the plugin item to the plugin name and description
+        pluginItem.textContent = `${plugin.name}: ${plugin.description}`;
+        // Append the plugin item to the plugin list
+        pluginList.appendChild(pluginItem);
+      });
+
+      // Append the plugin list to the search results list
+      searchResults.appendChild(pluginList);
     });
-
-    searchResults.appendChild(pluginList);
-  });
+  }
 }
+
+
+
