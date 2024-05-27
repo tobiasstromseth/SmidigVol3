@@ -290,47 +290,49 @@ function addSearchFunctionality(categoryList) {
     if (searchTerm.length <= 2) {
       clearSearchResults(searchResults);
     } else {
-      const filteredCategories = filterCategories(searchTerm);
-      displaySearchResults(filteredCategories);
+      const filteredPlugins = filterPlugins(searchTerm);
+      displaySearchResults(filteredPlugins);
     }
   });
 }
+
 
 function clearSearchResults(searchResults) {
   searchResults.innerHTML = '';
 }
 
-function filterCategories(searchTerm) {
-  return categories.filter(category =>
-    category.name.toLowerCase().includes(searchTerm) ||
-    category.plugins.some(plugin =>
+function filterPlugins(searchTerm) {
+  const filteredPlugins = [];
+
+  categories.forEach(category => {
+    const matchingPlugins = category.plugins.filter(plugin =>
       plugin.name.toLowerCase().includes(searchTerm) ||
       plugin.description.toLowerCase().includes(searchTerm)
-    )
-  );
+    );
+
+    filteredPlugins.push(...matchingPlugins);
+  });
+
+  return filteredPlugins;
 }
 
-function displaySearchResults(filteredCategories) {
+function displaySearchResults(filteredPlugins) {
   const searchResults = document.getElementById('searchResults');
   searchResults.innerHTML = '';
 
-  if (filteredCategories.length > 0) {
-    filteredCategories.forEach(category => {
-      const categoryItem = document.createElement('li');
-      categoryItem.textContent = category.name;
-      searchResults.appendChild(categoryItem);
+  if (filteredPlugins.length > 0) {
+    const pluginList = document.createElement('ul');
 
-      const pluginList = document.createElement('ul');
-      category.plugins.forEach(plugin => {
-        const pluginItem = document.createElement('li');
-        pluginItem.textContent = `${plugin.name}: ${plugin.description}`;
-        pluginList.appendChild(pluginItem);
-      });
-
-      searchResults.appendChild(pluginList);
+    filteredPlugins.forEach(plugin => {
+      const pluginItem = document.createElement('li');
+      pluginItem.textContent = `${plugin.name}: ${plugin.description}`;
+      pluginList.appendChild(pluginItem);
     });
+
+    searchResults.appendChild(pluginList);
   }
 }
+
 
   
 
