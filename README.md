@@ -1,1 +1,38 @@
-Her lager vi README!
+# Project Title
+
+Graphical user interface for volatility3
+
+## Description
+
+We are making a GUI for the commandline program volatility.
+Volatility is a memory forensics program designed for security experts, to analyze data extracted for memory.
+
+## Getting Started
+
+### Dependencies
+
+- Python
+- PyWebView
+
+### Executing program
+
+- How to run the program
+- Start the program by executing the file called start.py
+
+## Authors
+
+Contributors names and contact info
+
+- Benjamin Arshad
+
+- Filip Borgen
+
+- Julie Brommeland
+
+- Ole Kristoffer Rosnes
+
+- Petter Holstad Andersen
+
+- Tobias Strømseth
+
+- Øystein Harald Arntzen
