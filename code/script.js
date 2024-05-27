@@ -374,7 +374,8 @@ function displaySearchResults(filteredPlugins) {
 
 
 
-  
+
+
 
 // Function to remove a tab
 function removeTab(tabNumber) {
@@ -425,43 +426,3 @@ topbar.addEventListener('wheel', (event) => {
   event.preventDefault();
   topbar.scrollLeft += event.deltaY;
 });
-
-
-// search and shit ##########################################
-
-// Function to display the search results
-function displaySearchResults(filteredCategories) {
-  // Clear any existing search results from the HTML
-  searchResults.innerHTML = '';
-
-  // Check if there are any filtered categories
-  if (filteredCategories.length > 0) {
-    // Iterate over each filtered category
-    filteredCategories.forEach(category => {
-      // Create a new list item element for the category
-      const categoryItem = document.createElement('li');
-      // Set the text content of the category item to the category name
-      categoryItem.textContent = category.name;
-      // Append the category item to the search results list
-      searchResults.appendChild(categoryItem);
-
-      // Create a new unordered list element for the plugins
-      const pluginList = document.createElement('ul');
-      // Iterate over each plugin in the category
-      category.plugins.forEach(plugin => {
-        // Create a new list item element for the plugin
-        const pluginItem = document.createElement('li');
-        // Set the text content of the plugin item to the plugin name and description
-        pluginItem.textContent = `${plugin.name}: ${plugin.description}`;
-        // Append the plugin item to the plugin list
-        pluginList.appendChild(pluginItem);
-      });
-
-      // Append the plugin list to the search results list
-      searchResults.appendChild(pluginList);
-    });
-  }
-}
-
-
-
