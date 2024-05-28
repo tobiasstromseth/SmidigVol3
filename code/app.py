@@ -2,6 +2,8 @@ import webview
 import os
 import tkinter as tk
 from tkinter import filedialog
+from Vol3Functions import *
+
 
 class Api:
     def __init__(self):
@@ -16,6 +18,7 @@ class Api:
     def setFilePath(self, file_path):
         self.file_path = file_path
         print(f'File path set: {self.file_path}')
+        identify_os(self.file_path)
 
     def moveFileToFolder(self):
         if self.file_path is None:

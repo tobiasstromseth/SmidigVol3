@@ -44,9 +44,15 @@ function addTabs() {
         console.log(tabCount);
         updateAddTabMargin();
     });
-    restoreDataTableUploadFile();
 }
 
+// Function to handle opening a new tab
+function openNewTab() {
+  addTabs();
+  const categoryList = document.getElementById('category-list');
+  const topbar = document.getElementById('topbar');
+  hideCategoryList(categoryList, topbar);
+}
 
 const categories = [
     {
@@ -434,8 +440,8 @@ function handleFileSelect() {
   pywebview.api.openFileDialog().then(() => {
     console.log('File selected');
     clearDataTable();
-    showCategories()
-    addTabs()
+    showCategories();
+    addTabs();
   });
 }
 
@@ -447,7 +453,6 @@ function clearDataTable() {
   const dataTable = document.querySelector('.dataTable');
   dataTable.innerHTML = '';
 }
-
 
 function restoreDataTableUploadFile() {
   const dataTable = document.querySelector('.dataTable');
@@ -468,9 +473,12 @@ function restoreDataTableUploadFile() {
 
 const selectFileBtn = document.getElementById('selectFileBtn');
 const dropzone = document.getElementById('dropzone');
+const addFileBtn = document.getElementById('addFileBtn');
 
 selectFileBtn.addEventListener('click', handleFileSelect);
 dropzone.addEventListener('dragover', handleDragOver);
+addFileBtn.addEventListener('click', handleFileSelect);
+
 
 
 
