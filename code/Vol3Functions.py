@@ -88,7 +88,7 @@ def run_command_from_gui(name):
     for category in data:
         for plugin in category['plugins']:
             if plugin['name'] == name:
-                output = run_command(f'{detected_os}.{plugin["command"]}')
+                output = run_volatility_command(f'{plugin["command"]}')
                 return output
 
 # Function to save the output to a JSON file
@@ -126,6 +126,12 @@ def save_output_to_json(raw_output, filename):
             json.dump(data, f, indent=4, ensure_ascii=False)
             print("json dumped")
 
+        # Return the JSON data
+        return json.dumps(data, indent=4, ensure_ascii=False)
+    else:
+        return None
+
+
 
 # Function to run a Volatility command
 def run_volatility_command(command):
@@ -151,7 +157,7 @@ def run_volatility_command(command):
                 json_data = json.load(f)
                 print(json.dumps(json_data, indent=4, ensure_ascii=False))
             command_found = True
-            break
+            return json_data
     
     if not command_found:
         print(f"Running command: {command}")  # Debug print
@@ -167,11 +173,12 @@ def run_volatility_command(command):
             print(f"Unicode encoding error: {str(e)}")
             # Remove non-ASCII characters from the output
             output = re.sub(r'[^\x00-\x7f]', '?', output)
-            print(output)
         
         clean_memory_file_path = memory_file_path.replace(':', '_').replace('\\', '-') 
         file_name = f'{json_directory}\command{full_command}file{clean_memory_file_path}'
-        save_output_to_json(output, file_name)
+        json_data = save_output_to_json(output, file_name)
+        print(json_data)
+        return json_data
 
 
 

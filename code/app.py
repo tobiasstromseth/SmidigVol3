@@ -47,7 +47,8 @@ class Api:
         output = run_command_from_gui(plugin_name)
 
         print("done running plugin")
-        
+        return output
+
 
 api = Api()
 webview.create_window('Enkel GUI', url='index.html', js_api=api)
