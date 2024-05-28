@@ -467,53 +467,58 @@ addFileBtn.addEventListener('click', handleFileSelect);
 
 
 
-function displayPluginOutput(pluginName, output) {
-  // Get the dataTable div element
-  const dataTableDiv = document.querySelector('.dataTable');
+function displayPluginOutput(output) {
+  try {
+    // Get the dataTable div element
+    const dataTableDiv = document.querySelector('.dataTable');
 
-  // Create a new div element for the plugin output
-  const pluginOutputDiv = document.createElement('div');
-  pluginOutputDiv.classList.add('plugin-output');
+    // Create a new div element for the plugin output
+    const pluginOutputDiv = document.createElement('div');
+    pluginOutputDiv.classList.add('plugin-output');
 
-  // Create a heading element for the plugin name
-  const pluginHeading = document.createElement('h3');
-  pluginHeading.textContent = pluginName;
+    // Create a table element for the plugin output
+    const pluginOutputTable = document.createElement('table');
 
-  // Create a table element for the plugin output
-  const pluginOutputTable = document.createElement('table');
+    // Parse the JSON output
+    const data = JSON.parse(output);
 
-  // Parse the JSON output
-  const data = JSON.parse(output);
-
-  // Create the table header
-  const tableHeader = document.createElement('thead');
-  const headerRow = document.createElement('tr');
-  for (const key in data[0]) {
-    const th = document.createElement('th');
-    th.textContent = key;
-    headerRow.appendChild(th);
-  }
-  tableHeader.appendChild(headerRow);
-  pluginOutputTable.appendChild(tableHeader);
-
-  // Create the table body
-  const tableBody = document.createElement('tbody');
-  data.forEach(rowData => {
-    const row = document.createElement('tr');
-    for (const key in rowData) {
-      const cell = document.createElement('td');
-      cell.textContent = rowData[key];
-      row.appendChild(cell);
+    // Create the table header
+    const tableHeader = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    for (const key in data[0]) {
+      const th = document.createElement('th');
+      th.textContent = key;
+      headerRow.appendChild(th);
     }
-    tableBody.appendChild(row);
-  });
-  pluginOutputTable.appendChild(tableBody);
+    tableHeader.appendChild(headerRow);
+    pluginOutputTable.appendChild(tableHeader);
 
-  // Append the heading and table elements to the plugin output div
-  pluginOutputDiv.appendChild(pluginHeading);
-  pluginOutputDiv.appendChild(pluginOutputTable);
+    // Create the table body
+    const tableBody = document.createElement('tbody');
+    data.forEach(rowData => {
+      const row = document.createElement('tr');
+      for (const key in rowData) {
+        const cell = document.createElement('td');
+        cell.textContent = rowData[key];
+        row.appendChild(cell);
+      }
+      tableBody.appendChild(row);
+    });
+    pluginOutputTable.appendChild(tableBody);
 
-  // Append the plugin output div to the dataTable div
-  dataTableDiv.appendChild(pluginOutputDiv);
+    // Append the table element to the plugin output div
+    pluginOutputDiv.appendChild(pluginOutputTable);
+
+    // Append the plugin output div to the dataTable div
+    dataTableDiv.appendChild(pluginOutputDiv);
+  } catch (error) {
+    // Log the error using the debug function
+    pywebview.api.debug(`Error in displayPluginOutput: ${error}`);
+  }
 }
+
+
+
+
+
 

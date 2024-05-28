@@ -157,7 +157,7 @@ def run_volatility_command(command):
                 json_data = json.load(f)
                 print(json.dumps(json_data, indent=4, ensure_ascii=False))
             command_found = True
-            return json_data
+            return json.dumps(json_data)
     
     if not command_found:
         print(f"Running command: {command}")  # Debug print
@@ -178,7 +178,7 @@ def run_volatility_command(command):
         file_name = f'{json_directory}\command{full_command}file{clean_memory_file_path}'
         json_data = save_output_to_json(output, file_name)
         print(json_data)
-        return json_data
+        return json.dumps(json_data)
 
 
 
