@@ -15,10 +15,12 @@ We are trying to make volatility a more easy to use tool, while also making it s
 
 - Python
 - PyWebView
+- unidecode
 
 ### Executing program
 
 - How to run the program
+- python -m pip install -r code\Volatility3\requirements.txt
 - Start the program by executing the file called app.py
 
 ## Authors

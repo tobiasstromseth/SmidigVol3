@@ -1,0 +1,63 @@
+Volatility 3 Framework 2.7.0
+
+PID	PPID	ImageFileName	Offset(V)	Threads	Handles	SessionId	Wow64	CreateTime	ExitTime	File output
+
+54700732985736	110386907278448	0�����H�	0x7587760	4294967248	-	-	True	2002-07-20 19:02:34.000000 	2002-07-21 04:35:14.000000 	Disabled
+26818077787940	13958912151092	*	0xac6e561	2885681314	-	-	True	2000-09-03 17:55:06.000000 	-	Disabled
+140737517751296	20890720444417	�����	0x1c344e03	0	-	-	True	2001-02-26 14:25:45.000000 	-	Disabled
+215504284424960	221591535520076	L$fT$ f\$0	0x38583d83	2336545918	-	-	True	2017-03-18 15:55:00.000000 	-	Disabled
+80272273059816	276807557590155	�tL��衒���t	0x4615c034	2336819065	-	-	True	2022-04-17 10:21:32.000000 	-	Disabled
+0	103079215194	2	0x5c823f60	224256	-	-	True	2019-08-07 05:45:43.000000 	2019-08-07 05:45:43.000000 	Disabled
+2080	3060	firefox.exe	0x5d905b30	59	970	1	True	2019-08-19 14:41:08.000000 	N/A	Disabled
+2440	2124	chrome.exe	0x5db41b30	13	263	1	False	2019-08-19 14:40:54.000000 	N/A	Disabled
+2452	2124	chrome.exe	0x5db4bb30	14	167	1	False	2019-08-19 14:40:54.000000 	N/A	Disabled
+864	2256	GoogleCrashHan	0x5dde3700	1	1279459345	0	False	2019-08-19 14:42:41.000000 	N/A	Disabled
+3716	1944	WinRAR.exe	0x5dde71e0	7	201	1	False	2019-08-19 14:41:43.000000 	N/A	Disabled
+924	1928	GoogleCrashHan	0x5de19060	6	93	0	False	2019-08-19 14:40:19.000000 	N/A	Disabled
+1292	1928	GoogleCrashHan	0x5de27060	7	105	0	True	2019-08-19 14:40:19.000000 	N/A	Disabled
+1108	1944	VBoxTray.exe	0x5de77810	14	139	1	False	2019-08-19 14:40:20.000000 	N/A	Disabled
+2940	2124	chrome.exe	0x5ded4380	9	172	1	False	2019-08-19 14:41:06.000000 	N/A	Disabled
+2292	608	WmiPrvSE.exe	0x5ded9060	13	288	0	False	2019-08-19 14:40:52.000000 	N/A	Disabled
+2340	2124	chrome.exe	0x5def9a70	12	282	1	False	2019-08-19 14:40:52.000000 	N/A	Disabled
+856	480	SearchIndexer.	0x5df15060	13	689	0	False	2019-08-19 14:40:27.000000 	N/A	Disabled
+1812	480	taskhost.exe	0x5e144250	9	147	1	False	2019-08-19 14:40:18.000000 	N/A	Disabled
+2168	2124	chrome.exe	0x5e14fab0	3	55	1	False	2019-08-19 14:40:49.000000 	N/A	Disabled
+1868	896	dwm.exe	0x5e160120	4	70	1	False	2019-08-19 14:40:18.000000 	N/A	Disabled
+1876	948	taskeng.exe	0x5e164b30	5	81	0	False	2019-08-19 14:40:18.000000 	N/A	Disabled
+1944	1844	explorer.exe	0x5e19a060	35	894	1	False	2019-08-19 14:40:19.000000 	N/A	Disabled
+1008	780	audiodg.exe	0x5e20b1c0	7	132	0	False	2019-08-19 14:40:12.000000 	N/A	Disabled
+400	480	svchost.exe	0x5e2645f0	13	275	0	False	2019-08-19 14:40:12.000000 	N/A	Disabled
+1176	480	spoolsv.exe	0x5e276b30	14	279	0	False	2019-08-19 14:40:13.000000 	N/A	Disabled
+1052	480	svchost.exe	0x5e2ac740	17	368	0	False	2019-08-19 14:40:12.000000 	N/A	Disabled
+1212	480	svchost.exe	0x5e34d780	21	311	0	False	2019-08-19 14:40:13.000000 	N/A	Disabled
+1308	480	svchost.exe	0x5e379b30	17	253	0	False	2019-08-19 14:40:13.000000 	N/A	Disabled
+608	480	svchost.exe	0x5e4e8740	10	358	0	False	2019-08-19 14:40:11.000000 	N/A	Disabled
+668	480	VBoxService.ex	0x5e513060	13	136	0	False	2019-08-19 14:40:11.000000 	N/A	Disabled
+724	480	svchost.exe	0x5e54bb30	6	257	0	False	2019-08-19 14:40:11.000000 	N/A	Disabled
+780	480	svchost.exe	0x5e54fb30	19	405	0	False	2019-08-19 14:40:11.000000 	N/A	Disabled
+2896	608	WmiPrvSE.exe	0x5e59eab0	7	124	0	False	2019-08-19 14:40:57.000000 	N/A	Disabled
+896	480	svchost.exe	0x5e5cf5f0	22	452	0	False	2019-08-19 14:40:12.000000 	N/A	Disabled
+948	480	svchost.exe	0x5e5e1b30	35	893	0	False	2019-08-19 14:40:12.000000 	N/A	Disabled
+384	328	wininit.exe	0x5e6ae910	3	74	0	False	2019-08-19 14:40:11.000000 	N/A	Disabled
+396	376	csrss.exe	0x5e6b7060	9	499	1	False	2019-08-19 14:40:11.000000 	N/A	Disabled
+436	376	winlogon.exe	0x5e766560	6	116	1	False	2019-08-19 14:40:11.000000 	N/A	Disabled
+2800	480	WmiApSrv.exe	0x5e774060	6	115	0	False	2019-08-19 14:40:57.000000 	N/A	Disabled
+480	384	services.exe	0x5e799200	9	194	0	False	2019-08-19 14:40:11.000000 	N/A	Disabled
+496	384	lsass.exe	0x5e7b4600	7	513	0	False	2019-08-19 14:40:11.000000 	N/A	Disabled
+264	4	smss.exe	0x5e971470	2	29	N/A	False	2019-08-19 14:40:07.000000 	N/A	Disabled
+504	384	lsm.exe	0x5eeff910	10	152	0	False	2019-08-19 14:40:11.000000 	N/A	Disabled
+916	396	conhost.exe	0x5ef1e370	3	50	1	False	2019-08-19 14:40:26.000000 	N/A	Disabled
+880	1944	cmd.exe	0x5ef24b30	1	21	1	False	2019-08-19 14:40:26.000000 	N/A	Disabled
+336	328	csrss.exe	0x5ef4cb30	10	415	0	False	2019-08-19 14:40:10.000000 	N/A	Disabled
+2124	1944	chrome.exe	0x5ef4eb30	27	662	1	False	2019-08-19 14:40:46.000000 	N/A	Disabled
+2132	2124	chrome.exe	0x5ef4f780	9	75	1	False	2019-08-19 14:40:46.000000 	N/A	Disabled
+2860	2080	firefox.exe	0x5f1fa630	11	210	1	True	2019-08-19 14:41:09.000000 	N/A	Disabled
+2968	2080	firefox.exe	0x5fc15b30	22	323	1	True	2019-08-19 14:41:11.000000 	N/A	Disabled
+3316	2080	firefox.exe	0x5fc54b30	21	307	1	True	2019-08-19 14:41:13.000000 	N/A	Disabled
+1224	480	sppsvc.exe	0x5fcaa060	5	0	0	False	2019-08-19 14:42:39.000000 	N/A	Disabled
+4092	396	conhost.exe	0x5fcc1060	2	50	1	False	2019-08-19 14:41:55.000000 	N/A	Disabled
+1192	2256	GoogleCrashHan	0x5fcf9060	3	46	0	True	2019-08-19 14:42:41.000000 	N/A	Disabled
+4084	1944	DumpIt.exe	0x5fd6e400	5	46	1	True	2019-08-19 14:41:55.000000 	N/A	Disabled
+2256	2396	GoogleUpdate.e	0x5fd7eb30	3	118	0	True	2019-08-19 14:42:40.000000 	N/A	Disabled
+3016	2080	firefox.exe	0x5fe63580	31	413	1	True	2019-08-19 14:41:10.000000 	N/A	Disabled
+4	0	System	0x5ff64040	78	495	N/A	False	2019-08-19 14:40:07.000000 	N/A	Disabled
