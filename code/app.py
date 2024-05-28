@@ -48,6 +48,9 @@ class Api:
 
         print("done running plugin")
         return output
+    
+    def debug(self, message):
+        print(f'Debug: {message}')
 
 
 api = Api()
