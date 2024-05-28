@@ -262,3 +262,37 @@ body {
     color: #ccc;
     font-family: Arial, sans-serif;
 }
+
+
+#selectFileBtn {
+    display: block;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 200px auto 20px;
+  }
+  
+  
+  #selectFileBtn:hover {
+    background-color: #45a049;
+  }
+  
+  #dropzone {
+    width: 300px;
+    height: 200px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+    color: #666;
+    margin: 0 auto;
+  }
+  

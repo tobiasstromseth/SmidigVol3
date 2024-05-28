@@ -44,6 +44,7 @@ function addTabs() {
         console.log(tabCount);
         updateAddTabMargin();
     });
+    restoreDataTableUploadFile();
 }
 
 
@@ -426,3 +427,51 @@ topbar.addEventListener('wheel', (event) => {
   event.preventDefault();
   topbar.scrollLeft += event.deltaY;
 });
+
+
+
+function handleFileSelect() {
+  pywebview.api.openFileDialog().then(() => {
+    console.log('File selected');
+    clearDataTable();
+    showCategories()
+    addTabs()
+  });
+}
+
+function handleDragOver(event) {
+  event.preventDefault();
+}
+
+function clearDataTable() {
+  const dataTable = document.querySelector('.dataTable');
+  dataTable.innerHTML = '';
+}
+
+
+function restoreDataTableUploadFile() {
+  const dataTable = document.querySelector('.dataTable');
+  dataTable.innerHTML = `
+    <input type="file" id="fileInput" style="display: none" />
+    <button id="selectFileBtn">Velg fil</button>
+    <div id="dropzone">
+      Dra og slipp en fil her, eller klikk på knappen over for å velge fil
+    </div>
+  `;
+  
+  const selectFileBtn = document.getElementById('selectFileBtn');
+  const dropzone = document.getElementById('dropzone');
+
+  selectFileBtn.addEventListener('click', handleFileSelect);
+  dropzone.addEventListener('dragover', handleDragOver);
+}
+
+const selectFileBtn = document.getElementById('selectFileBtn');
+const dropzone = document.getElementById('dropzone');
+
+selectFileBtn.addEventListener('click', handleFileSelect);
+dropzone.addEventListener('dragover', handleDragOver);
+
+
+
+
