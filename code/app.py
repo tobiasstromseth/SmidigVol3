@@ -41,6 +41,14 @@ class Api:
         
         print(f'File {file_name} moved to {destination_path}')
 
+    def run_plugin(self, plugin_name):
+        print(f'Running plugin: {plugin_name}')
+        # Perform plugin-specific actions based on the plugin name
+        output = run_command_from_gui(plugin_name)
+
+        print("done running plugin")
+        
+
 api = Api()
 webview.create_window('Enkel GUI', url='index.html', js_api=api)
 webview.start()

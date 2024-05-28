@@ -4,6 +4,7 @@
       "plugins": [
         {
           "name": "pslist",
+          "command": "pslist.PsList",
           "description": "Lists the processes present in a memory dump."
         },
         {

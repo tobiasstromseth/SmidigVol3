@@ -79,6 +79,17 @@ def run_command(command):
     else:
         return output
 
+def run_command_from_gui(name):
+    # Åpne og lese innholdet av JSON-filen
+    with open('code\mockDatabase.json', 'r') as file:
+        data = json.load(file)
+
+    # Søk etter pluginet med det gitte navnet
+    for category in data:
+        for plugin in category['plugins']:
+            if plugin['name'] == name:
+                output = run_command(f'{detected_os}.{plugin["command"]}')
+                return output
 
 # Function to save the output to a JSON file
 def save_output_to_json(raw_output, filename):
