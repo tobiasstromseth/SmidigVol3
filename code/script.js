@@ -240,15 +240,16 @@ function showCategories() {
   // Get references to the category list, topbar, and add tab button elements
   const categoryList = document.getElementById('category-list');
   const topbar = document.getElementById('topbar');
+  const dataTable = document.getElementById('dataTable')
   const addTabBtn = document.getElementById('addTab1');
 
   // Check if the category list is currently shown
   if (categoryList.classList.contains('show')) {
     // If shown, hide the category list
-    hideCategoryList(categoryList, topbar);
+    hideCategoryList(categoryList, topbar, dataTable);
   } else {
     // If hidden, display the category list and add search functionality
-    displayCategoryList(categoryList, topbar);
+    displayCategoryList(categoryList, topbar, dataTable);
     addSearchFunctionality(categoryList);
   }
 
@@ -257,15 +258,16 @@ function showCategories() {
 }
 
 // Function to hide the category list
-function hideCategoryList(categoryList, topbar) {
+function hideCategoryList(categoryList, topbar, dataTable) {
   // Remove the 'show' class from the category list
   categoryList.classList.remove('show');
   // Adjust the left position of the topbar
   topbar.style.left = '65px';
+  dataTable.style.left = '65px'
 }
 
 // Function to display the category list
-function displayCategoryList(categoryList, topbar) {
+function displayCategoryList(categoryList, topbar, dataTable) {
   // Set the HTML content of the category list
   categoryList.innerHTML = `
     <div class="search-container">
@@ -284,6 +286,7 @@ function displayCategoryList(categoryList, topbar) {
   categoryList.classList.add('show');
   // Adjust the left position of the topbar
   topbar.style.left = '356px';
+  dataTable.style.left = '365px';
 }
 
 // Function to add search functionality to the category list
@@ -506,8 +509,16 @@ function displayPluginOutput(output) {
     });
     pluginOutputTable.appendChild(tableBody);
 
-    // Append the table element to the plugin output div
-    pluginOutputDiv.appendChild(pluginOutputTable);
+    // Create a container div for the table
+    const tableContainer = document.createElement('div');
+    tableContainer.style.maxHeight = '400px'; // Set a fixed height for the container
+    tableContainer.style.overflowY = 'auto'; // Enable vertical scrolling
+
+    // Append the table element to the container div
+    tableContainer.appendChild(pluginOutputTable);
+
+    // Append the container div to the plugin output div
+    pluginOutputDiv.appendChild(tableContainer);
 
     // Append the plugin output div to the dataTable div
     dataTableDiv.appendChild(pluginOutputDiv);
@@ -516,6 +527,7 @@ function displayPluginOutput(output) {
     pywebview.api.debug(`Error in displayPluginOutput: ${error}`);
   }
 }
+
 
 
 

@@ -251,17 +251,54 @@ body {
 /*################################################################################################################################*/
 
 .dataTable {
-  position: fixed;
+    position: fixed;
     top: 25px;
     left: 65px;
-    width: 96.5%;
+    width: 80vw;
     height: 98%;
-    margin: 0;
-    padding: 0;
-    background-color: #333; /*#333*/
+    overflow: hidden;
+    background-color: #333;
     color: #ccc;
     font-family: Arial, sans-serif;
-}
+  }
+  
+  .plugin-output {
+    height: 100%;
+    overflow: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #444;
+    color: #fff;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #444;
+  }
+  
+  tr:hover {
+    background-color: #555;
+  }
+  
+  .table-container {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+
+
+
 
 
 #selectFileBtn {
