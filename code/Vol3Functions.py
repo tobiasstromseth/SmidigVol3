@@ -2,7 +2,12 @@ import subprocess
 import concurrent.futures
 import os
 import json
+from unidecode import unidecode
+import re
 
+# Tving Python til å bruke UTF-8 for all tekstbehandling
+os.environ["PYTHONIOENCODING"] = "utf-8"
+os.environ["PYTHONUTF8"] = "1"
 
 memory_file_path = r'F:\skole\vol3guio\memoryDumps\Challenge.raw' #####Only for testing. Github takler ikke filer på over 100mb så peker på full filsti her. endre etter eget behov
 vol_file_path = r'code\Volatility3\vol.py'
@@ -55,6 +60,12 @@ def run_command(command):
     # Construct the full command to run vol.py with the selected memory file and OS-specific command
     full_command = f'python {vol_file_path} -f \"{memory_file_path}\" {command}'
     print(f'Full command in run_command: {full_command}')
+
+    full_command2 = f'python {vol_file_path} -f \"{memory_file_path}\" {command} > output.txt'
+    process = subprocess.Popen(full_command2, shell=True)
+    # Wait for the process to complete and get the return code
+    return_code = process.wait()
+
     # Run the command as a subprocess and capture the output
     process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     output, error = process.communicate()
@@ -85,6 +96,8 @@ def save_output_to_json(raw_output, filename):
                 if len(columns) == len(headers):
                     # Create a dictionary mapping headers to column values
                     row_data = dict(zip(headers, columns))
+                    # Encode the values using unidecode to handle special characters
+                    row_data = {key: unidecode(value) for key, value in row_data.items()}
                     data.append(row_data)
 
         # Create the directory if it doesn't exist
@@ -92,16 +105,14 @@ def save_output_to_json(raw_output, filename):
         if not os.path.exists(directory):
             os.makedirs(directory)
 
-        # Save the data to a JSON file
-        with open(f"{filename}.json", 'w') as f:
-            json.dump(data, f, indent=4)
+        # Save the data to a JSON file with UTF-8 encoding
+        with open(f"{filename}.json", 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
             print("json dumped")
-        #print(data)
 
 
 # Function to run a Volatility command
 def run_volatility_command(command):
-
     json_directory = r"code\pluginOutput"
     # Create the JSON directory if it doesn't exist
     if not os.path.exists(json_directory):
@@ -112,19 +123,40 @@ def run_volatility_command(command):
         print("Warning", "Please select a memory file and ensure vol.py is found.")
         return
     
-    print(f"Running command: {command}")  # Debug print
-    # Change the current directory to the directory containing vol.py
-    print(f"Changed directory to: {os.getcwd()}")  # Debug print
-    # Construct the full command to run vol.py with the selected memory file and OS-specific command
-    full_command = f'{detected_os}.{command}'
-    print(f"Full command: {full_command}")  # Debug print
-    # Run the command as a subprocess and capture the output and error
-    output = run_command(full_command)
-    print(output)
+    file_info_list = get_file_info(json_directory)
+    command_found = False
+    for saved_command, file_path in file_info_list:
+        print(file_path, memory_file_path)
+        if saved_command == f'{detected_os}.{command}' and file_path == f'{memory_file_path}.json':
+            print('Command already run: fetching from json')
+            clean_memory_file_path = memory_file_path.replace(':', '_').replace('\\', '-')
+            file_name = f'{json_directory}\command{saved_command}file{clean_memory_file_path}.json'
+            with open(file_name, 'r', encoding='utf-8') as f:
+                json_data = json.load(f)
+                print(json.dumps(json_data, indent=4, ensure_ascii=False))
+            command_found = True
+            break
+    
+    if not command_found:
+        print(f"Running command: {command}")  # Debug print
+        # Change the current directory to the directory containing vol.py
+        print(f"Changed directory to: {os.getcwd()}")  # Debug print
+        # Construct the full command to run vol.py with the selected memory file and OS-specific command
+        full_command = f'{detected_os}.{command}'
+        print(f"Full command: {full_command}")  # Debug print
+        try:
+            output = run_command(full_command)
+            print(output)
+        except UnicodeEncodeError as e:
+            print(f"Unicode encoding error: {str(e)}")
+            # Remove non-ASCII characters from the output
+            output = re.sub(r'[^\x00-\x7f]', '?', output)
+            print(output)
+        
+        clean_memory_file_path = memory_file_path.replace(':', '_').replace('\\', '-') 
+        file_name = f'{json_directory}\command{full_command}file{clean_memory_file_path}'
+        save_output_to_json(output, file_name)
 
-    clean_memory_file_path = memory_file_path.replace(':', '_').replace('\\', '-') 
-    file_name = f'{json_directory}\command{full_command}file{clean_memory_file_path}'
-    save_output_to_json(output, file_name)
 
 
 def get_file_info(directory):
@@ -154,7 +186,7 @@ volatility_commands = [
 
 
 identify_os()
-run_volatility_command('pslist.PsList')
+run_volatility_command('psscan.PsScan')
 
 json_directory = r"code\pluginOutput"
 file_info_list = get_file_info(json_directory)
