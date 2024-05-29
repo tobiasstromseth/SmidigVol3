@@ -3,7 +3,7 @@ body {
     padding: 0;
     background-color: #333;
     color: #ccc;
-    font-family: Arial, sans-serif;
+    font-family: Helvetica , sans-serif;
 }
 
 /*#################################################################################################################################*/
@@ -80,7 +80,7 @@ body {
     display: flex;
     align-items: center;
     padding-left: 20px;
-    font-size: 80%;
+    font-size: 13px;
     margin-left: -10px;
     border-bottom-right-radius: 10px;
     box-shadow: -1px 2px 4px rgb(0, 0, 0);
@@ -100,7 +100,7 @@ body {
     color: white;
     padding: 5px;
     cursor: pointer;
-    font-size: 100%;
+    font-size: 13px;
 }
 
 .addTab {
@@ -115,7 +115,7 @@ body {
     display: flex;
     align-items: center;
     padding-left: 10px;
-    font-size: 100%;
+    font-size: 13px;
     border-bottom-right-radius: 10px;
     margin-left: -10px;
 }
@@ -151,6 +151,7 @@ body {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    font-size: 16px;
 }
 
 #category-list.show::-webkit-scrollbar {
@@ -193,6 +194,7 @@ body {
     border-bottom: 2px solid rgba(0, 0, 0, 0.281);
     border-right: 2px solid rgba(0, 0, 0, 0.281);
     border-bottom-right-radius: 10px;
+    font-size: 15px;
 }
 
 .plugin-item:hover {
@@ -201,11 +203,12 @@ body {
 
 .plugin-description {
     padding: 10px;
-    padding-left: 30px;
-    background-color: #444;
+    padding-left: 20px;
+    background-color: #00000013;
     color: #ccc;
     overflow-wrap: break-word;
     word-break: break-word;
+    font-size: 14px;
 }
 
 /*############################### search #################################################################*/
