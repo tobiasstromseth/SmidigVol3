@@ -1,0 +1,233 @@
+{
+    "Process Analysis": {
+      "plugins": [
+        {
+          "name": "Lsmod",
+          "command": "lsmod",
+          "os": [
+            "linux",
+            "mac"
+          ],
+          "description": "Lists currently loaded kernel modules.",
+          "needsOsPrefix": false
+        },
+        {
+          "name": "PsList",
+          "command": "pslist",
+          "os": [
+            "linux",
+            "mac",
+            "windows"  
+          ],
+          "description": "Lists the processes present in memory.",
+          "needsOsPrefix": true
+        },
+        {
+          "name": "PsScan",
+          "command": "psscan",
+          "os": [
+            "linux",
+            "windows"
+          ],  
+          "description": "Scans memory for processes using pool tag scanning.",
+          "needsOsPrefix": true
+        },
+        {
+          "name": "PsTree",
+          "command": "pstree",
+          "os": [
+            "linux",
+            "mac",
+            "windows"
+          ],
+          "description": "Shows the parent-child relationship between processes.",
+          "needsOsPrefix": true  
+        },
+        {
+          "name": "Malfind",
+          "command": "malfind",
+          "os": [
+            "linux",
+            "mac", 
+            "windows"
+          ],
+          "description": "Looks for suspicious process memory regions.",
+          "needsOsPrefix": true
+        },
+        {
+          "name": "Lsof",
+          "command": "lsof",
+          "os": [
+            "linux",
+            "mac"
+          ],
+          "description": "Lists open files.",
+          "needsOsPrefix": true
+        },
+        {
+          "name": "Netstat",
+          "command": "netstat",
+          "os": [
+            "mac",
+            "windows"  
+          ],
+          "description": "Prints network connections, routing tables, interface statistics.",
+          "needsOsPrefix": true
+        },
+        {
+          "name": "Sockscan",
+          "command": "sockscan",
+          "os": [
+            "windows"
+          ],
+          "description": "Scans for open sockets/connections.",
+          "needsOsPrefix": true
+        },
+        {
+          "name": "Handles",
+          "command": "handles",
+          "os": [
+            "windows"  
+          ],
+          "description": "Lists open handles for processes.",
+          "needsOsPrefix": true
+        }
+      ]
+    },
+    "Memory Analysis": {
+      "plugins": [
+        {
+          "name": "Memmap",
+          "command": "memmap",
+          "os": [
+            "windows"
+          ],
+          "description": "Prints the memory map.",
+          "needsOsPrefix": true
+        },
+        {
+          "name": "Memdump",
+          "command": "memdump",
+          "os": [
+            "windows"  
+          ],
+          "description": "Dumps the addressable memory for a process.",
+          "needsOsPrefix": true
+        },
+        {
+          "name": "Cmdscan",
+          "command": "cmdscan",
+          "os": [
+            "windows"
+          ],  
+          "description": "Scans for COMMAND_HISTORY buffers.",
+          "needsOsPrefix": true
+        },
+        {
+          "name": "Hivelist",  
+          "command": "hivelist",
+          "os": [
+            "windows"
+          ],
+          "description": "Lists the registry hives present in memory.",
+          "needsOsPrefix": true
+        },
+        {
+          "name": "Hashdump",
+          "command": "hashdump", 
+          "os": [
+            "windows"
+          ],
+          "description": "Dumps password hashes from the SAM registry hive.",
+          "needsOsPrefix": true
+        }
+      ]
+    },
+    "Disk Analysis": {
+      "plugins": [  
+        {
+          "name": "MFTScan",
+          "command": "mftscan",
+          "os": [
+            "windows"
+          ],
+          "description": "Scans for MFT entries in memory.",
+          "needsOsPrefix": true
+        },
+        {
+          "name": "FileScan",
+          "command": "filescan",
+          "os": [
+            "windows"
+          ],
+          "description": "Scans for FILE_OBJECT structures in memory.",
+          "needsOsPrefix": true  
+        }
+      ]
+    },
+    "Kernel Analysis": {
+      "plugins": [
+        {  
+          "name": "Modules",
+          "command": "modules",
+          "os": [
+            "windows"
+          ],
+          "description": "Lists the loaded kernel modules.",
+          "needsOsPrefix": true
+        },
+        {
+          "name": "DriverScan",
+          "command": "driverscan",
+          "os": [
+            "windows"  
+          ],
+          "description": "Scans for driver objects present in memory.",
+          "needsOsPrefix": true
+        },
+        {
+          "name": "SSDT", 
+          "command": "ssdt",
+          "os": [
+            "windows"
+          ],
+          "description": "Displays the system call table.",
+          "needsOsPrefix": true
+        }
+      ]  
+    },
+    "Miscellaneous": {
+      "plugins": [
+        {
+          "name": "Info",
+          "command": "info",
+          "os": [
+            "windows"
+          ],  
+          "description": "Shows OS & kernel information.",
+          "needsOsPrefix": true
+        },
+        {  
+          "name": "Strings",
+          "command": "strings",
+          "os": [
+            "windows"
+          ],
+          "description": "Matches physical offsets to virtual addresses.",
+          "needsOsPrefix": true
+        },
+        {
+          "name": "YaraScan",
+          "command": "yarascan",
+          "os": [
+            "linux", 
+            "mac",
+            "windows"
+          ],
+          "description": "Scans process or kernel memory with Yara signatures.",
+          "needsOsPrefix": false
+        }
+      ]
+    }
+  }
+  
