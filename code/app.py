@@ -46,7 +46,6 @@ class Api:
         print(f'Running plugin: {plugin_name}')
         # Perform plugin-specific actions based on the plugin name
         output = run_command_from_gui(plugin_name)
-
         print("done running plugin")
         return output
     
