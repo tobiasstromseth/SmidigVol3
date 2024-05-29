@@ -269,6 +269,7 @@ function runPlugin(pluginName) {
 }
 
 
+
 // Function to create a list of plugins
 function createPluginList(plugins, categoryIndex) {
   // Create an unordered list element for the plugins
