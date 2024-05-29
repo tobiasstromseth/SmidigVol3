@@ -87,9 +87,8 @@ def run_command_from_gui(name):
     # Søk etter pluginet med det gitte navnet
     for category in data:
         for plugin in category['plugins']:
-            if plugin['name'] == name:
-                if plugin[]
-                output = run_volatility_command(f'{plugin["command"]}')
+            if plugin['name'] == name:                                      ########## Legg til sjekk om behov for osPRefix og gjør ending av kommando
+                output = run_volatility_command(f'{plugin["command"]}')      ####### med tanke på detectedOs
                 return output
 
 # Function to save the output to a JSON file

@@ -10,6 +10,7 @@
           "mac",
           "windows"
         ],
+        "osPrefix": false,
         "description": "Lists the processes present in a memory dump.",
         "tags": [
           "processes",
@@ -18,12 +19,13 @@
       },
       {
         "name": "pstree",
-        "command": "pstree.PsTree", 
+        "command": "pstree.PsTree",
         "os": [
           "linux",
           "mac",
-          "windows"  
+          "windows"
         ],
+        "osPrefix": false,
         "description": "Plugin for listing processes in a tree based on their parent process ID",
         "tags": [
           "processes",
@@ -37,11 +39,12 @@
           "linux",
           "mac"
         ],
+        "osPrefix": false,
         "description": "Gathers processes along with full command line and start time",
         "tags": [
           "processes",
           "command line",
-          "start time"  
+          "start time"
         ]
       },
       {
@@ -50,6 +53,7 @@
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Displays process command-line arguments",
         "tags": [
           "processes",
@@ -61,8 +65,9 @@
         "name": "envars",
         "command": "envars.Envars",
         "os": [
-          "windows"  
+          "windows"
         ],
+        "osPrefix": true,
         "description": "Display process environment variables",
         "tags": [
           "processes",
@@ -75,6 +80,7 @@
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Print the SIDs owning each process",
         "tags": [
           "processes",
@@ -87,10 +93,11 @@
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Prints process privileges",
         "tags": [
           "processes",
-          "privileges"  
+          "privileges"
         ]
       },
       {
@@ -99,6 +106,7 @@
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Lists the loaded modules in a particular windows memory dump",
         "tags": [
           "DLLs",
@@ -112,6 +120,7 @@
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Lists open handles in processes",
         "tags": [
           "processes",
@@ -121,7 +130,7 @@
     ]
   },
   {
-    "name": "Memory Analysis",  
+    "name": "Memory Analysis",
     "plugins": [
       {
         "name": "memmap",
@@ -129,6 +138,7 @@
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Prints the memory map",
         "tags": [
           "memory",
@@ -141,8 +151,9 @@
         "os": [
           "linux",
           "mac",
-          "windows"  
+          "windows"
         ],
+        "osPrefix": false,
         "description": "Dumps the addressable memory for a process",
         "tags": [
           "memory",
@@ -151,23 +162,12 @@
         ]
       },
       {
-        "name": "memmap",
-        "command": "memmap.Memmap",
-        "os": [
-          "windows"
-        ],
-        "description": "Prints the memory map",
-        "tags": [
-          "memory",
-          "map"
-        ]
-      },
-      {
         "name": "vadinfo",
         "command": "vadinfo.VadInfo",
         "os": [
-          "windows"  
+          "windows"
         ],
+        "osPrefix": true,
         "description": "Dump the VAD info",
         "tags": [
           "memory",
@@ -180,6 +180,7 @@
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Walk the VAD tree",
         "tags": [
           "memory",
@@ -193,6 +194,7 @@
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Scan all the VAD regions with a Yara signature",
         "tags": [
           "memory",
@@ -201,11 +203,12 @@
         ]
       },
       {
-        "name": "malfind", 
+        "name": "malfind",
         "command": "malfind.Malfind",
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Find hidden and injected code",
         "tags": [
           "memory",
@@ -222,8 +225,9 @@
         "name": "mftparser",
         "command": "mftparser.MFTParser",
         "os": [
-          "windows"  
+          "windows"
         ],
+        "osPrefix": true,
         "description": "Scans for MFT entries in a disk image",
         "tags": [
           "disk",
@@ -235,7 +239,8 @@
         "command": "filescan.FileScan",
         "os": [
           "windows"
-        ],  
+        ],
+        "osPrefix": true,
         "description": "Scans for FILE_OBJECT objects using pool tag scanning",
         "tags": [
           "disk",
@@ -244,15 +249,16 @@
       },
       {
         "name": "dumpfiles",
-        "command": "dumpfiles.DumpFiles",  
+        "command": "dumpfiles.DumpFiles",
         "os": [
           "windows"
         ],
-        "description": "Dump files from disk image",  
+        "osPrefix": true,
+        "description": "Dump files from disk image",
         "tags": [
           "disk",
           "files",
-          "dump"  
+          "dump"
         ]
       }
     ]
@@ -266,10 +272,11 @@
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Display SSDT entries",
         "tags": [
           "kernel",
-          "ssdt"  
+          "ssdt"
         ]
       },
       {
@@ -278,11 +285,12 @@
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Scans for driver objects",
         "tags": [
           "kernel",
           "drivers"
-        ]  
+        ]
       },
       {
         "name": "modscan",
@@ -290,6 +298,7 @@
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Scans for kernel modules",
         "tags": [
           "kernel",
@@ -298,17 +307,18 @@
       },
       {
         "name": "callbacks",
-        "command": "callbacks.Callbacks", 
+        "command": "callbacks.Callbacks",
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Print kernel callbacks",
         "tags": [
           "kernel",
           "callbacks"
         ]
       }
-    ]  
+    ]
   },
   {
     "name": "Networking",
@@ -319,6 +329,7 @@
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Scans for network objects",
         "tags": [
           "networking",
@@ -333,6 +344,7 @@
           "linux",
           "mac"
         ],
+        "osPrefix": false,
         "description": "Prints list of open sockets",
         "tags": [
           "networking",
@@ -345,6 +357,7 @@
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Scans for socket objects",
         "tags": [
           "networking",
@@ -355,8 +368,9 @@
         "name": "connscan",
         "command": "connscan.ConnScan",
         "os": [
-          "windows"  
+          "windows"
         ],
+        "osPrefix": true,
         "description": "Scans for connection objects",
         "tags": [
           "networking",
@@ -373,7 +387,8 @@
         "command": "hivelist.HiveList",
         "os": [
           "windows"
-        ],  
+        ],
+        "osPrefix": true,
         "description": "Print list of registry hives",
         "tags": [
           "registry",
@@ -386,30 +401,33 @@
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Print a registry key",
         "tags": [
           "registry",
           "keys"
-        ]  
+        ]
       },
       {
         "name": "userassist",
-        "command": "userassist.UserAssist",  
+        "command": "userassist.UserAssist",
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Print userassist registry keys",
         "tags": [
           "registry",
           "userassist"
         ]
       },
-      {  
+      {
         "name": "shellbags",
         "command": "shellbags.ShellBags",
         "os": [
           "windows"
         ],
+        "osPrefix": true,
         "description": "Prints ShellBags info",
         "tags": [
           "registry",
