@@ -3,6 +3,31 @@ var tabCount = 0;
 // Variable to keep track of the number of tabs
 var tabCount = 0;
 
+
+
+let categories = [];
+
+
+const xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function() {
+  if (xhr.readyState === XMLHttpRequest.DONE) {
+    if (xhr.status === 200) {
+      categories = JSON.parse(xhr.responseText);
+      console.log(categories); // Sjekk at dataene er lastet riktig
+      // Bruk categories-arrayet her for videre behandling
+    } else {
+      console.error('Feil ved lasting av JSON-fil:', xhr.status);
+    }
+  }
+};
+xhr.open('GET', 'mockDatabase.json', true);
+xhr.send();
+
+
+
+
+
+
 // Function to add new tabs
 function addTabs() {
     // Get the topbar and "add tab" button elements
@@ -46,94 +71,15 @@ function addTabs() {
     });
 }
 
+// Function to handle opening a new tab
+function openNewTab() {
+  addTabs();
+  const categoryList = document.getElementById('category-list');
+  const topbar = document.getElementById('topbar');
+  hideCategoryList(categoryList, topbar);
+}
 
-const categories = [
-    {
-      name: 'Process Analysis',
-      plugins: [
-        { name: 'pslist', description: 'Lists the processes present in a memory dump.' },
-        { name: 'pstree', description: 'Shows the parent-child relationship between processes in a tree view.' },
-        { name: 'psxview', description: 'Helps detect hidden processes by cross-referencing various process listings.' },
-        { name: 'psscan', description: 'Scans physical memory for EPROCESS objects.' },
-        { name: 'cmdline', description: 'Displays process command-line arguments.' },
-        { name: 'getsids', description: 'Print the SIDs owning each process.' },
-        { name: 'dlllist', description: 'Lists the loaded DLLs for each process.' },
-        { name: 'handles', description: 'Lists the open handles for each process.' }
-      ]
-    },
-    {
-      name: 'Network Analysis',
-      plugins: [
-        { name: 'netscan', description: 'Scans for network artifacts in Windows memory dumps.' },
-        { name: 'netstat', description: 'Prints a list of open sockets and network connections.' },
-        { name: 'connscan', description: 'Scans for connection objects using pool tag scanning.' },
-        { name: 'sockets', description: 'Prints a list of open sockets.' },
-        { name: 'sockscan', description: 'Scans for socket objects using pool tag scanning.' },
-        { name: 'connections', description: 'Prints a list of open connections.' },
-        { name: 'dnsquery', description: 'Prints DNS queries performed by processes.' }
-      ]
-    },
-    {
-      name: 'File System Analysis',
-      plugins: [
-        { name: 'filescan', description: 'Scans for file objects using pool tag scanning.' },
-        { name: 'dumpfiles', description: 'Extracts memory mapped and cached files.' },
-        { name: 'mftparser', description: 'Parses the Master File Table (MFT) from an NTFS volume.' },
-        { name: 'shellbags', description: 'Prints ShellBags info.' },
-        { name: 'shimcache', description: 'Parses the Application Compatibility Shim Cache registry key.' },
-        { name: 'mutantscan', description: 'Scans for mutant objects (file-backed shared memory).' },
-        { name: 'filesscan', description: 'Scans for FILE_OBJECT objects in memory.' }
-      ]
-    },
-    {
-      name: 'Registry Analysis',
-      plugins: [
-        { name: 'hivelist', description: 'Lists the registry hives present in a memory dump.' },
-        { name: 'hivescan', description: 'Scans for registry hives in a memory dump.' },
-        { name: 'printkey', description: 'Prints a registry key, and its subkeys and values.' },
-        { name: 'userassist', description: 'Prints the UserAssist registry keys and information.' },
-        { name: 'hashdump', description: 'Dumps user hashes from the SAM registry hive.' },
-        { name: 'lsadump', description: 'Dumps LSA secrets from the registry.' },
-        { name: 'dumpregistry', description: 'Dumps registry hives to disk.' }
-      ]
-    },
-    {
-      name: 'Malware Detection',
-      plugins: [
-        { name: 'malfind', description: 'Detects injected code in user mode memory.' },
-        { name: 'hollowfind', description: 'Detects evidence of process hollowing.' },
-        { name: 'yarascan', description: 'Scans process or kernel memory with Yara signatures.' },
-        { name: 'ldrmodules', description: 'Detects unlinked DLLs.' },
-        { name: 'apihooks', description: 'Detects API hooks in process and kernel memory.' },
-        { name: 'driverirp', description: 'Detects I/O Request Packet (IRP) function hooks in drivers.' },
-        { name: 'impscan', description: 'Scans for imports in process or kernel memory.' },
-        { name: 'svcscan', description: 'Scans for Windows services.' }
-      ]
-    },
-    {
-      name: 'Memory Acquisition',
-      plugins: [
-        { name: 'memdump', description: 'Dumps the addressable memory for a process.' },
-        { name: 'vaddump', description: 'Dumps the Virtually Allocated memory for a process.' },
-        { name: 'moddump', description: 'Dumps a kernel driver to an executable file sample.' },
-        { name: 'dlldump', description: 'Dumps DLLs from a process address space.' },
-        { name: 'procdump', description: 'Dumps a process to an executable file sample.' },
-        { name: 'vboxinfo', description: 'Dumps information about a VirtualBox VM.' }
-      ]
-    },
-    {
-      name: 'Timeliner',
-      plugins: [
-        { name: 'timeliner', description: 'Creates a timeline from various artifacts in memory.' },
-        { name: 'mftparser', description: 'Parses MFT entries and adds them to the timeline.' },
-        { name: 'shellbags', description: 'Parses Shellbags entries and adds them to the timeline.' },
-        { name: 'shimcache', description: 'Parses Shimcache entries and adds them to the timeline.' },
-        { name: 'userassist', description: 'Parses UserAssist entries and adds them to the timeline.' }
-      ]
-    }
-  ];
-  
-  
+
   
  // Variables to keep track of the currently open category and plugin
 let openCategoryIndex = -1;
@@ -146,37 +92,83 @@ function createPluginItem(plugin, categoryIndex, pluginIndex) {
   pluginItem.textContent = plugin.name;
   pluginItem.classList.add('plugin-item');
   pluginItem.id = plugin.name;
+  pluginItem.setAttribute('data-plugin-name', plugin.name);
   
   // Create a div element for the plugin description
-  const descriptionItem = document.createElement('div');
-  descriptionItem.textContent = plugin.description;
-  descriptionItem.classList.add('plugin-description');
-  descriptionItem.style.display = 'none';
+  const descriptionItem = createDescriptionItem(plugin.description);
   
   // Append the description item to the plugin item
   pluginItem.appendChild(descriptionItem);
   
   // Add click event listener to the plugin item
   pluginItem.addEventListener('click', (event) => {
-    event.stopPropagation();
-    
-    // Check if the clicked plugin is different from the currently open plugin
-    if (openCategoryIndex !== categoryIndex || openPluginIndex !== pluginIndex) {
-      closeOpenPlugin();
-      descriptionItem.style.display = 'block';
-      descriptionItem.classList.add('open'); // Add 'open' class to the open plugin description
-      openCategoryIndex = categoryIndex;
-      openPluginIndex = pluginIndex;
-    } else {
-      // If the same plugin is clicked, close the description
-      descriptionItem.style.display = 'none';
-      descriptionItem.classList.remove('open'); // Remove 'open' class when closing the plugin description
-      openPluginIndex = -1;
-    }
+    handlePluginClick(event, categoryIndex, pluginIndex, descriptionItem, pluginItem);
   });
   
   return pluginItem;
 }
+
+// Function to create a description item
+function createDescriptionItem(description) {
+  const descriptionItem = document.createElement('div');
+  descriptionItem.textContent = description;
+  descriptionItem.classList.add('plugin-description');
+  descriptionItem.style.display = 'none';
+  return descriptionItem;
+}
+
+// Function to handle plugin click event
+function handlePluginClick(event, categoryIndex, pluginIndex, descriptionItem, pluginItem) {
+  event.stopPropagation();
+  
+  // Check if the clicked plugin is different from the currently open plugin
+  if (openCategoryIndex !== categoryIndex || openPluginIndex !== pluginIndex) {
+    closeOpenPlugin();
+    openPlugin(descriptionItem, categoryIndex, pluginIndex);
+  } else {
+    // If the same plugin is clicked, close the description
+    closePlugin(descriptionItem);
+  }
+  
+  // Get the plugin name from the data attribute
+  const pluginName = pluginItem.getAttribute('data-plugin-name');
+  
+  // Call the Python function to run the plugin
+  runPlugin(pluginName);
+}
+
+// Function to open a plugin
+function openPlugin(descriptionItem, categoryIndex, pluginIndex) {
+  descriptionItem.style.display = 'block';
+  descriptionItem.classList.add('open');
+  openCategoryIndex = categoryIndex;
+  openPluginIndex = pluginIndex;
+}
+
+// Function to close a plugin
+function closePlugin(descriptionItem) {
+  descriptionItem.style.display = 'none';
+  descriptionItem.classList.remove('open');
+  openPluginIndex = -1;
+}
+
+// Function to close the currently open plugin
+function closeOpenPlugin() {
+  const openPlugin = document.querySelector('.plugin-description.open');
+  if (openPlugin) {
+    closePlugin(openPlugin);
+  }
+}
+
+// Function to run a plugin
+function runPlugin(pluginName) {
+  pywebview.api.run_plugin(pluginName).then((output) => {
+    console.log(`Plugin ${pluginName} executed with output: ${output}`);
+    displayPluginOutput(output);
+  });
+}
+
+
 
 // Function to create a list of plugins
 function createPluginList(plugins, categoryIndex) {
@@ -248,15 +240,16 @@ function showCategories() {
   // Get references to the category list, topbar, and add tab button elements
   const categoryList = document.getElementById('category-list');
   const topbar = document.getElementById('topbar');
+  const dataTable = document.getElementById('dataTable')
   const addTabBtn = document.getElementById('addTab1');
 
   // Check if the category list is currently shown
   if (categoryList.classList.contains('show')) {
     // If shown, hide the category list
-    hideCategoryList(categoryList, topbar);
+    hideCategoryList(categoryList, topbar, dataTable);
   } else {
     // If hidden, display the category list and add search functionality
-    displayCategoryList(categoryList, topbar);
+    displayCategoryList(categoryList, topbar, dataTable);
     addSearchFunctionality(categoryList);
   }
 
@@ -265,15 +258,16 @@ function showCategories() {
 }
 
 // Function to hide the category list
-function hideCategoryList(categoryList, topbar) {
+function hideCategoryList(categoryList, topbar, dataTable) {
   // Remove the 'show' class from the category list
   categoryList.classList.remove('show');
   // Adjust the left position of the topbar
   topbar.style.left = '65px';
+  dataTable.style.left = '65px'
 }
 
 // Function to display the category list
-function displayCategoryList(categoryList, topbar) {
+function displayCategoryList(categoryList, topbar, dataTable) {
   // Set the HTML content of the category list
   categoryList.innerHTML = `
     <div class="search-container">
@@ -292,6 +286,7 @@ function displayCategoryList(categoryList, topbar) {
   categoryList.classList.add('show');
   // Adjust the left position of the topbar
   topbar.style.left = '356px';
+  dataTable.style.left = '365px';
 }
 
 // Function to add search functionality to the category list
@@ -426,3 +421,116 @@ topbar.addEventListener('wheel', (event) => {
   event.preventDefault();
   topbar.scrollLeft += event.deltaY;
 });
+
+
+
+function handleFileSelect() {
+  pywebview.api.openFileDialog().then(() => {
+    console.log('File selected');
+    clearDataTable();
+    showCategories();
+    addTabs();
+  });
+}
+
+function handleDragOver(event) {
+  event.preventDefault();
+}
+
+function clearDataTable() {
+  const dataTable = document.querySelector('.dataTable');
+  dataTable.innerHTML = '';
+}
+
+function restoreDataTableUploadFile() {
+  const dataTable = document.querySelector('.dataTable');
+  dataTable.innerHTML = `
+    <input type="file" id="fileInput" style="display: none" />
+    <button id="selectFileBtn">Velg fil</button>
+    <div id="dropzone">
+      Dra og slipp en fil her, eller klikk på knappen over for å velge fil
+    </div>
+  `;
+  
+  const selectFileBtn = document.getElementById('selectFileBtn');
+  const dropzone = document.getElementById('dropzone');
+
+  selectFileBtn.addEventListener('click', handleFileSelect);
+  dropzone.addEventListener('dragover', handleDragOver);
+}
+
+const selectFileBtn = document.getElementById('selectFileBtn');
+const dropzone = document.getElementById('dropzone');
+const addFileBtn = document.getElementById('addFileBtn');
+
+selectFileBtn.addEventListener('click', handleFileSelect);
+dropzone.addEventListener('dragover', handleDragOver);
+addFileBtn.addEventListener('click', handleFileSelect);
+
+
+
+
+function displayPluginOutput(output) {
+  try {
+    // Get the dataTable div element
+    const dataTableDiv = document.querySelector('.dataTable');
+
+    // Create a new div element for the plugin output
+    const pluginOutputDiv = document.createElement('div');
+    pluginOutputDiv.classList.add('plugin-output');
+
+    // Create a table element for the plugin output
+    const pluginOutputTable = document.createElement('table');
+
+    // Parse the JSON output
+    const data = JSON.parse(output);
+
+    // Create the table header
+    const tableHeader = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    for (const key in data[0]) {
+      const th = document.createElement('th');
+      th.textContent = key;
+      headerRow.appendChild(th);
+    }
+    tableHeader.appendChild(headerRow);
+    pluginOutputTable.appendChild(tableHeader);
+
+    // Create the table body
+    const tableBody = document.createElement('tbody');
+    data.forEach(rowData => {
+      const row = document.createElement('tr');
+      for (const key in rowData) {
+        const cell = document.createElement('td');
+        cell.textContent = rowData[key];
+        row.appendChild(cell);
+      }
+      tableBody.appendChild(row);
+    });
+    pluginOutputTable.appendChild(tableBody);
+
+    // Create a container div for the table
+    const tableContainer = document.createElement('div');
+    tableContainer.style.maxHeight = '100%'; // Set a fixed height for the container
+    tableContainer.style.overflowY = 'auto'; // Enable vertical scrolling
+
+    // Append the table element to the container div
+    tableContainer.appendChild(pluginOutputTable);
+
+    // Append the container div to the plugin output div
+    pluginOutputDiv.appendChild(tableContainer);
+
+    // Append the plugin output div to the dataTable div
+    dataTableDiv.appendChild(pluginOutputDiv);
+  } catch (error) {
+    // Log the error using the debug function
+    pywebview.api.debug(`Error in displayPluginOutput: ${error}`);
+  }
+}
+
+
+
+
+
+
+
