@@ -375,7 +375,7 @@ function hideCategoryList(categoryList, topbar, dataTable) {
   // Adjust the left position of the topbar
   topbar.style.left = '65px';
   dataTable.style.left = '65px'
-  pluginsBtn.style.backgroundColor = "#222";
+  pluginsBtn.classList.remove('selected');
 }
 
 // Function to display the category list
@@ -400,7 +400,7 @@ function displayCategoryList(categoryList, topbar, dataTable) {
   // Adjust the left position of the topbar
   topbar.style.left = '356px';
   dataTable.style.left = '365px';
-  pluginsBtn.style.backgroundColor = "#333";
+  pluginsBtn.classList.add('selected');
 }
 
 

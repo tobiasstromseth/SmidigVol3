@@ -1,11 +1,14 @@
 :root {
     --menu-color: #000;
+    --menuBtnHover-color: #111;
+    --menuBtnSelected-color: #111;
+
     --topbar-color: #000;
 
     --scrollbar-color: #00000034;
 
-    --selectFileBtn-color: #666;
-    --selectFileBtnHover-color: #777;
+    --selectFileBtn-color: #1111117a;
+    --selectFileBtnHover-color: #333;
 
     --tabs-color: #181818;
     --tabsHover-color: #222;
@@ -24,11 +27,11 @@
     --dataTable-color: #222;
     --rowSeperator-color: #000000;
     --tableHead-color: #333;
-    --everyOtherRow-color: #222;
+    --everyOtherRow-color: #111;
     --tableRowHover-color: #444;
 
-    --dropzonBg-color: #333;
-    --dropzoneBorder-color: #222;
+    --dropzonBg-color: #1111117a;
+    --dropzoneBorder-color: #111;
     --text-color: #ccc;
   }
 
@@ -61,6 +64,14 @@ body {
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
+  }
+
+  .menuBtn:hover {
+    background-color: var(--menuBtnHover-color);
+  }
+
+  .menuBtn.selected {
+    background-color: var(--menuBtnSelected-color);
   }
   
   .menuBtn img {
