@@ -1,0 +1,309 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    color: #ccc;
+    font-family: Arial, sans-serif;
+}
+
+/*#################################################################################################################################*/
+/*#################################################### Left menu #################################################################*/
+/*################################################################################################################################*/
+
+#menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 65px;
+    height: 100vh;
+    background-color: #222;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.menuBtn {
+    cursor: pointer;
+    width: 100%;
+    height: 10%;
+}
+
+.menuBtn img {
+    width: 100%;
+    height: 100%;
+}
+
+/*#########################################################################################################################*/
+/*########################################## Topbar/tabs/x #################################################################*/
+/*########################################################################################################################*/
+
+#topbar {
+    position: fixed;
+    top: 0;
+    left: 65px;
+    width: 96.5%;
+    height: 25px;
+    background-color: #444;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    border-bottom-right-radius: 15px;
+}
+
+#topbar::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+    background-color: transparent;
+}
+
+#topbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#topbar::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.377);
+    border-radius: 20px;
+}
+
+.tabs {
+    position: relative;
+    left: 0;
+    padding: 0;
+    background-color: #555;
+    width: 10%;
+    height: 100%;
+    cursor: pointer;
+    flex-shrink: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    font-size: 80%;
+    margin-left: -10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: -1px 2px 4px rgb(0, 0, 0);
+    z-index: 999;
+}
+
+.tabs:hover {
+    background-color: #666;
+    z-index: 999;
+}
+
+.x {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 100%;
+}
+
+.addTab {
+    position: relative;
+    padding: 0;
+    background-color: #0000002a;
+    width: 18px;
+    height: 100%;
+    cursor: pointer;
+    flex-shrink: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 100%;
+    border-bottom-right-radius: 10px;
+    margin-left: -10px;
+}
+
+#topbar {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+#topbar::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+/*#################################################################################################################################*/
+/*############################### Categories/plugins/description #################################################################*/
+/*################################################################################################################################*/
+
+#category-list {
+    display: none;
+}
+
+#category-list.show {
+    display: block;
+    position: fixed;
+    left: 65px;
+    width: 300px;
+    height: 100vh; /* Juster høyden basert på topbar-høyden */
+    background-color: #444;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Skjuler horisontal scrollbar */
+    overflow-y: auto;
+    z-index: 999;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#category-list.show::-webkit-scrollbar {
+    width: 2px;
+    background-color: transparent;
+}
+
+#category-list.show::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#category-list.show::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.377);
+    border-radius: 20px;
+}
+
+.category-item {
+    padding: 5px;
+    margin-bottom: 2px;
+    background-color: #555;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.category-item:hover {
+    background-color: #494949;
+}
+
+.plugin-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.plugin-item {
+    padding: 10px;
+    padding-left: 20px;
+    width: 92%;
+    cursor: pointer;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.281);
+    border-right: 2px solid rgba(0, 0, 0, 0.281);
+    border-bottom-right-radius: 10px;
+}
+
+.plugin-item:hover {
+    background-color: #555;
+}
+
+.plugin-description {
+    padding: 10px;
+    padding-left: 30px;
+    background-color: #444;
+    color: #ccc;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/*############################### search #################################################################*/
+
+.search-container {
+    padding: 10px;
+}
+
+#searchInput {
+    width: 95%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#searchResults {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#searchResults li {
+    padding: 5px;
+    background-color: #555;
+    color: #ccc;
+    margin-bottom: 5px;
+}
+
+#searchResults ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#searchResults ul li {
+    padding: 5px;
+    padding-left: 20px;
+    background-color: #444;
+    color: #ccc;
+}
+
+/*#################################################################################################################################*/
+/*############################### Data_table #################################################################*/
+/*################################################################################################################################*/
+
+.dataTable {
+  position: fixed;
+    top: 25px;
+    left: 65px;
+    width: 96.5%;
+    height: 98%;
+    margin: 0;
+    padding: 0;
+    background-color: #333; /*#333*/
+    color: #ccc;
+    font-family: Arial, sans-serif;
+}
+
+/*#################################################################################################################################*/
+/*############################### Terminal_window #################################################################*/
+/*################################################################################################################################*/
+
+.content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+#terminal-container {
+    z-index: 1;
+    position: fixed;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    max-width: 750px;
+    background-color: #696969;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 500px;
+    margin-left: 50px;
+}
+
+#terminal {
+    width: 100%;
+    height: 300px;
+    background-color: black;
+    color: white;
+    font-size: 9px;
+    padding: 10px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none;
+}

@@ -46,6 +46,19 @@ function addTabs() {
     });
 }
 
+function logAndShowTerminal() {
+  pywebview.api.log().then(function(response) {
+      // Update the terminal window with the response
+      let terminal = document.getElementById('terminal');
+      terminal.innerText += response + "\n";
+      terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
+
+      // Show the terminal container
+      let terminalContainer = document.getElementById('terminal-container');
+      terminalContainer.style.display = 'flex'; // Change display to flex to show it
+  });
+}
+
 
 const categories = [
     {
