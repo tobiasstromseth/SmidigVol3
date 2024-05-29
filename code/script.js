@@ -46,6 +46,7 @@ function addTabs() {
     });
 }
 
+// function to get the terminal to show, remove display hidden and makes it flex instead -- Made by Ole
 function logAndShowTerminal() {
   pywebview.api.log().then(function(response) {
       // Update the terminal window with the response
