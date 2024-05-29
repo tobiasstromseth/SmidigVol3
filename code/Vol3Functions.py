@@ -182,6 +182,7 @@ def run_volatility_command(command):
 
 
 
+
 def get_file_info(directory):
     file_info = []
     
