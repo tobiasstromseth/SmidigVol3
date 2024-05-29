@@ -88,6 +88,7 @@ def run_command_from_gui(name):
     for category in data:
         for plugin in category['plugins']:
             if plugin['name'] == name:
+                if plugin[]
                 output = run_volatility_command(f'{plugin["command"]}')
                 return output
 

@@ -254,13 +254,14 @@ body {
     position: fixed;
     top: 25px;
     left: 65px;
-    width: 80vw;
-    height: 98%;
-    overflow: hidden;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
     background-color: #333;
     color: #ccc;
     font-family: Arial, sans-serif;
   }
+  
   
   .plugin-output {
     height: 100%;
@@ -279,6 +280,8 @@ body {
   }
   
   th {
+    position: sticky;
+    top: 0;
     background-color: #444;
     color: #fff;
   }
@@ -292,7 +295,7 @@ body {
   }
   
   .table-container {
-    max-height: 400px;
+    max-height: 100%; 
     overflow-y: auto;
   }
   
