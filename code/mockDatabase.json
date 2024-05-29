@@ -1,0 +1,439 @@
+[
+  {
+    "name": "Process Analysis",
+    "plugins": [
+      {
+        "name": "pslist",
+        "command": "pslist.PsList",
+        "os": [
+          "linux",
+          "mac",
+          "windows"
+        ],
+        "osPrefix": false,
+        "description": "Lists the processes present in a memory dump.",
+        "tags": [
+          "processes",
+          "list"
+        ]
+      },
+      {
+        "name": "pstree",
+        "command": "pstree.PsTree",
+        "os": [
+          "linux",
+          "mac",
+          "windows"
+        ],
+        "osPrefix": false,
+        "description": "Plugin for listing processes in a tree based on their parent process ID",
+        "tags": [
+          "processes",
+          "tree"
+        ]
+      },
+      {
+        "name": "psaux",
+        "command": "psaux.PsAux",
+        "os": [
+          "linux",
+          "mac"
+        ],
+        "osPrefix": false,
+        "description": "Gathers processes along with full command line and start time",
+        "tags": [
+          "processes",
+          "command line",
+          "start time"
+        ]
+      },
+      {
+        "name": "cmdline",
+        "command": "cmdline.CmdLine",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Displays process command-line arguments",
+        "tags": [
+          "processes",
+          "command line",
+          "arguments"
+        ]
+      },
+      {
+        "name": "envars",
+        "command": "envars.Envars",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Display process environment variables",
+        "tags": [
+          "processes",
+          "environment variables"
+        ]
+      },
+      {
+        "name": "getsids",
+        "command": "getsids.GetSIDs",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Print the SIDs owning each process",
+        "tags": [
+          "processes",
+          "SIDs"
+        ]
+      },
+      {
+        "name": "privs",
+        "command": "privileges.Privs",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Prints process privileges",
+        "tags": [
+          "processes",
+          "privileges"
+        ]
+      },
+      {
+        "name": "dlllist",
+        "command": "dlllist.DllList",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Lists the loaded modules in a particular windows memory dump",
+        "tags": [
+          "DLLs",
+          "modules",
+          "processes"
+        ]
+      },
+      {
+        "name": "handles",
+        "command": "handles.Handles",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Lists open handles in processes",
+        "tags": [
+          "processes",
+          "handles"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Memory Analysis",
+    "plugins": [
+      {
+        "name": "memmap",
+        "command": "memmap.Memmap",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Prints the memory map",
+        "tags": [
+          "memory",
+          "map"
+        ]
+      },
+      {
+        "name": "memdump",
+        "command": "memdump.Memdump",
+        "os": [
+          "linux",
+          "mac",
+          "windows"
+        ],
+        "osPrefix": false,
+        "description": "Dumps the addressable memory for a process",
+        "tags": [
+          "memory",
+          "dump",
+          "processes"
+        ]
+      },
+      {
+        "name": "vadinfo",
+        "command": "vadinfo.VadInfo",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Dump the VAD info",
+        "tags": [
+          "memory",
+          "VAD"
+        ]
+      },
+      {
+        "name": "vadwalk",
+        "command": "vadwalk.VadWalk",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Walk the VAD tree",
+        "tags": [
+          "memory",
+          "VAD",
+          "tree"
+        ]
+      },
+      {
+        "name": "vadyarascan",
+        "command": "vadyarascan.VadYaraScan",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Scan all the VAD regions with a Yara signature",
+        "tags": [
+          "memory",
+          "VAD",
+          "yara"
+        ]
+      },
+      {
+        "name": "malfind",
+        "command": "malfind.Malfind",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Find hidden and injected code",
+        "tags": [
+          "memory",
+          "code injection",
+          "malware"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Disk Analysis",
+    "plugins": [
+      {
+        "name": "mftparser",
+        "command": "mftparser.MFTParser",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Scans for MFT entries in a disk image",
+        "tags": [
+          "disk",
+          "MFT"
+        ]
+      },
+      {
+        "name": "filescan",
+        "command": "filescan.FileScan",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Scans for FILE_OBJECT objects using pool tag scanning",
+        "tags": [
+          "disk",
+          "files"
+        ]
+      },
+      {
+        "name": "dumpfiles",
+        "command": "dumpfiles.DumpFiles",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Dump files from disk image",
+        "tags": [
+          "disk",
+          "files",
+          "dump"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Kernel Analysis",
+    "plugins": [
+      {
+        "name": "ssdt",
+        "command": "ssdt.SSDT",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Display SSDT entries",
+        "tags": [
+          "kernel",
+          "ssdt"
+        ]
+      },
+      {
+        "name": "driverscan",
+        "command": "driverscan.DriverScan",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Scans for driver objects",
+        "tags": [
+          "kernel",
+          "drivers"
+        ]
+      },
+      {
+        "name": "modscan",
+        "command": "modscan.ModScan",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Scans for kernel modules",
+        "tags": [
+          "kernel",
+          "modules"
+        ]
+      },
+      {
+        "name": "callbacks",
+        "command": "callbacks.Callbacks",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Print kernel callbacks",
+        "tags": [
+          "kernel",
+          "callbacks"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Networking",
+    "plugins": [
+      {
+        "name": "netscan",
+        "command": "netscan.NetScan",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Scans for network objects",
+        "tags": [
+          "networking",
+          "sockets",
+          "connections"
+        ]
+      },
+      {
+        "name": "sockets",
+        "command": "sockets.Sockets",
+        "os": [
+          "linux",
+          "mac"
+        ],
+        "osPrefix": false,
+        "description": "Prints list of open sockets",
+        "tags": [
+          "networking",
+          "sockets"
+        ]
+      },
+      {
+        "name": "sockscan",
+        "command": "sockscan.SockScan",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Scans for socket objects",
+        "tags": [
+          "networking",
+          "sockets"
+        ]
+      },
+      {
+        "name": "connscan",
+        "command": "connscan.ConnScan",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Scans for connection objects",
+        "tags": [
+          "networking",
+          "connections"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Registry Analysis",
+    "plugins": [
+      {
+        "name": "hivelist",
+        "command": "hivelist.HiveList",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Print list of registry hives",
+        "tags": [
+          "registry",
+          "hives"
+        ]
+      },
+      {
+        "name": "printkey",
+        "command": "printkey.PrintKey",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Print a registry key",
+        "tags": [
+          "registry",
+          "keys"
+        ]
+      },
+      {
+        "name": "userassist",
+        "command": "userassist.UserAssist",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Print userassist registry keys",
+        "tags": [
+          "registry",
+          "userassist"
+        ]
+      },
+      {
+        "name": "shellbags",
+        "command": "shellbags.ShellBags",
+        "os": [
+          "windows"
+        ],
+        "osPrefix": true,
+        "description": "Prints ShellBags info",
+        "tags": [
+          "registry",
+          "shellbags"
+        ]
+      }
+    ]
+  }
+]
