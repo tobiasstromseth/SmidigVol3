@@ -1,27 +1,34 @@
 :root {
-    --menu-color: #222;
-    --body-color: #333;
-    --topbar-color: #333;
+    --menu-color: #000;
+    --topbar-color: #000;
+
     --scrollbar-color: #00000034;
-    --selectFileBtn-color: #777;
-    --selectFileBtnHover-color: #888;
-    --tabs-color: #555;
-    --tabsHover-color: #666;
-    --addTab-color: #0000002a;
-    --categoryList-color: #444;
-    --categoryItem-color: #555;
-    --categoryItemHover-color: #444;
-    --categoryItemSelected-color: #444;
-    --pluginItemHover-color: #555;
+
+    --selectFileBtn-color: #666;
+    --selectFileBtnHover-color: #777;
+
+    --tabs-color: #181818;
+    --tabsHover-color: #222;
+    --addTab-color: #111;
+
+    --categoryList-color: #111;
+    --categoryItem-color: #222;
+    --categoryItemHover-color: #111;
+    --categoryItemSelected-color: #111;
+
+    --pluginItemHover-color: #222;
     --pluginDescription-color: #00000013;  
-    --searchResults-color: #444;
-    --dataTable-color: #444;
+
+    --searchResults-color: #222;
+
+    --dataTable-color: #222;
     --rowSeperator-color: #000000;
-    --tableHead-color: #444;
-    --everyOtherRow-color: #333;
-    --tableRowHover-color: #555;
-    --dropzonBg-color: #666;
-    --dropzoneBorder-color: #333;
+    --tableHead-color: #333;
+    --everyOtherRow-color: #222;
+    --tableRowHover-color: #444;
+
+    --dropzonBg-color: #333;
+    --dropzoneBorder-color: #222;
     --text-color: #ccc;
   }
 
@@ -29,7 +36,6 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--body-color);
     color: var(--text-color);
     font-family: Helvetica, sans-serif;
 }
@@ -54,7 +60,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: calc(100vh / 20);
+    margin-bottom: 20px;
   }
   
   .menuBtn img {
