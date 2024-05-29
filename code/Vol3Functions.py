@@ -66,11 +66,6 @@ def run_command(command):
     full_command = f'python {vol_file_path} -f \"{memory_file_path}\" {command}'
     print(f'Full command in run_command: {full_command}')
 
-    full_command2 = f'python {vol_file_path} -f \"{memory_file_path}\" {command} > output.txt'
-    process = subprocess.Popen(full_command2, shell=True)
-    # Wait for the process to complete and get the return code
-    return_code = process.wait()
-
     # Run the command as a subprocess and capture the output
     process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     output, error = process.communicate()
