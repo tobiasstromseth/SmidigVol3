@@ -1,35 +1,89 @@
-var tabCount = 0;
+
+//##################################################################//
+//############## GLOBALE VARIABLES AND EVENT LISTENERS #############//
+//##################################################################//
+
 
 // Variable to keep track of the number of tabs
 var tabCount = 0;
 
-
-
+// Defines categories
 let categories = [];
 
+ // Variables to keep track of the currently open category and plugin
+ let openCategoryIndex = -1;
+ let openPluginIndex = -1;
 
+
+// Get the topbar element
+const topbar = document.getElementById('topbar');
+
+// Add wheel event listener to the topbar
+topbar.addEventListener('wheel', (event) => {
+  event.preventDefault();
+  topbar.scrollLeft += event.deltaY;
+});
+
+
+
+//##################################################################//
+//######################### FETCH DATABASE #########################//
+//##################################################################//
+
+// Fetch the JSON file used as a database for plugins
+// Create a new XMLHttpRequest object
 const xhr = new XMLHttpRequest();
+
+// Set up a function to handle the response when the request's state changes
 xhr.onreadystatechange = function() {
+  // Check if the request is complete (readyState === 4)
   if (xhr.readyState === XMLHttpRequest.DONE) {
+    // Check if the request was successful (status === 200)
     if (xhr.status === 200) {
+      // Parse the response text as JSON and store it in the 'categories' variable
       categories = JSON.parse(xhr.responseText);
-      console.log(categories); // Sjekk at dataene er lastet riktig
-      // Bruk categories-arrayet her for videre behandling
+      console.log(categories); // Check if the data is loaded correctly
+      // Use the 'categories' array here for further processing
     } else {
-      console.error('Feil ved lasting av JSON-fil:', xhr.status);
+      // If the request was not successful, log an error message with the status code
+      console.error('Error loading JSON file:', xhr.status);
     }
   }
 };
+
+// Open a GET request to the 'mockDatabase.json' file, with async set to true
 xhr.open('GET', 'mockDatabase.json', true);
+
+// Send the request
 xhr.send();
 
 
 
+//##################################################################//
+//######################### TABS FUNCTIONS #########################//
+//##################################################################//
+
+// Function for extracting filename from filepath
+function extractFileName(filePath) {
+  // Split the file path by / or \
+  const parts = filePath.split(/[/\\]/);
+  
+  // Return the last part of the file path, which is the file name
+  return parts[parts.length - 1];
+}
 
 
+
+// Function to handle opening a new tab
+function openNewTab() {
+  addTabs();
+  const categoryList = document.getElementById('category-list');
+  const topbar = document.getElementById('topbar');
+  hideCategoryList(categoryList, topbar);
+}
 
 // Function to add new tabs
-function addTabs() {
+function addTabs(filePath = '') {
     // Get the topbar and "add tab" button elements
     const topbar = document.getElementById('topbar');
     const addTabBtn = document.getElementById('addTab1');
@@ -40,11 +94,17 @@ function addTabs() {
     // Create a new tab element
     const newTab = document.createElement('div');
     newTab.className = 'tabs';
+    
     newTab.id = `tab${tabCount}`;
         
     // Create a paragraph element for the tab text
     const tabText = document.createElement('p');
-    tabText.textContent = `New Tab ${tabCount}`;
+
+    if (filePath) {
+      tabText.textContent = `${extractFileName(filePath)}`;
+    } else {
+      tabText.textContent = `New Tab ${tabCount}`;
+    }
         
     // Create a close button element for the tab
     const closeBtn = document.createElement('div');
@@ -71,19 +131,52 @@ function addTabs() {
     });
 }
 
-// Function to handle opening a new tab
-function openNewTab() {
-  addTabs();
-  const categoryList = document.getElementById('category-list');
-  const topbar = document.getElementById('topbar');
-  hideCategoryList(categoryList, topbar);
+// Function to remove a tab
+function removeTab(tabNumber) {
+  const tab = document.getElementById(`tab${tabNumber}`);
+  const addTabBtn = document.getElementById('addTab1');
+
+  if (tab) {
+    tab.remove();
+    tabCount--;
+    updateAddTabMargin();
+  }
 }
 
+// Function to update the margin of the "Add Tab" button
+function updateAddTabMargin() {
+  const addTabBtn = document.getElementById('addTab1');
 
+  if (openCategoryIndex >= 0) {
+    // If a category is open
+    if (tabCount > 0) {
+      // If at least one tab is open
+      addTabBtn.style.marginLeft = '-10px';
+      console.log("Category open, tabs open");
+    } else {
+      // If no tabs are open
+      addTabBtn.style.marginLeft = '0px';
+      console.log("Category open, no tabs open");
+    }
+  } else {
+    // If no categories are open
+    if (tabCount > 0) {
+      // If at least one tab is open
+      addTabBtn.style.marginLeft = '-10px';
+      console.log("No categories open, tabs open");
+    } else {
+      // If no tabs are open
+      addTabBtn.style.marginLeft = '0px';
+      console.log("No categories open, no tabs open");
+    }
+  }
+}
   
- // Variables to keep track of the currently open category and plugin
-let openCategoryIndex = -1;
-let openPluginIndex = -1;
+
+//##################################################################//
+//######################## PLUGIN FUNCTIONS ########################//
+//##################################################################//
+
 
 // Function to create a plugin item
 function createPluginItem(plugin, categoryIndex, pluginIndex) {
@@ -111,10 +204,17 @@ function createPluginItem(plugin, categoryIndex, pluginIndex) {
 // Function to create a description item
 function createDescriptionItem(description) {
   const descriptionItem = document.createElement('div');
-  descriptionItem.textContent = description;
+  const formattedDescription = formatDescription(description);
+  descriptionItem.innerHTML = formattedDescription; // Using innerHTML to interpret HTML tags
   descriptionItem.classList.add('plugin-description');
   descriptionItem.style.display = 'none';
   return descriptionItem;
+}
+
+// Function to format the description string
+function formatDescription(description) {
+  // Replace newline characters with HTML line breaks
+  return description.replace(/\n/g, "<br>");
 }
 
 // Function to handle plugin click event
@@ -169,7 +269,6 @@ function runPlugin(pluginName) {
 }
 
 
-
 // Function to create a list of plugins
 function createPluginList(plugins, categoryIndex) {
   // Create an unordered list element for the plugins
@@ -185,6 +284,10 @@ function createPluginList(plugins, categoryIndex) {
   
   return pluginList;
 }
+
+//##################################################################//
+//###################### CATEGORIES FUNCTIONS ######################//
+//##################################################################//
 
 // Function to create a category item
 function createCategoryItem(category, index) {
@@ -289,6 +392,11 @@ function displayCategoryList(categoryList, topbar, dataTable) {
   dataTable.style.left = '365px';
 }
 
+
+//##################################################################//
+//######################## SEARCH FUNCTIONS ########################//
+//##################################################################//
+
 // Function to add search functionality to the category list
 function addSearchFunctionality(categoryList) {
   // Get references to the search input and search results elements
@@ -370,66 +478,19 @@ function displaySearchResults(filteredPlugins) {
 
 
 
-
-
-// Function to remove a tab
-function removeTab(tabNumber) {
-  const tab = document.getElementById(`tab${tabNumber}`);
-  const addTabBtn = document.getElementById('addTab1');
-
-  if (tab) {
-    tab.remove();
-    tabCount--;
-    updateAddTabMargin();
-  }
-}
-
-// Function to update the margin of the "Add Tab" button
-function updateAddTabMargin() {
-  const addTabBtn = document.getElementById('addTab1');
-
-  if (openCategoryIndex >= 0) {
-    // If a category is open
-    if (tabCount > 0) {
-      // If at least one tab is open
-      addTabBtn.style.marginLeft = '-10px';
-      console.log("Category open, tabs open");
-    } else {
-      // If no tabs are open
-      addTabBtn.style.marginLeft = '0px';
-      console.log("Category open, no tabs open");
-    }
-  } else {
-    // If no categories are open
-    if (tabCount > 0) {
-      // If at least one tab is open
-      addTabBtn.style.marginLeft = '-10px';
-      console.log("No categories open, tabs open");
-    } else {
-      // If no tabs are open
-      addTabBtn.style.marginLeft = '0px';
-      console.log("No categories open, no tabs open");
-    }
-  }
-}
-
-// Get the topbar element
-const topbar = document.getElementById('topbar');
-
-// Add wheel event listener to the topbar
-topbar.addEventListener('wheel', (event) => {
-  event.preventDefault();
-  topbar.scrollLeft += event.deltaY;
-});
+//##################################################################//
+//########################## FILE HANDLING #########################//
+//##################################################################//
 
 
 
 function handleFileSelect() {
-  pywebview.api.openFileDialog().then(() => {
+  pywebview.api.openFileDialog().then((filePath) => {
     console.log('File selected');
     clearDataTable();
     showCategories();
-    addTabs();
+    addTabs(filePath);
+    pywebview.api.debug(`File Path: ${filePath}`);
   });
 }
 
@@ -468,6 +529,10 @@ dropzone.addEventListener('dragover', handleDragOver);
 addFileBtn.addEventListener('click', handleFileSelect);
 
 
+
+//##################################################################//
+//##################### DISPLAY DATA FUNCTIONS #####################//
+//##################################################################//
 
 
 function displayPluginOutput(output) {

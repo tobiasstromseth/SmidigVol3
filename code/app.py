@@ -13,6 +13,8 @@ class Api:
         root.withdraw()
         file_path = filedialog.askopenfilename()
         self.setFilePath(file_path)
+        return file_path
+
 
     def setFilePath(self, file_path):
         self.file_path = file_path
