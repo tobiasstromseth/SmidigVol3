@@ -576,6 +576,7 @@ function displayPluginOutput(output) {
 
     // Create a container div for the table
     const tableContainer = document.createElement('div');
+    tableContainer.classList.add('table-container');
     tableContainer.style.maxHeight = '100%'; // Set a fixed height for the container
     tableContainer.style.overflowY = 'auto'; // Enable vertical scrolling
 
