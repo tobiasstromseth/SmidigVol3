@@ -15,7 +15,7 @@ We are trying to make volatility a more easy to use tool, while also making it s
 
 - Python
 - PyWebView
-unidecode
+- unidecode
 
 ### Executing program
 

@@ -1,32 +1,71 @@
-var tabCount = 0;
+
+//##################################################################//
+//######################## GLOBALE VARIABLES #######################//
+//##################################################################//
+
 
 // Variable to keep track of the number of tabs
 var tabCount = 0;
 
-
-
+// Defines categories
 let categories = [];
 
+ // Variables to keep track of the currently open category and plugin
+ let openCategoryIndex = -1;
+ let openPluginIndex = -1;
 
+
+// Get the topbar element
+const topbar = document.getElementById('topbar');
+
+// Add wheel event listener to the topbar
+topbar.addEventListener('wheel', (event) => {
+  event.preventDefault();
+  topbar.scrollLeft += event.deltaY;
+});
+
+
+
+// Fetch the JSON file used as a database for plugins
+// Create a new XMLHttpRequest object
 const xhr = new XMLHttpRequest();
+
+// Set up a function to handle the response when the request's state changes
 xhr.onreadystatechange = function() {
+  // Check if the request is complete (readyState === 4)
   if (xhr.readyState === XMLHttpRequest.DONE) {
+    // Check if the request was successful (status === 200)
     if (xhr.status === 200) {
+      // Parse the response text as JSON and store it in the 'categories' variable
       categories = JSON.parse(xhr.responseText);
-      console.log(categories); // Sjekk at dataene er lastet riktig
-      // Bruk categories-arrayet her for videre behandling
+      console.log(categories); // Check if the data is loaded correctly
+      // Use the 'categories' array here for further processing
     } else {
-      console.error('Feil ved lasting av JSON-fil:', xhr.status);
+      // If the request was not successful, log an error message with the status code
+      console.error('Error loading JSON file:', xhr.status);
     }
   }
 };
+
+// Open a GET request to the 'mockDatabase.json' file, with async set to true
 xhr.open('GET', 'mockDatabase.json', true);
+
+// Send the request
 xhr.send();
 
 
 
+//##################################################################//
+//######################### TABS FUNCTIONS #########################//
+//##################################################################//
 
-
+// Function to handle opening a new tab
+function openNewTab() {
+  addTabs();
+  const categoryList = document.getElementById('category-list');
+  const topbar = document.getElementById('topbar');
+  hideCategoryList(categoryList, topbar);
+}
 
 // Function to add new tabs
 function addTabs() {
@@ -71,19 +110,52 @@ function addTabs() {
     });
 }
 
-// Function to handle opening a new tab
-function openNewTab() {
-  addTabs();
-  const categoryList = document.getElementById('category-list');
-  const topbar = document.getElementById('topbar');
-  hideCategoryList(categoryList, topbar);
+// Function to remove a tab
+function removeTab(tabNumber) {
+  const tab = document.getElementById(`tab${tabNumber}`);
+  const addTabBtn = document.getElementById('addTab1');
+
+  if (tab) {
+    tab.remove();
+    tabCount--;
+    updateAddTabMargin();
+  }
 }
 
+// Function to update the margin of the "Add Tab" button
+function updateAddTabMargin() {
+  const addTabBtn = document.getElementById('addTab1');
 
+  if (openCategoryIndex >= 0) {
+    // If a category is open
+    if (tabCount > 0) {
+      // If at least one tab is open
+      addTabBtn.style.marginLeft = '-10px';
+      console.log("Category open, tabs open");
+    } else {
+      // If no tabs are open
+      addTabBtn.style.marginLeft = '0px';
+      console.log("Category open, no tabs open");
+    }
+  } else {
+    // If no categories are open
+    if (tabCount > 0) {
+      // If at least one tab is open
+      addTabBtn.style.marginLeft = '-10px';
+      console.log("No categories open, tabs open");
+    } else {
+      // If no tabs are open
+      addTabBtn.style.marginLeft = '0px';
+      console.log("No categories open, no tabs open");
+    }
+  }
+}
   
- // Variables to keep track of the currently open category and plugin
-let openCategoryIndex = -1;
-let openPluginIndex = -1;
+
+//##################################################################//
+//######################## PLUGIN FUNCTIONS ########################//
+//##################################################################//
+
 
 // Function to create a plugin item
 function createPluginItem(plugin, categoryIndex, pluginIndex) {
@@ -169,7 +241,6 @@ function runPlugin(pluginName) {
 }
 
 
-
 // Function to create a list of plugins
 function createPluginList(plugins, categoryIndex) {
   // Create an unordered list element for the plugins
@@ -185,6 +256,10 @@ function createPluginList(plugins, categoryIndex) {
   
   return pluginList;
 }
+
+//##################################################################//
+//###################### CATEGORIES FUNCTIONS ######################//
+//##################################################################//
 
 // Function to create a category item
 function createCategoryItem(category, index) {
@@ -289,6 +364,11 @@ function displayCategoryList(categoryList, topbar, dataTable) {
   dataTable.style.left = '365px';
 }
 
+
+//##################################################################//
+//######################## SEARCH FUNCTIONS ########################//
+//##################################################################//
+
 // Function to add search functionality to the category list
 function addSearchFunctionality(categoryList) {
   // Get references to the search input and search results elements
@@ -370,57 +450,9 @@ function displaySearchResults(filteredPlugins) {
 
 
 
-
-
-// Function to remove a tab
-function removeTab(tabNumber) {
-  const tab = document.getElementById(`tab${tabNumber}`);
-  const addTabBtn = document.getElementById('addTab1');
-
-  if (tab) {
-    tab.remove();
-    tabCount--;
-    updateAddTabMargin();
-  }
-}
-
-// Function to update the margin of the "Add Tab" button
-function updateAddTabMargin() {
-  const addTabBtn = document.getElementById('addTab1');
-
-  if (openCategoryIndex >= 0) {
-    // If a category is open
-    if (tabCount > 0) {
-      // If at least one tab is open
-      addTabBtn.style.marginLeft = '-10px';
-      console.log("Category open, tabs open");
-    } else {
-      // If no tabs are open
-      addTabBtn.style.marginLeft = '0px';
-      console.log("Category open, no tabs open");
-    }
-  } else {
-    // If no categories are open
-    if (tabCount > 0) {
-      // If at least one tab is open
-      addTabBtn.style.marginLeft = '-10px';
-      console.log("No categories open, tabs open");
-    } else {
-      // If no tabs are open
-      addTabBtn.style.marginLeft = '0px';
-      console.log("No categories open, no tabs open");
-    }
-  }
-}
-
-// Get the topbar element
-const topbar = document.getElementById('topbar');
-
-// Add wheel event listener to the topbar
-topbar.addEventListener('wheel', (event) => {
-  event.preventDefault();
-  topbar.scrollLeft += event.deltaY;
-});
+//##################################################################//
+//########################## FILE HANDLING #########################//
+//##################################################################//
 
 
 
@@ -468,6 +500,10 @@ dropzone.addEventListener('dragover', handleDragOver);
 addFileBtn.addEventListener('click', handleFileSelect);
 
 
+
+//##################################################################//
+//##################### DISPLAY DATA FUNCTIONS #####################//
+//##################################################################//
 
 
 function displayPluginOutput(output) {
