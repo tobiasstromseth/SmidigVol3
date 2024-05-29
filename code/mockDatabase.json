@@ -11,7 +11,7 @@
           "windows"
         ],
         "osPrefix": false,
-        "description": "Lists the processes present in a memory dump.",
+        "description": "Lists the processes present in a memory dump.\n\nThe pslist plugin is designed to enumerate all the processes running in a memory dump. It provides detailed information about each process, including its unique process identifier (PID), parent process identifier (PPID), and other critical attributes. This plugin supports multiple operating systems, making it versatile for analyzing memory dumps from Linux, macOS, and Windows environments.\n\nKey Features:\n\n- Lists all active processes within a memory dump.\n- Provides detailed process information such as PID, PPID, process name, and creation time.\n- Supports multiple operating systems: Linux, macOS, and Windows.\n- Useful for forensic analysis and incident response by identifying running processes at the time of the memory capture.",
         "tags": [
           "processes",
           "list"

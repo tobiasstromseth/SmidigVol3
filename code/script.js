@@ -187,10 +187,17 @@ function createPluginItem(plugin, categoryIndex, pluginIndex) {
 // Function to create a description item
 function createDescriptionItem(description) {
   const descriptionItem = document.createElement('div');
-  descriptionItem.textContent = description;
+  const formattedDescription = formatDescription(description);
+  descriptionItem.innerHTML = formattedDescription; // Using innerHTML to interpret HTML tags
   descriptionItem.classList.add('plugin-description');
   descriptionItem.style.display = 'none';
   return descriptionItem;
+}
+
+// Function to format the description string
+function formatDescription(description) {
+  // Replace newline characters with HTML line breaks
+  return description.replace(/\n/g, "<br>");
 }
 
 // Function to handle plugin click event
