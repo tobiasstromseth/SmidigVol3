@@ -63,6 +63,17 @@ xhr.send();
 //######################### TABS FUNCTIONS #########################//
 //##################################################################//
 
+// Function for extracting filename from filepath
+function extractFileName(filePath) {
+  // Split the file path by / or \
+  const parts = filePath.split(/[/\\]/);
+  
+  // Return the last part of the file path, which is the file name
+  return parts[parts.length - 1];
+}
+
+
+
 // Function to handle opening a new tab
 function openNewTab() {
   addTabs();
@@ -72,7 +83,7 @@ function openNewTab() {
 }
 
 // Function to add new tabs
-function addTabs() {
+function addTabs(filePath = '') {
     // Get the topbar and "add tab" button elements
     const topbar = document.getElementById('topbar');
     const addTabBtn = document.getElementById('addTab1');
@@ -83,11 +94,17 @@ function addTabs() {
     // Create a new tab element
     const newTab = document.createElement('div');
     newTab.className = 'tabs';
+    
     newTab.id = `tab${tabCount}`;
         
     // Create a paragraph element for the tab text
     const tabText = document.createElement('p');
-    tabText.textContent = `New Tab ${tabCount}`;
+
+    if (filePath) {
+      tabText.textContent = `${extractFileName(filePath)}`;
+    } else {
+      tabText.textContent = `New Tab ${tabCount}`;
+    }
         
     // Create a close button element for the tab
     const closeBtn = document.createElement('div');
@@ -468,11 +485,12 @@ function displaySearchResults(filteredPlugins) {
 
 
 function handleFileSelect() {
-  pywebview.api.openFileDialog().then(() => {
+  pywebview.api.openFileDialog().then((filePath) => {
     console.log('File selected');
     clearDataTable();
     showCategories();
-    addTabs();
+    addTabs(filePath);
+    pywebview.api.debug(`File Path: ${filePath}`);
   });
 }
 
