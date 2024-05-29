@@ -306,6 +306,15 @@ function createCategoryItem(category, index) {
   listItem.addEventListener('click', () => {
     // Check if the clicked category is different from the currently open category
     if (openCategoryIndex !== index) {
+      // Remove the 'selected' class from the previously selected category
+      if (openCategoryIndex !== -1) {
+        const prevCategoryItem = document.getElementById(`category-${openCategoryIndex + 1}`);
+        prevCategoryItem.classList.remove('selected');
+      }
+      
+      // Add the 'selected' class to the clicked category
+      listItem.classList.add('selected');
+      
       closeOpenCategory();
       pluginList.style.display = 'block';
       openCategoryIndex = index;
@@ -314,12 +323,17 @@ function createCategoryItem(category, index) {
       pluginList.style.display = 'none';
       closeOpenPlugin();
       openCategoryIndex = -1;
+      
+      // Remove the 'selected' class from the clicked category
+      listItem.classList.remove('selected');
     }
     updateAddTabMargin();
   });
   
   return listItem;
 }
+
+
 
 // Function to close the currently open category
 function closeOpenCategory() {

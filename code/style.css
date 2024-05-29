@@ -1,8 +1,36 @@
+:root {
+    --menu-color: #222;
+    --body-color: #333;
+    --topbar-color: #333;
+    --scrollbar-color: #00000034;
+    --selectFileBtn-color: #777;
+    --selectFileBtnHover-color: #888;
+    --tabs-color: #555;
+    --tabsHover-color: #666;
+    --addTab-color: #0000002a;
+    --categoryList-color: #444;
+    --categoryItem-color: #555;
+    --categoryItemHover-color: #444;
+    --categoryItemSelected-color: #444;
+    --pluginItemHover-color: #555;
+    --pluginDescription-color: #00000013;  
+    --searchResults-color: #444;
+    --dataTable-color: #444;
+    --rowSeperator-color: #000000;
+    --tableHead-color: #444;
+    --everyOtherRow-color: #333;
+    --tableRowHover-color: #555;
+    --dropzonBg-color: #666;
+    --dropzoneBorder-color: #333;
+    --text-color: #ccc;
+  }
+
+
 body {
     margin: 0;
     padding: 0;
-    background-color: #333;
-    color: #ccc;
+    background-color: var(--body-color);
+    color: var(--text-color);
     font-family: Helvetica, sans-serif;
 }
 
@@ -16,7 +44,7 @@ body {
     left: 0;
     width: 65px;
     height: 100vh;
-    background-color: #222;
+    background-color: var(--menu-color);
     box-sizing: border-box;
 }
 .menuBtn {
@@ -44,7 +72,7 @@ body {
     left: 65px;
     width: 96.5%;
     height: 25px;
-    background-color: #444;
+    background-color: var(--topbar-color);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -66,7 +94,7 @@ body {
 }
 
 #topbar::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.377);
+    background-color: var(--scrollbar-color);
     border-radius: 20px;
 }
 
@@ -74,7 +102,7 @@ body {
     position: relative;
     left: 0;
     padding: 0;
-    background-color: #555;
+    background-color: var(--tabs-color);
     width: 10%;
     height: 100%;
     cursor: pointer;
@@ -90,8 +118,10 @@ body {
     z-index: 999;
 }
 
+
+
 .tabs:hover {
-    background-color: #666;
+    background-color: var(--tabsHover-color);
     z-index: 999;
 }
 
@@ -109,7 +139,7 @@ body {
 .addTab {
     position: relative;
     padding: 0;
-    background-color: #0000002a;
+    background-color: var(--addTab-color);
     width: 18px;
     height: 100%;
     cursor: pointer;
@@ -131,13 +161,15 @@ body {
     display: none;
 }
 
+
+
 #category-list.show {
     display: block;
     position: fixed;
     left: 65px;
     width: 300px;
     height: 100vh; /* Juster høyden basert på topbar-høyden */
-    background-color: #444;
+    background-color: var(--categoryList-color);
     box-sizing: border-box;
     overflow-x: hidden; /* Skjuler horisontal scrollbar */
     overflow-y: auto;
@@ -158,21 +190,27 @@ body {
     background: transparent;
 }
 #category-list::-webkit-scrollbar-thumb {
-    background-color: #333;
+    background-color: var(--scrollbar-color);
     border-radius: 20px;
 }
+
 
 .category-item {
     padding: 5px;
     margin-bottom: 2px;
-    background-color: #555;
-    color: #ccc;
+    color: var(--text-color);
     cursor: pointer;
-}
-
-.category-item:hover {
-    background-color: #494949;
-}
+    background-color: var(--categoryItem-color);
+  }
+  
+  .category-item:hover {
+    background-color: var(--categoryItemHover-color);
+  }
+  
+  .category-item.selected {
+    background-color: var(--categoryItemSelected-color);
+  }
+  
 
 .plugin-list {
     list-style-type: none;
@@ -191,15 +229,17 @@ body {
     font-size: 15px;
 }
 
+
 .plugin-item:hover {
-    background-color: #555;
+    background-color: var(--pluginItemHover-color);
 }
+
 
 .plugin-description {
     padding: 10px;
     padding-left: 20px;
-    background-color: #00000013;
-    color: #ccc;
+    background-color: var(--pluginDescription-color);
+    color: var(--text-color);
     overflow-wrap: break-word;
     word-break: break-word;
     font-size: 14px;
@@ -225,8 +265,7 @@ body {
 
 #searchResults li {
     padding: 5px;
-    background-color: #555;
-    color: #ccc;
+    color: var(--text-color);
     margin-bottom: 5px;
 }
 
@@ -236,16 +275,18 @@ body {
     margin: 0;
 }
 
+
 #searchResults ul li {
     padding: 5px;
     padding-left: 20px;
-    background-color: #444;
-    color: #ccc;
+    background-color: var(--searchResults-color);
+    color: var(--text-color);
 }
 
 /*#################################################################################################################################*/
 /*############################### Data_table #################################################################*/
 /*################################################################################################################################*/
+
 
 .dataTable {
     position: fixed;
@@ -254,8 +295,8 @@ body {
     right: 0;
     bottom: 0;
     overflow: auto;
-    background-color: #444;
-    color: #ccc;
+    background-color: var(--dataTable-color);
+    color: var(--text-color);
     font-family: Arial, sans-serif;
 }
 
@@ -273,22 +314,24 @@ th,
 td {
     padding: 8px;
     text-align: left;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid var(--rowSeperator-color);
 }
+
+
 
 th {
     position: sticky;
     top: 0;
-    background-color: #444;
-    color: #fff;
+    background-color: var(--tableHead-color);
+    color: var(--text-color);
 }
 
 tr:nth-child(even) {
-    background-color: #444;
+    background-color: var(--everyOtherRow-color);
 }
 
 tr:hover {
-    background-color: #555;
+    background-color: var(--tableRowHover-color);
 }
 
 .table-container {
@@ -307,7 +350,7 @@ tr:hover {
 }
 
 .plugin-output .table-container::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.377);
+    background-color: var(--scrollbar-color);
     border-radius: 20px;
 }
 
@@ -315,23 +358,25 @@ tr:hover {
     display: block;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #777;
-    color: #ccc;
+    background-color: var(--selectFileBtn-color);
+    color: var(--text-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
     margin: 200px auto 20px;
 }
 
+
 #selectFileBtn:hover {
-    background-color: #888;
+    background-color: var(--selectFileBtnHover-color);
 }
+
 
 #dropzone {
     width: 300px;
     height: 200px;
-    border: 2px dashed #333;
-    background-color: #666;
+    border: 2px dashed var(--dropzoneBorder-color);
+    background-color: var(--dropzonBg-color);
     /*border-radius: 8px;*/
     display: flex;
     justify-content: center;
@@ -339,6 +384,6 @@ tr:hover {
     text-align: center;
     padding: 20px;
     font-size: 16px;
-    color: #ccc;
+    color: var(--text-color);
     margin: 0 auto;
 }
