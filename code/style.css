@@ -1,13 +1,13 @@
 :root {
     --menu-color: #000;
-    --menuBtnHover-color: #111;
-    --menuBtnSelected-color: #111;
+    --menuBtnHover-color: #222;
+    --menuBtnSelected-color: #ffdd00;
 
     --topbar-color: #000;
 
     --scrollbar-color: #00000034;
 
-    --selectFileBtn-color: #1111117a;
+    --selectFileBtn-color: #ffdd00;
     --selectFileBtnHover-color: #333;
 
     --tabs-color: #181818;
@@ -31,8 +31,10 @@
     --tableRowHover-color: #444;
 
     --dropzonBg-color: #1111117a;
-    --dropzoneBorder-color: #111;
+    --dropzoneBorder-color: #ffdd0091;
+
     --text-color: #ccc;
+    --secondaryText-color: #323330;
 }
 
 body {
@@ -72,6 +74,11 @@ body {
 .menuBtn.selected {
     background-color: var(--menuBtnSelected-color);
 }
+
+.menuBtn.selected img {
+    filter: invert(1);
+}
+
 
 .menuBtn img {
     width: 70%;
@@ -155,7 +162,7 @@ body {
     right: 0px;
     top: 50%;
     transform: translateY(-50%);
-    color: #323330;
+    color: var(--secondaryText-color);
     padding: 5px;
     cursor: pointer;
     font-size: 13px;
@@ -374,7 +381,7 @@ tr:hover {
     padding: 10px 20px;
     font-size: 16px;
     background-color: var(--selectFileBtn-color);
-    color: var(--text-color);
+    color: var(--secondaryText-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -388,7 +395,7 @@ tr:hover {
 #dropzone {
     width: 300px;
     height: 200px;
-    border: 2px dashed var(--dropzoneBorder-color);
+    border: 1px dashed var(--dropzoneBorder-color);
     background-color: var(--dropzonBg-color);
     /*border-radius: 8px;*/
     display: flex;
