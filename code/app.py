@@ -3,6 +3,9 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 from Vol3Functions import *
+import queue
+
+output_queue = queue.Queue()
 
 class Api:
     def __init__(self):
@@ -14,6 +17,16 @@ class Api:
         file_path = filedialog.askopenfilename()
         self.setFilePath(file_path)
         return file_path
+    
+    def log(self):
+            #with open("output.txt", "r") as file:
+                #value = file.read()
+            value = "Hello World"
+            # Print to terminal
+            print(value)
+            # Capture the printed output
+            output_queue.put(value)
+            return value
 
 
     def setFilePath(self, file_path):
