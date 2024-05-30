@@ -9,8 +9,9 @@ class Api:
 
 # Function to read 'output.txt' and prints it to terminal, and sends it ahead to be picked up by gui -- Made by Ole
     def log(self):
-        with open("output.txt", "r") as file:
-            value = file.read()
+        #with open("output.txt", "r") as file:
+            #value = file.read()
+        value = "Hello World"
         # Print to terminal
         print(value)
         # Capture the printed output
