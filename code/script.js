@@ -16,6 +16,8 @@ let categories = [];
  let openPluginIndex = -1;
 
 
+ let shownCategory = false
+
 // Get the topbar element
 const topbar = document.getElementById('topbar');
 
@@ -149,27 +151,27 @@ function removeTab(tabNumber) {
 function updateAddTabMargin() {
   const addTabBtn = document.getElementById('addTab1');
 
-  if (openCategoryIndex >= 0) {
+  if (shownCategory === true) {
     // If a category is open
     if (tabCount > 0) {
       // If at least one tab is open
       addTabBtn.style.marginLeft = '-10px';
-      console.log("Category open, tabs open");
+      pywebview.api.debug(`Category open, tabs open.\n  shownCategory: ${shownCategory}`);
     } else {
       // If no tabs are open
       addTabBtn.style.marginLeft = '0px';
-      console.log("Category open, no tabs open");
+      pywebview.api.debug(`Category open, no tabs open.\n  shownCategory: ${shownCategory}`);
     }
-  } else {
+  } else if (shownCategory === false) {
     // If no categories are open
     if (tabCount > 0) {
       // If at least one tab is open
       addTabBtn.style.marginLeft = '-10px';
-      console.log("No categories open, tabs open");
+      pywebview.api.debug(`No categories open, tabs open.\n  shownCategory: ${shownCategory}`);
     } else {
       // If no tabs are open
-      addTabBtn.style.marginLeft = '0px';
-      console.log("No categories open, no tabs open");
+      addTabBtn.style.marginLeft = '-10px';
+      pywebview.api.debug(`No categories open, no tabs open.\n  shownCategory: ${shownCategory}`);
     }
   }
 }
@@ -347,6 +349,7 @@ function closeOpenCategory() {
 }
 
 
+
 // Function to show or hide the categories
 function showCategories() {
   // Get references to the category list, topbar, and add tab button elements
@@ -364,9 +367,10 @@ function showCategories() {
     displayCategoryList(categoryList, topbar, dataTable);
     addSearchFunctionality(categoryList);
   }
-
+  shownCategory = categoryList.classList.contains('show');
   // Update the margin of the add tab button
   updateAddTabMargin();
+  pywebview.api.debug(`shownCategory in showCategories: ${shownCategory}`);
 }
 
 // Function to hide the category list
