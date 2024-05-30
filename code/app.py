@@ -1,9 +1,9 @@
 import webview
-import os
-import tkinter as tk
-from tkinter import filedialog
-from Vol3Functions import *
 
+<<<<<<<<< Temporary merge branch 1
+=========
+
+>>>>>>>>> Temporary merge branch 2
 class Api:
     def __init__(self):
         self.file_path = None
@@ -53,7 +53,5 @@ class Api:
     def debug(self, message):
         print(f'Debug: {message}')
 
-
-api = Api()
-webview.create_window('Enkel GUI', url='index.html', js_api=api)
+webview.create_window('Enkel GUI', url='index.html', js_api=Api())
 webview.start()

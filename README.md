@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Project Title
 
 Graphical user interface for volatility3
@@ -40,3 +41,5 @@ Contributors names and contact info
 - Tobias Strømseth
 
 - Øystein Harald Arntzen
+=======
+>>>>>>> Ole

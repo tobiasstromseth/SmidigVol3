@@ -131,6 +131,20 @@ function addTabs(filePath = '') {
     });
 }
 
+// function to get the terminal to show, remove display hidden and makes it flex instead -- Made by Ole
+function logAndShowTerminal() {
+  pywebview.api.log().then(function(response) {
+      // Update the terminal window with the response
+      let terminal = document.getElementById('terminal');
+      terminal.innerText += response + "\n";
+      terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
+
+      // Show the terminal container
+      let terminalContainer = document.getElementById('terminal-container');
+      terminalContainer.style.display = 'flex'; // Change display to flex to show it
+  });
+}
+
 // Function to remove a tab
 function removeTab(tabNumber) {
   const tab = document.getElementById(`tab${tabNumber}`);
