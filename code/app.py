@@ -26,17 +26,17 @@ class Api:
             print('No file path set')
             return
 
-        # Definer målmappen
+        # Define the target folder
         folder_path = 'code/memDump/'
         
-        # Sjekk om målmappen eksisterer, hvis ikke, opprett den
+        # Check if the target folder exists, if not, create it
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)
         
-        # Hent filnavnet fra filbanen
+        # Get the file name from the file path
         file_name = os.path.basename(self.file_path)
         
-        # Flytt filen til målmappen
+        # Move the file to the target folder
         destination_path = os.path.join(folder_path, file_name)
         os.rename(self.file_path, destination_path)
         
