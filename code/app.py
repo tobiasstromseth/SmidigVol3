@@ -6,6 +6,7 @@ from Vol3Functions import *
 import queue
 
 output_queue = queue.Queue()
+output_queue = queue.Queue()
 
 class Api:
     def __init__(self):
