@@ -4,10 +4,15 @@ Graphical user interface for volatility3
 
 ## Description
 
-We are making a GUI for the commandline program volatility.
-Volatility is a memory forensics program designed for security experts, to analyze data extracted for memory.
+The Volatility Memory Analysis GUI is a user-friendly interface designed to streamline the use of the powerful Volatility framework for memory forensics.
+This program allows both novice and experienced users to analyze memory dumps effortlessly,
+providing a graphical alternative to the traditional command-line interface.
 
-We are trying to make volatility a more easy to use tool, while also making it simple to learn.
+Use Cases:
+
+- Digital Forensics Investigations: Helps forensic analysts examine memory dumps to uncover evidence of malicious activity.
+- Incident Response: Assists security teams in quickly identifying and responding to security incidents by analyzing volatile data.
+- Malware Analysis: Enables researchers to dissect malware behaviors and their impacts on system memory.
 
 ## Getting Started
 
@@ -20,7 +25,7 @@ We are trying to make volatility a more easy to use tool, while also making it s
 ### Executing program
 
 - How to run the program
--python -m pip install -r code\Volatility3\requirements.txt
+- python -m pip install -r code\Volatility3\requirements.txt
 - Start the program by executing the file called app.py
 
 ## Authors
