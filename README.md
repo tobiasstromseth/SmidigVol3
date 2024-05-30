@@ -20,7 +20,9 @@ We are trying to make volatility a more easy to use tool, while also making it s
 ### Executing program
 
 - How to run the program
--python -m pip install -r code\Volatility3\requirements.txt
+- git clone https://github.com/volatilityfoundation/volatility3.git
+- python -m pip install -r code\Volatility3\requirements.txt
+- python setup.py
 - Start the program by executing the file called app.py
 
 ## Authors
