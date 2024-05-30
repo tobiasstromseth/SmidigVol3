@@ -25,6 +25,8 @@ Use Cases:
 ### Executing program
 
 - How to run the program
+- git clone https://github.com/volatilityfoundation/volatility3.git
+  - this needs to be done in the code directory
 - python -m pip install -r code\Volatility3\requirements.txt
 - Start the program by executing the file called app.py
 
