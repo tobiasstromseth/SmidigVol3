@@ -80,7 +80,8 @@ function openNewTab() {
   addTabs();
   const categoryList = document.getElementById('category-list');
   const topbar = document.getElementById('topbar');
-  hideCategoryList(categoryList, topbar);
+  const dataTable = document.getElementById('dataTable')
+  hideCategoryList(categoryList, topbar, dataTable);
 }
 
 // Function to add new tabs
