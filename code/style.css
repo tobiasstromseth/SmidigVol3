@@ -30,8 +30,7 @@
     --everyOtherRow-color: #111;
     --tableRowHover-color: #444;
 
-    --dropzonBg-color: #1111117a;
-    --dropzoneBorder-color: #ffdd0091;
+
 
     --text-color: #ccc;
     --secondaryText-color: #323330;
@@ -392,18 +391,4 @@ tr:hover {
     background-color: var(--selectFileBtnHover-color);
 }
 
-#dropzone {
-    width: 300px;
-    height: 200px;
-    border: 1px dashed var(--dropzoneBorder-color);
-    background-color: var(--dropzonBg-color);
-    /*border-radius: 8px;*/
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    font-size: 16px;
-    color: var(--text-color);
-    margin: 0 auto;
-}
+

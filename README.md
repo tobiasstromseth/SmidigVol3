@@ -18,32 +18,34 @@ Use Cases:
 
 ### Dependencies
 
-- Python
-- PyWebView
-- unidecode
+-   Python
+-   PyWebView
+-   unidecode
 
 ### Executing program
 
-- How to run the program
-- git clone https://github.com/volatilityfoundation/volatility3.git
-  - this needs to be done in the code directory
-- python -m pip install -r code\Volatility3\requirements.txt
-- Start the program by executing the file called app.py
+-   How to run the program
+
+-   git clone https://github.com/volatilityfoundation/volatility3.git "path\to\code"
+-   python -m pip install -r code\Volatility3\requirements.txt
+-   python setup.py install
+
+-   Start the program by executing the file called app.py
 
 ## Authors
 
 Contributors names and contact info
 
-- Benjamin Arshad
+-   Benjamin Arshad
 
-- Filip Borgen
+-   Filip Borgen
 
-- Julie Brommeland
+-   Julie Brommeland
 
-- Ole Kristoffer Rosnes
+-   Ole Kristoffer Rosnes
 
-- Petter Holstad Andersen
+-   Petter Holstad Andersen
 
-- Tobias Strømseth
+-   Tobias Strømseth
 
-- Øystein Harald Arntzen
+-   Øystein Harald Arntzen
