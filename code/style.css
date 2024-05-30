@@ -1,9 +1,47 @@
+:root {
+    --menu-color: #000;
+    --menuBtnHover-color: #222;
+    --menuBtnSelected-color: #ffdd00;
+
+    --topbar-color: #000;
+
+    --scrollbar-color: #00000034;
+
+    --selectFileBtn-color: #ffdd00;
+    --selectFileBtnHover-color: #333;
+
+    --tabs-color: #181818;
+    --tabsHover-color: #222;
+    --addTab-color: #ffdd00;
+
+    --categoryList-color: #111;
+    --categoryItem-color: #222;
+    --categoryItemHover-color: #111;
+    --categoryItemSelected-color: #111;
+
+    --pluginItemHover-color: #222;
+    --pluginDescription-color: #00000013;
+
+    --searchResults-color: #222;
+
+    --dataTable-color: #222;
+    --rowSeperator-color: #000000;
+    --tableHead-color: #333;
+    --everyOtherRow-color: #111;
+    --tableRowHover-color: #444;
+
+    --dropzonBg-color: #1111117a;
+    --dropzoneBorder-color: #ffdd0091;
+
+    --text-color: #ccc;
+    --secondaryText-color: #323330;
+}
+
 body {
     margin: 0;
     padding: 0;
-    background-color: #333;
-    color: #ccc;
-    font-family: Arial, sans-serif;
+    color: var(--text-color);
+    font-family: Helvetica, sans-serif;
 }
 
 /*#################################################################################################################################*/
@@ -16,18 +54,34 @@ body {
     left: 0;
     width: 65px;
     height: 100vh;
-    background-color: #222;
-    padding: 20px;
+    background-color: var(--menu-color);
     box-sizing: border-box;
 }
 .menuBtn {
     cursor: pointer;
     width: 100%;
-    height: 10%;
+    height: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
+.menuBtn:hover {
+    background-color: var(--menuBtnHover-color);
+}
+
+.menuBtn.selected {
+    background-color: var(--menuBtnSelected-color);
+}
+
+.menuBtn.selected img {
+    filter: invert(1);
+}
+
+
 .menuBtn img {
-    width: 100%;
+    width: 70%;
     height: 100%;
 }
 
@@ -41,7 +95,7 @@ body {
     left: 65px;
     width: 96.5%;
     height: 25px;
-    background-color: #444;
+    background-color: var(--topbar-color);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -63,7 +117,7 @@ body {
 }
 
 #topbar::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.377);
+    background-color: var(--scrollbar-color);
     border-radius: 20px;
 }
 
@@ -71,7 +125,7 @@ body {
     position: relative;
     left: 0;
     padding: 0;
-    background-color: #555;
+    background-color: var(--tabs-color);
     width: 10%;
     height: 100%;
     cursor: pointer;
@@ -80,7 +134,7 @@ body {
     display: flex;
     align-items: center;
     padding-left: 20px;
-    font-size: 80%;
+    font-size: 13px;
     margin-left: -10px;
     border-bottom-right-radius: 10px;
     box-shadow: -1px 2px 4px rgb(0, 0, 0);
@@ -88,7 +142,7 @@ body {
 }
 
 .tabs:hover {
-    background-color: #666;
+    background-color: var(--tabsHover-color);
     z-index: 999;
 }
 
@@ -97,16 +151,27 @@ body {
     right: 0px;
     top: 50%;
     transform: translateY(-50%);
-    color: white;
+    color: var(--text-color);
     padding: 5px;
     cursor: pointer;
-    font-size: 100%;
+    font-size: 13px;
+}
+
+.xx {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondaryText-color);
+    padding: 5px;
+    cursor: pointer;
+    font-size: 13px;
 }
 
 .addTab {
     position: relative;
     padding: 0;
-    background-color: #0000002a;
+    background-color: var(--addTab-color);
     width: 18px;
     height: 100%;
     cursor: pointer;
@@ -115,18 +180,9 @@ body {
     display: flex;
     align-items: center;
     padding-left: 10px;
-    font-size: 100%;
+    font-size: 13px;
     border-bottom-right-radius: 10px;
     margin-left: -10px;
-}
-
-#topbar {
-    scrollbar-width: none; /* For Firefox */
-    -ms-overflow-style: none; /* For Internet Explorer and Edge */
-}
-
-#topbar::-webkit-scrollbar {
-    display: none; /* For Chrome, Safari, and Opera */
 }
 
 /*#################################################################################################################################*/
@@ -143,7 +199,7 @@ body {
     left: 65px;
     width: 300px;
     height: 100vh; /* Juster høyden basert på topbar-høyden */
-    background-color: #444;
+    background-color: var(--categoryList-color);
     box-sizing: border-box;
     overflow-x: hidden; /* Skjuler horisontal scrollbar */
     overflow-y: auto;
@@ -151,32 +207,37 @@ body {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    font-size: 16px;
 }
 
-#category-list.show::-webkit-scrollbar {
-    width: 2px;
+#category-list::-webkit-scrollbar {
+    width: 5px;
+    height: 2px;
     background-color: transparent;
 }
 
-#category-list.show::-webkit-scrollbar-track {
+#category-list::-webkit-scrollbar-track {
     background: transparent;
 }
-
-#category-list.show::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.377);
+#category-list::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-color);
     border-radius: 20px;
 }
 
 .category-item {
     padding: 5px;
     margin-bottom: 2px;
-    background-color: #555;
-    color: #ccc;
+    color: var(--text-color);
     cursor: pointer;
+    background-color: var(--categoryItem-color);
 }
 
 .category-item:hover {
-    background-color: #494949;
+    background-color: var(--categoryItemHover-color);
+}
+
+.category-item.selected {
+    background-color: var(--categoryItemSelected-color);
 }
 
 .plugin-list {
@@ -193,19 +254,21 @@ body {
     border-bottom: 2px solid rgba(0, 0, 0, 0.281);
     border-right: 2px solid rgba(0, 0, 0, 0.281);
     border-bottom-right-radius: 10px;
+    font-size: 15px;
 }
 
 .plugin-item:hover {
-    background-color: #555;
+    background-color: var(--pluginItemHover-color);
 }
 
 .plugin-description {
     padding: 10px;
-    padding-left: 30px;
-    background-color: #444;
-    color: #ccc;
+    padding-left: 20px;
+    background-color: var(--pluginDescription-color);
+    color: var(--text-color);
     overflow-wrap: break-word;
     word-break: break-word;
+    font-size: 14px;
 }
 
 /*############################### search #################################################################*/
@@ -228,8 +291,7 @@ body {
 
 #searchResults li {
     padding: 5px;
-    background-color: #555;
-    color: #ccc;
+    color: var(--text-color);
     margin-bottom: 5px;
 }
 
@@ -242,8 +304,8 @@ body {
 #searchResults ul li {
     padding: 5px;
     padding-left: 20px;
-    background-color: #444;
-    color: #ccc;
+    background-color: var(--searchResults-color);
+    color: var(--text-color);
 }
 
 /*#################################################################################################################################*/
@@ -254,15 +316,85 @@ body {
     position: fixed;
     top: 25px;
     left: 65px;
-    width: 96.5%;
-    height: 98%;
-    margin: 0;
-    padding: 0;
-<<<<<<<<< Temporary merge branch 1
-    background-color: #ff000060; /*#333*/
-=========
-    background-color: #333; /*#333*/
->>>>>>>>> Temporary merge branch 2
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    background-color: #333;
     color: #ccc;
     font-family: Arial, sans-serif;
-}
+  }
+  
+  
+  .plugin-output {
+    height: 100%;
+    overflow: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    position: sticky;
+    top: 0;
+    background-color: #444;
+    color: #fff;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #444;
+  }
+  
+  tr:hover {
+    background-color: #555;
+  }
+  
+  .table-container {
+    max-height: 100%; 
+    overflow-y: auto;
+  }
+  
+
+
+
+
+
+#selectFileBtn {
+    display: block;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 200px auto 20px;
+  }
+  
+  
+  #selectFileBtn:hover {
+    background-color: #45a049;
+  }
+  
+  #dropzone {
+    width: 300px;
+    height: 200px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+    color: #666;
+    margin: 0 auto;
+  }
+  

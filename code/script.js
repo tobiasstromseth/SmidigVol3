@@ -283,6 +283,7 @@ function runPlugin(pluginName) {
 }
 
 
+
 // Function to create a list of plugins
 function createPluginList(plugins, categoryIndex) {
   // Create an unordered list element for the plugins
@@ -319,6 +320,15 @@ function createCategoryItem(category, index) {
   listItem.addEventListener('click', () => {
     // Check if the clicked category is different from the currently open category
     if (openCategoryIndex !== index) {
+      // Remove the 'selected' class from the previously selected category
+      if (openCategoryIndex !== -1) {
+        const prevCategoryItem = document.getElementById(`category-${openCategoryIndex + 1}`);
+        prevCategoryItem.classList.remove('selected');
+      }
+      
+      // Add the 'selected' class to the clicked category
+      listItem.classList.add('selected');
+      
       closeOpenCategory();
       pluginList.style.display = 'block';
       openCategoryIndex = index;
@@ -327,12 +337,17 @@ function createCategoryItem(category, index) {
       pluginList.style.display = 'none';
       closeOpenPlugin();
       openCategoryIndex = -1;
+      
+      // Remove the 'selected' class from the clicked category
+      listItem.classList.remove('selected');
     }
     updateAddTabMargin();
   });
   
   return listItem;
 }
+
+
 
 // Function to close the currently open category
 function closeOpenCategory() {
@@ -343,14 +358,6 @@ function closeOpenCategory() {
   }
 }
 
-// Function to close the currently open plugin
-function closeOpenPlugin() {
-  const openPlugin = document.querySelector('.plugin-description.open'); // Select plugin description with 'open' class
-  if (openPlugin) {
-    openPlugin.style.display = 'none';
-    openPlugin.classList.remove('open'); // Remove 'open' class when closing the plugin description
-  }
-}
 
 // Function to show or hide the categories
 function showCategories() {
@@ -376,16 +383,19 @@ function showCategories() {
 
 // Function to hide the category list
 function hideCategoryList(categoryList, topbar, dataTable) {
+  pluginsBtn = document.getElementById("pluginsBtn")
   // Remove the 'show' class from the category list
   categoryList.classList.remove('show');
   // Adjust the left position of the topbar
   topbar.style.left = '65px';
   dataTable.style.left = '65px'
+  pluginsBtn.classList.remove('selected');
 }
 
 // Function to display the category list
 function displayCategoryList(categoryList, topbar, dataTable) {
   // Set the HTML content of the category list
+  pluginsBtn = document.getElementById("pluginsBtn")
   categoryList.innerHTML = `
     <div class="search-container">
       <input type="text" id="searchInput" placeholder="Search...">
@@ -404,6 +414,7 @@ function displayCategoryList(categoryList, topbar, dataTable) {
   // Adjust the left position of the topbar
   topbar.style.left = '356px';
   dataTable.style.left = '365px';
+  pluginsBtn.classList.add('selected');
 }
 
 
@@ -590,6 +601,7 @@ function displayPluginOutput(output) {
 
     // Create a container div for the table
     const tableContainer = document.createElement('div');
+    tableContainer.classList.add('table-container');
     tableContainer.style.maxHeight = '100%'; // Set a fixed height for the container
     tableContainer.style.overflowY = 'auto'; // Enable vertical scrolling
 
