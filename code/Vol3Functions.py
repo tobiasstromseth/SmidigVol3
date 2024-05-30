@@ -4,7 +4,6 @@ import os
 import json
 from unidecode import unidecode
 import re
-from openai import OpenAI
 
 # Tving Python til å bruke UTF-8 for all tekstbehandling
 os.environ["PYTHONIOENCODING"] = "utf-8"

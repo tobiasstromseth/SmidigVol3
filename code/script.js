@@ -3,6 +3,7 @@
 //############## GLOBALE VARIABLES AND EVENT LISTENERS #############//
 //##################################################################//
 
+database = 'mockDatabase.json'
 
 // Variable to keep track of the number of tabs
 var tabCount = 0;
