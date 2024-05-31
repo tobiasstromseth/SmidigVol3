@@ -41,11 +41,44 @@ body {
     padding: 0;
     color: var(--text-color);
     font-family: Helvetica, sans-serif;
+    padding-top: 40px;
 }
 
 /*#################################################################################################################################*/
 /*#################################################### Left menu #################################################################*/
 /*################################################################################################################################*/
+#title-bar {
+    background-color: black;
+    color: #ffdd00;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    -webkit-app-region: drag;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px; /* Sett en fast høyde på tittellinjen */
+    z-index: 999999999;
+}
+
+#title {
+    font-weight: bold;
+}
+
+#title-bar-btns {
+    -webkit-app-region: no-drag;
+}
+
+#title-bar-btns button {
+    background-color: black;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0 5px;
+}
 
 #menu {
     position: fixed;
@@ -102,7 +135,6 @@ body {
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
-    border-bottom-right-radius: 15px;
 }
 
 #topbar::-webkit-scrollbar {
@@ -392,3 +424,40 @@ tr:hover {
 }
 
 
+/*#################################################################################################################################*/
+/*############################### Terminal_window -- Made by Ole #################################################################*/
+/*################################################################################################################################*/
+
+
+#terminal-container {
+    margin-top: auto;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    width: 150px;
+    height: 150px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #444;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#terminal {
+    width: 140px;
+    height: 150px;
+    background-color: black;
+    color: white;
+    font-size: 9px;
+    padding: 5px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none;
+}
