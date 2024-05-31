@@ -28,6 +28,18 @@ topbar.addEventListener('wheel', (event) => {
 });
 
 
+document.getElementById('min-btn').addEventListener('click', () => {
+  pywebview.api.minimize();
+});
+
+document.getElementById('max-btn').addEventListener('click', () => {
+  pywebview.api.toggle_fullscreen();
+});
+
+document.getElementById('close-btn').addEventListener('click', () => {
+  pywebview.api.close();
+});
+
 
 //##################################################################//
 //######################### FETCH DATABASE #########################//
@@ -514,7 +526,7 @@ function processSelectedFile(filePath) {
   showCategories();
   addTabs(filePath);
   pywebview.api.debug(`File Path: ${filePath}`);
-  pywebview.api.setFilePath(filePath);
+  pywebview.api.setFilePath(filePath); //Sette filepath i python??
 }
 
 function clearDataTable() {
@@ -608,7 +620,18 @@ function displayPluginOutput(output) {
   }
 }
 
+function logAndShowTerminal() {
+  pywebview.api.log().then(function(response) {
+      // Update the terminal window with the response
+      let terminal = document.getElementById('terminal');
+      terminal.innerText += response + "\n";
+      terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
 
+      // Show the terminal container
+      let terminalContainer = document.getElementById('terminal-container');
+      terminalContainer.style.display = 'flex'; // Change display to flex to show it
+  });
+}
 
 
 

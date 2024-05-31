@@ -3,6 +3,9 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 from Vol3Functions import *
+import queue
+
+output_queue = queue.Queue()
 
 class Api:
     def __init__(self):
@@ -14,7 +17,6 @@ class Api:
         file_path = filedialog.askopenfilename()
         self.setFilePath(file_path)
         return file_path
-
 
     def setFilePath(self, file_path):
         self.file_path = file_path
@@ -51,8 +53,36 @@ class Api:
     
     def debug(self, message):
         print(f'Debug: {message}')
+    
+    def minimize(self):
+        webview.windows[0].minimize()
+
+    def toggle_fullscreen(self):
+        webview.windows[0].toggle_fullscreen()
+
+    def close(self):
+        webview.windows[0].destroy()
+
+    def log(self):
+        #with open("output.txt", "r") as file:
+            #value = file.read()
+        value = "Hello World"
+        # Print to terminal
+        print(value)
+        # Capture the printed output
+        output_queue.put(value)
+        return value
+
+def main():
+    api = Api()
+    webview.create_window('Repticore', url='index.html', js_api=api, 
+                        background_color='#000000',
+                        easy_drag=True,
+                        text_select=True,
+                        frameless=True)
 
 
-api = Api()
-webview.create_window('Enkel GUI', url='index.html', js_api=api)
-webview.start()
+    webview.start()
+
+if __name__ == "__main__":
+    main()
