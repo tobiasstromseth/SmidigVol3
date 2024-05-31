@@ -4,11 +4,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Enkel GUI</title>
+    <title>Repticore</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+    <div id="title-bar">
+        <div id="title">Repticore</div>
+        <div id="title-bar-btns">
+        <button id="min-btn">-</button>
+        <button id="max-btn">+</button>
+        <button id="close-btn">x</button>
+    </div></div>
     <div class="div" id="menu">
         <div class="menuBtn" id="homeBtn">
             <img src="img\home_24dp_FILL0_wght100_GRAD-25_opsz24.svg" alt="" />
@@ -23,8 +30,18 @@
             <img src="img\file_save_24dp_FILL0_wght100_GRAD-25_opsz20.svg" alt="" />
         </div>
         <div class="menuBtn" id="terminalBtn" onclick="logAndShowTerminal()">
+<<<<<<< HEAD
             <img src="img\file_save_24dp_FILL0_wght100_GRAD-25_opsz20.svg" alt=""/>
         </div>
+=======
+            <img
+                src="img\file_save_24dp_FILL0_wght100_GRAD-25_opsz20.svg"
+                alt=""
+            />
+        </div>
+
+    </div>
+>>>>>>> c28df0bff101a5588d968307995f2ed2408699a9
     </div>
 
     <div class="div" id="topbar">
@@ -36,9 +53,8 @@
     <div class="dataTable" id="dataTable">
         <input type="file" id="fileInput" style="display: none" />
         <button id="selectFileBtn">Velg fil</button>
-        <div id="dropzone">
-            <img src="img\note_add_24dp_FILL0_wght100_GRAD-25_opsz24.svg" alt="">
-            Drop & drop a file her  or click select
+        <div id="terminal-container" class="hidden">
+            <div id="terminal"></div>
         </div>
 
         <div class="content">
