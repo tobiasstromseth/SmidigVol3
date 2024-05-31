@@ -1,4 +1,5 @@
 output.txt
+code/pluginOutput
 
 # Python generated files
 */__pycache__/
