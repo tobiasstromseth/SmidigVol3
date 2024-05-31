@@ -637,3 +637,48 @@ function logAndShowTerminal() {
 
 
 
+
+//###############esize
+
+const resizeBtn = document.getElementById('resizeBtn');
+
+let isResizing = false;
+let lastMouseX = 0;
+let lastMouseY = 0;
+let initialWidth = window.innerWidth;
+let initialHeight = window.innerHeight;
+
+resizeBtn.addEventListener('mousedown', startResize);
+document.addEventListener('mousemove', resize);
+document.addEventListener('mouseup', stopResize);
+
+function startResize(e) {
+  isResizing = true;
+  lastMouseX = e.clientX;
+  lastMouseY = e.clientY;
+  initialWidth = window.innerWidth;
+  initialHeight = window.innerHeight;
+}
+
+function resize(e) {
+  if (!isResizing) return;
+
+  const deltaX = e.clientX - lastMouseX;
+  const deltaY = e.clientY - lastMouseY;
+  
+  const newWidth = initialWidth + deltaX;
+  const newHeight = initialHeight + deltaY;
+  
+  // Call the exposed Python function to resize the window
+  pywebview.api.resize_window(newWidth, newHeight);
+}
+
+function stopResize() {
+  isResizing = false;
+}
+
+
+
+
+
+
