@@ -6,10 +6,6 @@ from Vol3Functions import *
 import queue
 
 output_queue = queue.Queue()
-<<<<<<< HEAD
-output_queue = queue.Queue()
-=======
->>>>>>> c28df0bff101a5588d968307995f2ed2408699a9
 
 class Api:
     def __init__(self):
@@ -95,13 +91,8 @@ def main():
                         text_select=True,
                         frameless=True)
 
-<<<<<<< HEAD
-webview.create_window('Enkel GUI', url='index.html', js_api=Api())
-webview.start()
-=======
 
     webview.start()
 
 if __name__ == "__main__":
     main()
->>>>>>> c28df0bff101a5588d968307995f2ed2408699a9
