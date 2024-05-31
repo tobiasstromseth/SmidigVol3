@@ -89,7 +89,8 @@ def main():
                         background_color='#000000',
                         easy_drag=True,
                         text_select=True,
-                        frameless=True)
+                        frameless=True,
+                        resizable=True)
 
 
     webview.start()
