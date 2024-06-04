@@ -21,12 +21,13 @@ let categories = [];
 // Get the topbar element
 const topbar = document.getElementById('topbar');
 
+const ogTerm = document.getElementById('hidden').innerHTML;
+
 // Add wheel event listener to the topbar
 topbar.addEventListener('wheel', (event) => {
   event.preventDefault();
   topbar.scrollLeft += event.deltaY;
 });
-
 
 document.getElementById('min-btn').addEventListener('click', () => {
   pywebview.api.minimize();
@@ -75,6 +76,8 @@ xhr.send();
 //##################################################################//
 //######################### TERMINAL FUNCTION #########################//
 //##################################################################//
+
+
 function logAndShowTerminal() {
   pywebview.api.log().then(function(response) {
       // Update the terminal window with the response
@@ -83,11 +86,39 @@ function logAndShowTerminal() {
       terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
 
       // Show the terminal container
-      let terminalContainer = document.getElementById('terminal-container');
+      
+      let terminalContainer = document.getElementById('hidden');
       terminalContainer.style.display = 'flex'; // Change display to flex to show it
+
+      
   });
 }
 
+function exitButton() {
+
+  let terminal = document.getElementById('hidden');
+
+  terminal.innerHTML = ogTerm;
+  terminal.style.display = 'none';
+}
+
+/*function exitButton() {
+
+  pywebview.api.log().then(function(response) {
+    // Update the terminal window with the response
+    let terminal = document.getElementById('terminal');
+    terminal.innerText += response + "\n";
+    terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
+
+    // Show the terminal container
+    
+    let terminalContainer = document.getElementById('hidden')
+    terminalContainer.style.display = 'none'; // Change display to flex to show it
+
+    
+});
+}*/
+ 
 
 //##################################################################//
 //######################### TABS FUNCTIONS #########################//
@@ -163,18 +194,7 @@ function addTabs(filePath = '') {
 }
 
 // function to get the terminal to show, remove display hidden and makes it flex instead -- Made by Ole
-function logAndShowTerminal() {
-  pywebview.api.log().then(function(response) {
-      // Update the terminal window with the response
-      let terminal = document.getElementById('terminal');
-      terminal.innerText += response + "\n";
-      terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
 
-      // Show the terminal container
-      let terminalContainer = document.getElementById('terminal-container');
-      terminalContainer.style.display = 'flex'; // Change display to flex to show it
-  });
-}
 
 // Function to remove a tab
 function removeTab(tabNumber) {
@@ -648,21 +668,6 @@ function displayPluginOutput(output) {
     pywebview.api.debug(`Error in displayPluginOutput: ${error}`);
   }
 }
-
-function logAndShowTerminal() {
-  pywebview.api.log().then(function(response) {
-      // Update the terminal window with the response
-      let terminal = document.getElementById('terminal');
-      terminal.innerText += response + "\n";
-      terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
-
-      // Show the terminal container
-      let terminalContainer = document.getElementById('terminal-container');
-      terminalContainer.style.display = 'flex'; // Change display to flex to show it
-  });
-}
-
-
 
 
 

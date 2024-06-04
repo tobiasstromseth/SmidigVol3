@@ -35,13 +35,7 @@
         </div>
 
     </div>
-<<<<<<< HEAD
-    </div>
-
-    <div class="div" id="topbar">
-=======
     <div id="topbar">
->>>>>>> 3080d6413530a39e0f833b43cfad757b51d864e7
         <div class="addTab" id="addTab1">
             <div class="xx" id="addTabBtn" onclick="openNewTab()">+</div>
         </div>
@@ -50,13 +44,13 @@
     <div class="dataTable" id="dataTable">
         <input type="file" id="fileInput" style="display: none" />
         <button id="selectFileBtn">Velg fil</button>
-        <div id="terminal-container" class="hidden">
-            <div id="terminal"></div>
-        </div>
 
-        <div class="content">
-            <div id="terminal-container" class="hidden">
-                <div id="terminal"></div>
+        <div class="terminal-container" id="hidden">
+            <div id="terminal"></div>
+            <button id="close-term" onclick="exitButton(this)">x</button>
+            <button id="min-term">-</button>
+        </div>
+               
         </div>
     </div>
     <div id="bottomBar">

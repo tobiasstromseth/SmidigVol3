@@ -444,27 +444,27 @@ body {
 /*############################### Terminal_window -- Made by Ole #################################################################*/
 /*################################################################################################################################*/
 
-
-#terminal-container {
-    margin-top: auto;
-    display: none;
+.terminal-container {
+    position: relative;
+    margin-top: 310px;
+    margin-left: 5px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    width: 150px;
-    height: 150px;
+    width: 330px;
+    height: 200px;
     padding: 10px;
     border-radius: 5px;
-    background-color: #444;
+    background-color: #ffdd00;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #terminal {
-    width: 140px;
-    height: 150px;
+    margin-top: 23px;
+    position: absolute;
+    z-index: 2;
+    width: 340px;
+    height: 187px;
     background-color: black;
     color: white;
     font-size: 9px;
@@ -474,6 +474,24 @@ body {
     border-radius: 5px;
 }
 
-.hidden {
+#close-term {
+    z-index: 4;
+    position: absolute;
+    width: 20px;
+    top: 1px;
+    right: 3px;
+    background-color: #ffdd00;
+}
+
+#min-term {
+    z-index: 4;
+    position: absolute;
+    width: 20px;
+    top: 1px;
+    right: 28px;
+    background-color: #ffdd00;
+}
+
+#hidden {
     display: none;
 }
