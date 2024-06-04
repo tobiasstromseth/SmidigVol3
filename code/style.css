@@ -217,6 +217,31 @@ body {
     margin-left: -10px;
 }
 
+#bottomBar {
+    position: absolute;
+    left: 65px;
+    width: 96.5%;
+    height: 15px;
+    bottom: 0;
+    background-color: var(--topbar-color);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    z-index: 3;
+}
+
+#resizeBtn {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 1%;
+    background-color: #333;
+}
+
 /*#################################################################################################################################*/
 /*############################### Categories/plugins/description #################################################################*/
 /*################################################################################################################################*/

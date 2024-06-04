@@ -7,6 +7,9 @@ import queue
 
 output_queue = queue.Queue()
 
+
+    
+
 class Api:
     def __init__(self):
         self.file_path = None
@@ -82,10 +85,14 @@ class Api:
         # Capture the printed output
         output_queue.put(value)
         return value
+    
+    def resize_window(self, width, height):
+        webview.windows[0].resize(width, height)
 
 def main():
     api = Api()
     webview.create_window('Repticore', url='index.html', js_api=api, 
+                        width=1920, height=1080,  
                         background_color='#000000',
                         easy_drag=True,
                         text_select=True,
