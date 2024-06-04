@@ -3,6 +3,7 @@
 //############## GLOBALE VARIABLES AND EVENT LISTENERS #############//
 //##################################################################//
 
+database = 'mockDatabase.json'
 
 // Variable to keep track of the number of tabs
 var tabCount = 0;
@@ -15,6 +16,8 @@ let categories = [];
  let openPluginIndex = -1;
 
 
+ let shownCategory = false
+
 // Get the topbar element
 const topbar = document.getElementById('topbar');
 
@@ -24,6 +27,18 @@ topbar.addEventListener('wheel', (event) => {
   topbar.scrollLeft += event.deltaY;
 });
 
+
+document.getElementById('min-btn').addEventListener('click', () => {
+  pywebview.api.minimize();
+});
+
+document.getElementById('max-btn').addEventListener('click', () => {
+  pywebview.api.toggle_fullscreen();
+});
+
+document.getElementById('close-btn').addEventListener('click', () => {
+  pywebview.api.close();
+});
 
 
 //##################################################################//
@@ -94,7 +109,8 @@ function openNewTab() {
   addTabs();
   const categoryList = document.getElementById('category-list');
   const topbar = document.getElementById('topbar');
-  hideCategoryList(categoryList, topbar);
+  const dataTable = document.getElementById('dataTable')
+  hideCategoryList(categoryList, topbar, dataTable);
 }
 
 // Function to add new tabs
@@ -176,27 +192,27 @@ function removeTab(tabNumber) {
 function updateAddTabMargin() {
   const addTabBtn = document.getElementById('addTab1');
 
-  if (openCategoryIndex >= 0) {
+  if (shownCategory === true) {
     // If a category is open
     if (tabCount > 0) {
       // If at least one tab is open
       addTabBtn.style.marginLeft = '-10px';
-      console.log("Category open, tabs open");
+      pywebview.api.debug(`Category open, tabs open.\n  shownCategory: ${shownCategory}`);
     } else {
       // If no tabs are open
       addTabBtn.style.marginLeft = '0px';
-      console.log("Category open, no tabs open");
+      pywebview.api.debug(`Category open, no tabs open.\n  shownCategory: ${shownCategory}`);
     }
-  } else {
+  } else if (shownCategory === false) {
     // If no categories are open
     if (tabCount > 0) {
       // If at least one tab is open
       addTabBtn.style.marginLeft = '-10px';
-      console.log("No categories open, tabs open");
+      pywebview.api.debug(`No categories open, tabs open.\n  shownCategory: ${shownCategory}`);
     } else {
       // If no tabs are open
-      addTabBtn.style.marginLeft = '0px';
-      console.log("No categories open, no tabs open");
+      addTabBtn.style.marginLeft = '-10px';
+      pywebview.api.debug(`No categories open, no tabs open.\n  shownCategory: ${shownCategory}`);
     }
   }
 }
@@ -374,6 +390,7 @@ function closeOpenCategory() {
 }
 
 
+
 // Function to show or hide the categories
 function showCategories() {
   // Get references to the category list, topbar, and add tab button elements
@@ -391,9 +408,10 @@ function showCategories() {
     displayCategoryList(categoryList, topbar, dataTable);
     addSearchFunctionality(categoryList);
   }
-
+  shownCategory = categoryList.classList.contains('show');
   // Update the margin of the add tab button
   updateAddTabMargin();
+  pywebview.api.debug(`shownCategory in showCategories: ${shownCategory}`);
 }
 
 // Function to hide the category list
@@ -524,18 +542,20 @@ function displaySearchResults(filteredPlugins) {
 
 
 
+
 function handleFileSelect() {
   pywebview.api.openFileDialog().then((filePath) => {
     console.log('File selected');
-    clearDataTable();
-    showCategories();
-    addTabs(filePath);
-    pywebview.api.debug(`File Path: ${filePath}`);
+    processSelectedFile(filePath);
   });
 }
 
-function handleDragOver(event) {
-  event.preventDefault();
+function processSelectedFile(filePath) {
+  clearDataTable();
+  showCategories();
+  addTabs(filePath);
+  pywebview.api.debug(`File Path: ${filePath}`);
+  pywebview.api.setFilePath(filePath); //Sette filepath i python??
 }
 
 function clearDataTable() {
@@ -548,25 +568,20 @@ function restoreDataTableUploadFile() {
   dataTable.innerHTML = `
     <input type="file" id="fileInput" style="display: none" />
     <button id="selectFileBtn">Velg fil</button>
-    <div id="dropzone">
-      Dra og slipp en fil her, eller klikk på knappen over for å velge fil
-    </div>
   `;
   
   const selectFileBtn = document.getElementById('selectFileBtn');
-  const dropzone = document.getElementById('dropzone');
 
   selectFileBtn.addEventListener('click', handleFileSelect);
-  dropzone.addEventListener('dragover', handleDragOver);
 }
 
 const selectFileBtn = document.getElementById('selectFileBtn');
-const dropzone = document.getElementById('dropzone');
 const addFileBtn = document.getElementById('addFileBtn');
 
 selectFileBtn.addEventListener('click', handleFileSelect);
-dropzone.addEventListener('dragover', handleDragOver);
 addFileBtn.addEventListener('click', handleFileSelect);
+
+
 
 
 
@@ -634,6 +649,62 @@ function displayPluginOutput(output) {
   }
 }
 
+function logAndShowTerminal() {
+  pywebview.api.log().then(function(response) {
+      // Update the terminal window with the response
+      let terminal = document.getElementById('terminal');
+      terminal.innerText += response + "\n";
+      terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
+
+      // Show the terminal container
+      let terminalContainer = document.getElementById('terminal-container');
+      terminalContainer.style.display = 'flex'; // Change display to flex to show it
+  });
+}
+
+
+
+
+
+
+//###############esize
+
+const resizeBtn = document.getElementById('resizeBtn');
+
+let isResizing = false;
+let lastMouseX = 0;
+let lastMouseY = 0;
+let initialWidth = window.innerWidth;
+let initialHeight = window.innerHeight;
+
+resizeBtn.addEventListener('mousedown', startResize);
+document.addEventListener('mousemove', resize);
+document.addEventListener('mouseup', stopResize);
+
+function startResize(e) {
+  isResizing = true;
+  lastMouseX = e.clientX;
+  lastMouseY = e.clientY;
+  initialWidth = window.innerWidth;
+  initialHeight = window.innerHeight;
+}
+
+function resize(e) {
+  if (!isResizing) return;
+
+  const deltaX = e.clientX - lastMouseX;
+  const deltaY = e.clientY - lastMouseY;
+  
+  const newWidth = initialWidth + deltaX;
+  const newHeight = initialHeight + deltaY;
+  
+  // Call the exposed Python function to resize the window
+  pywebview.api.resize_window(newWidth, newHeight);
+}
+
+function stopResize() {
+  isResizing = false;
+}
 
 
 

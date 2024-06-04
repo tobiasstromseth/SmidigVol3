@@ -8,7 +8,7 @@
     --scrollbar-color: #00000034;
 
     --selectFileBtn-color: #ffdd00;
-    --selectFileBtnHover-color: #333;
+    --selectFileBtnHover-color: #ffee00;
 
     --tabs-color: #181818;
     --tabsHover-color: #222;
@@ -30,8 +30,7 @@
     --everyOtherRow-color: #111;
     --tableRowHover-color: #444;
 
-    --dropzonBg-color: #1111117a;
-    --dropzoneBorder-color: #ffdd0091;
+
 
     --text-color: #ccc;
     --secondaryText-color: #323330;
@@ -42,16 +41,50 @@ body {
     padding: 0;
     color: var(--text-color);
     font-family: Helvetica, sans-serif;
+    margin-top: 25px;
 }
 
 /*#################################################################################################################################*/
 /*#################################################### Left menu #################################################################*/
 /*################################################################################################################################*/
+#title-bar {
+    background-color: #ffdd00;
+    color: var(--secondaryText-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    -webkit-app-region: drag;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 15px; /* Sett en fast høyde på tittellinjen */
+    z-index: 2;
+}
+
+#title {
+    font-weight: bold;
+}
+
+#title-bar-btns {
+    -webkit-app-region: no-drag;
+}
+
+#title-bar-btns button {
+    background-color: #ffdd00;
+    color: var(--secondaryText-color);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0 5px;
+}
 
 #menu {
     position: fixed;
     top: 0;
     left: 0;
+    margin-top: 25px;
     width: 65px;
     height: 100vh;
     background-color: var(--menu-color);
@@ -90,8 +123,7 @@ body {
 /*########################################################################################################################*/
 
 #topbar {
-    position: fixed;
-    top: 0;
+    position: absolute;
     left: 65px;
     width: 96.5%;
     height: 25px;
@@ -103,7 +135,7 @@ body {
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
-    border-bottom-right-radius: 15px;
+    z-index: 3;
 }
 
 #topbar::-webkit-scrollbar {
@@ -183,6 +215,31 @@ body {
     font-size: 13px;
     border-bottom-right-radius: 10px;
     margin-left: -10px;
+}
+
+#bottomBar {
+    position: absolute;
+    left: 65px;
+    width: 96.5%;
+    height: 15px;
+    bottom: 0;
+    background-color: var(--topbar-color);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    z-index: 3;
+}
+
+#resizeBtn {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 1%;
+    background-color: #333;
 }
 
 /*#################################################################################################################################*/
@@ -376,55 +433,41 @@ body {
     border-radius: 4px;
     cursor: pointer;
     margin: 200px auto 20px;
-  }
-  
-  
-  #selectFileBtn:hover {
-    background-color: #45a049;
-  }
-  
-  #dropzone {
-    width: 300px;
-    height: 200px;
-    border: 2px dashed #ccc;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    font-size: 16px;
-    color: #666;
-    margin: 0 auto;
-  }
-  
+}
+
+#selectFileBtn:hover {
+    background-color: var(--selectFileBtnHover-color);
+}
+
+
 /*#################################################################################################################################*/
 /*############################### Terminal_window -- Made by Ole #################################################################*/
 /*################################################################################################################################*/
 
-.content {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-}
 
 #terminal-container {
-    z-index: 1;
-    position: fixed;
+    margin-top: auto;
     display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+<<<<<<< HEAD
+=======
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+>>>>>>> dev
     width: 150px;
     height: 150px;
     padding: 10px;
     border-radius: 5px;
     background-color: #444;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD
     margin-left: 68%;
     margin-bottom: 20%;
+=======
+>>>>>>> dev
 }
 
 #terminal {

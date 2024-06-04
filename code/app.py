@@ -6,6 +6,12 @@ from Vol3Functions import *
 import queue
 
 output_queue = queue.Queue()
+<<<<<<< HEAD
+=======
+
+
+    
+>>>>>>> dev
 
 class Api:
     def __init__(self):
@@ -28,7 +34,6 @@ class Api:
             output_queue.put(value)
             return value
 
-
     def setFilePath(self, file_path):
         self.file_path = file_path
         print(f'File path set: {self.file_path}')
@@ -39,17 +44,17 @@ class Api:
             print('No file path set')
             return
 
-        # Definer målmappen
+        # Define the target folder
         folder_path = 'code/memDump/'
         
-        # Sjekk om målmappen eksisterer, hvis ikke, opprett den
+        # Check if the target folder exists, if not, create it
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)
         
-        # Hent filnavnet fra filbanen
+        # Get the file name from the file path
         file_name = os.path.basename(self.file_path)
         
-        # Flytt filen til målmappen
+        # Move the file to the target folder
         destination_path = os.path.join(folder_path, file_name)
         os.rename(self.file_path, destination_path)
         
@@ -64,6 +69,41 @@ class Api:
     
     def debug(self, message):
         print(f'Debug: {message}')
+    
+    def minimize(self):
+        webview.windows[0].minimize()
 
-webview.create_window('Enkel GUI', url='index.html', js_api=Api())
-webview.start()
+    def toggle_fullscreen(self):
+        webview.windows[0].toggle_fullscreen()
+
+    def close(self):
+        webview.windows[0].destroy()
+
+    def log(self):
+        #with open("output.txt", "r") as file:
+            #value = file.read()
+        value = "Hello World"
+        # Print to terminal
+        print(value)
+        # Capture the printed output
+        output_queue.put(value)
+        return value
+    
+    def resize_window(self, width, height):
+        webview.windows[0].resize(width, height)
+
+def main():
+    api = Api()
+    webview.create_window('Repticore', url='index.html', js_api=api, 
+                        width=1920, height=1080,  
+                        background_color='#000000',
+                        easy_drag=True,
+                        text_select=True,
+                        frameless=True,
+                        resizable=True)
+
+
+    webview.start()
+
+if __name__ == "__main__":
+    main()
