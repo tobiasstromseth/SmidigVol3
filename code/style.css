@@ -451,23 +451,15 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-<<<<<<< HEAD
-=======
     bottom: 0;
     left: 0;
     z-index: 1;
->>>>>>> dev
     width: 150px;
     height: 150px;
     padding: 10px;
     border-radius: 5px;
     background-color: #444;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-<<<<<<< HEAD
-    margin-left: 68%;
-    margin-bottom: 20%;
-=======
->>>>>>> dev
 }
 
 #terminal {
