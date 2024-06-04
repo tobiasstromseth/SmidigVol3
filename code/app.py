@@ -6,12 +6,9 @@ from Vol3Functions import *
 import queue
 
 output_queue = queue.Queue()
-<<<<<<< HEAD
-=======
 
 
     
->>>>>>> dev
 
 class Api:
     def __init__(self):
