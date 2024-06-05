@@ -48,11 +48,17 @@
         <div class="terminal-container" id="hidden">
             <div id="terminal"></div>
             <button id="close-term" onclick="exitButton(this)">x</button>
-            <button id="min-term">-</button>
+            <button id="min-term"  onclick="minButton(this)">-</button>
+        </div>  
+    
+        <div class="term-bar" id="low-hidden">
+            <button id="max-term" onclick="maxButton(this)">+</button>
+            <button id="close-term" onclick="exitLowTerm()(this)">x</button>
         </div>
-               
-        </div>
+    
     </div>
+    
+    
     <div id="bottomBar">
         <div id="resizeBtn"></div>
     </div>
