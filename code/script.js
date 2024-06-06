@@ -662,7 +662,6 @@ function processSelectedFile() {
   showCategories();
   addTabs(selectedFilePath);
   debug(`File Path: ${selectedFilePath}`);
-  pywebview.api.setFilePath(selectedFilePath); //Sette filepath i python??
 }
 
 function clearDataTable() {
