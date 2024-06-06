@@ -718,7 +718,7 @@ function logAndShowTerminal() {
   });
 }
 
-function exitButton() {
+function exitTerminalBtn() {
 //picking up the id of terminal-container
   let terminal = document.getElementById('hidden');
 
@@ -727,7 +727,7 @@ function exitButton() {
   terminal.style.display = 'none';
 }
 
-function exitLowTerm() {
+function exitLowTerminalBtn() {
   //picking up the id of terminal-container
   let lowTermBar = document.getElementById('low-hidden');
   
@@ -736,7 +736,7 @@ function exitLowTerm() {
     lowTermBar.style.display = 'none';
   }
 
-function minButton() {
+function minTerminalBtn() {
 
   let terminal = document.getElementById('hidden');
   let lowTermBar = document.getElementById('low-hidden');
@@ -745,7 +745,7 @@ function minButton() {
   lowTermBar.style.display = 'flex';
 } 
 
-function maxButton() {
+function maxTerminalBtn() {
 
   let terminal = document.getElementById('hidden');
   let lowTermBar = document.getElementById('low-hidden');
