@@ -100,51 +100,53 @@ function openNewTab() {
 
 // Function to add new tabs
 function addTabs(filePath = '') {
-    // Get the topbar and "add tab" button elements
-    const topbar = document.getElementById('topbar');
-    const addTabBtn = document.getElementById('addTab1');
-    
-    // Update the tab count based on the number of child elements in the topbar
-    tabCount = topbar.childElementCount;
+  // Get the topbar and "add tab" button elements
+  const topbar = document.getElementById('topbar');
+  const addTabBtn = document.getElementById('addTab1');
+  
+  // Update the tab count based on the number of child elements in the topbar
+  tabCount = topbar.childElementCount;
 
-    // Create a new tab element
-    const newTab = document.createElement('div');
-    newTab.className = 'tabs';
-    
-    newTab.id = `tab${tabCount}`;
-        
-    // Create a paragraph element for the tab text
-    const tabText = document.createElement('p');
+  // Create a new tab element
+  const newTab = document.createElement('div');
+  newTab.className = 'tabs';
+  
+  newTab.id = `tab${tabCount}`;
+      
+  // Create a span element for the tab text
+  const tabText = document.createElement('span');
+  tabText.className = 'tab-text';
 
-    if (filePath) {
-      tabText.textContent = `${extractFileName(filePath)}`;
-    } else {
-      tabText.textContent = `New Tab ${tabCount}`;
-    }
-        
-    // Create a close button element for the tab
-    const closeBtn = document.createElement('div');
-    closeBtn.className = 'x';
-    closeBtn.id = `x${tabCount}`;
-    closeBtn.textContent = 'x';
-    closeBtn.setAttribute('onclick', `removeTab(${tabCount})`);
-        
-    // Append the tab text and close button to the new tab element
-    newTab.appendChild(tabText);
-    newTab.appendChild(closeBtn);
-        
-    // Insert the new tab element right before the "add tab" button
-    addTabBtn.parentNode.insertBefore(newTab, addTabBtn);
+  if (filePath) {
+    tabText.textContent = `${extractFileName(filePath)}`;
+    tabText.title = filePath;
+  } else {
+    tabText.textContent = `New Tab ${tabCount}`;
+  }
+      
+  // Create a close button element for the tab
+  const closeBtn = document.createElement('div');
+  closeBtn.className = 'x';
+  closeBtn.id = `x${tabCount}`;
+  closeBtn.textContent = 'x';
+  closeBtn.setAttribute('onclick', `removeTab(${tabCount})`);
+      
+  // Append the tab text and close button to the new tab element
+  newTab.appendChild(tabText);
+  newTab.appendChild(closeBtn);
+      
+  // Insert the new tab element right before the "add tab" button
+  addTabBtn.parentNode.insertBefore(newTab, addTabBtn);
 
-    // Get all the tab elements
-    const tabElements = document.querySelectorAll('.tabs');
+  // Get all the tab elements
+  const tabElements = document.querySelectorAll('.tabs');
 
-    // Iterate through the tab elements and set the z-index dynamically
-    tabElements.forEach((tab, index) => {
-        tab.style.zIndex = tabElements.length - index;
-        console.log(tabCount);
-        updateAddTabMargin();
-    });
+  // Iterate through the tab elements and set the z-index dynamically
+  tabElements.forEach((tab, index) => {
+      tab.style.zIndex = tabElements.length - index;
+      console.log(tabCount);
+      updateAddTabMargin();
+  });
 }
 
 // Function to remove a tab
