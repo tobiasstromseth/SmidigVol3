@@ -128,7 +128,7 @@ function addTabs() {
 
   if (selectedFilePath) {
     tabText.textContent = `${extractFileName(selectedFilePath)}`;
-    tabText.title = selectedFilePath;
+    tabText.title = `${extractFileName(selectedFilePath)}`;
   } else {
     tabText.textContent = `New Tab ${tabCount}`;
   }
@@ -214,7 +214,7 @@ function changeActiveTabName(pluginName) {
     const tabText = activeTab.querySelector('.tab-text');
     if (tabText) {
       tabText.textContent = `${pluginName}/${extractFileName(selectedFilePath)}`;
-      tabText.title = ''; // Clear the title attribute
+      tabText.title = `${pluginName}/${extractFileName(selectedFilePath)}`; // Clear the title attribute
     }
   }
 }
