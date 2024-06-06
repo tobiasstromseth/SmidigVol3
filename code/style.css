@@ -191,8 +191,7 @@ body {
 }
 
 .tabs.active {
-    background-color: #fff;
-    border-bottom: 1px solid #fff;
+    background-color: var(--tabsHover-color);
 }
 
 .x {
