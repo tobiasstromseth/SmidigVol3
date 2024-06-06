@@ -480,49 +480,72 @@ function filterPlugins(searchTerm) {
 
 // Function to display the search results
 function displaySearchResults(filteredPlugins) {
-  // Get a reference to the search results element
   const searchResults = document.getElementById('searchResults');
-  // Clear the existing search results
   searchResults.innerHTML = '';
 
-  // Check if there are any filtered plugins
   if (filteredPlugins.length > 0) {
-    // Create a new unordered list element for the plugin list
-    const pluginList = document.createElement('ul');
-
-    // Iterate over each filtered plugin
-    filteredPlugins.forEach(plugin => {
-      // Create a new list item element for the plugin
-      const pluginItem = document.createElement('li');
-      pluginItem.textContent = plugin.name;
-      
-      // Add click event listener to the plugin item
-      pluginItem.addEventListener('click', () => {
-        // Find the corresponding plugin item in the category list
-        const categoryPluginItem = findPluginItemInCategories(plugin.name);
-        
-        if (categoryPluginItem) {
-          // Find the category item that contains the plugin item
-          const categoryItem = findCategoryItemForPlugin(categoryPluginItem);
-          
-          if (categoryItem) {
-            // Simulate a click on the category item to open it
-            categoryItem.click();
-            
-            // Simulate a click on the corresponding plugin item in the category list
-            categoryPluginItem.click();
-          }
-        }
-      });
-      
-      // Append the plugin item to the plugin list
-      pluginList.appendChild(pluginItem);
-    });
-
-    // Append the plugin list to the search results
+    const pluginList = createSearchResultsList(filteredPlugins);
     searchResults.appendChild(pluginList);
   }
 }
+
+// Function to create the search results list
+function createSearchResultsList(filteredPlugins) {
+  const pluginList = document.createElement('ul');
+
+  filteredPlugins.forEach(plugin => {
+    const pluginItem = createSearchResultItem(plugin);
+    pluginList.appendChild(pluginItem);
+  });
+
+  return pluginList;
+}
+
+// Function to create a search result item
+function createSearchResultItem(plugin) {
+  const pluginItem = document.createElement('li');
+  pluginItem.textContent = plugin.name;
+
+  pluginItem.addEventListener('click', () => {
+    handleSearchResultClick(plugin);
+  });
+
+  return pluginItem;
+}
+
+// Function to handle the click event on a search result item
+function handleSearchResultClick(plugin) {
+  const categoryPluginItem = findPluginItemInCategories(plugin.name);
+
+  if (categoryPluginItem) {
+    const categoryItem = findCategoryItemForPlugin(categoryPluginItem);
+
+    if (categoryItem) {
+      const isCategoryOpen = categoryItem.classList.contains('selected');
+      const isPluginSame = categoryPluginItem === document.querySelector('.plugin-item.open');
+
+      pywebview.api.debug(`Plugin clicked in search: ${plugin.name}`);
+      pywebview.api.debug(`Category open: ${isCategoryOpen}`);
+      pywebview.api.debug(`Plugin same: ${isPluginSame}`);
+
+      if (!isCategoryOpen) {
+        closeOpenPlugin();
+        closeOpenCategory();
+        categoryItem.click();
+      }
+
+      if (!isPluginSame) {
+        closeOpenPlugin();
+        categoryPluginItem.click();
+      }
+    }
+  }
+}
+
+
+
+
+
 
 
 // Function to find the corresponding plugin item in the category list
