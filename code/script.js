@@ -100,6 +100,7 @@ function openNewTab() {
   const topbar = document.getElementById('topbar');
   const dataTable = document.getElementById('dataTable')
   hideCategoryList(categoryList, topbar, dataTable);
+  restoreDataTableUploadFile();
 }
 
 // Function to add new tabs
@@ -256,6 +257,7 @@ function handlePluginClick(event, categoryIndex, pluginIndex, descriptionItem, p
   const pluginName = pluginItem.getAttribute('data-plugin-name');
   
   // Call the Python function to run the plugin
+  clearDataTable();
   runPlugin(pluginName);
 }
 
