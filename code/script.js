@@ -643,18 +643,22 @@ function logAndShowTerminal() {
 //######################## RESIZEING (TYSK) ########################//
 //##################################################################//
 
+// Get reference to the resize button element
 const resizeBtn = document.getElementById('resizeBtn');
 
+// Initialize variables for tracking resize state and mouse position
 let isResizing = false;
 let lastMouseX = 0;
 let lastMouseY = 0;
 let initialWidth = window.innerWidth;
 let initialHeight = window.innerHeight;
 
+// Add event listeners for mousedown, mousemove, and mouseup events
 resizeBtn.addEventListener('mousedown', startResize);
 document.addEventListener('mousemove', resize);
 document.addEventListener('mouseup', stopResize);
 
+// Function to start the resize operation when mousedown event is triggered on the resize button
 function startResize(e) {
   isResizing = true;
   lastMouseX = e.clientX;
@@ -663,12 +667,16 @@ function startResize(e) {
   initialHeight = window.innerHeight;
 }
 
+// Function to handle the resize operation when mousemove event is triggered
 function resize(e) {
+  // If not currently resizing, return early
   if (!isResizing) return;
 
+  // Calculate the change in mouse position
   const deltaX = e.clientX - lastMouseX;
   const deltaY = e.clientY - lastMouseY;
   
+  // Calculate the new window dimensions based on the mouse movement
   const newWidth = initialWidth + deltaX;
   const newHeight = initialHeight + deltaY;
   
@@ -676,9 +684,11 @@ function resize(e) {
   pywebview.api.resize_window(newWidth, newHeight);
 }
 
+// Function to stop the resize operation when mouseup event is triggered
 function stopResize() {
   isResizing = false;
 }
+
 
 
 
