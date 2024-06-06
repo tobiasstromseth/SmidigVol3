@@ -18,6 +18,11 @@ let categories = [];
 
  let shownCategory = false
 
+// Object to store the plugin output for each tab
+const tabOutputs = {}; //###########mulig denne må endres til å lagre på andre måte fil etc.
+
+let selectedFilePath = ''; // Declare a global variable to store the selected file path
+
 // Get the topbar element
 const topbar = document.getElementById('topbar');
 
@@ -82,6 +87,9 @@ xhr.send();
 //######################### TABS FUNCTIONS #########################//
 //##################################################################//
 
+let activeTab = null;
+
+
 // Function for extracting filename from filepath
 function extractFileName(filePath) {
   // Split the file path by / or \
@@ -104,7 +112,7 @@ function openNewTab() {
 }
 
 // Function to add new tabs
-function addTabs(filePath = '') {
+function addTabs() {
   // Get the topbar and "add tab" button elements
   const topbar = document.getElementById('topbar');
   const addTabBtn = document.getElementById('addTab1');
@@ -122,9 +130,9 @@ function addTabs(filePath = '') {
   const tabText = document.createElement('span');
   tabText.className = 'tab-text';
 
-  if (filePath) {
-    tabText.textContent = `${extractFileName(filePath)}`;
-    tabText.title = filePath;
+  if (selectedFilePath) {
+    tabText.textContent = `${extractFileName(selectedFilePath)}`;
+    tabText.title = selectedFilePath;
   } else {
     tabText.textContent = `New Tab ${tabCount}`;
   }
@@ -152,6 +160,7 @@ function addTabs(filePath = '') {
       console.log(tabCount);
       updateAddTabMargin();
   });
+  setActiveTab(newTab);
 }
 
 // Function to remove a tab
@@ -164,7 +173,56 @@ function removeTab(tabNumber) {
     tabCount--;
     updateAddTabMargin();
   }
+  if (activeTab && activeTab.id === `tab${tabNumber}`) {
+    const previousTab = activeTab.previousElementSibling;
+    if (previousTab && previousTab.classList.contains('tabs')) {
+      setActiveTab(previousTab);
+    } else {
+      activeTab = null;
+    }
+  }
 }
+
+// Function to set the active tab
+function setActiveTab(tab) {
+  if (activeTab) {
+    activeTab.classList.remove('active');
+  }
+  tab.classList.add('active');
+  activeTab = tab;
+}
+
+// Update the handleTabClick function to restore the plugin output
+function handleTabClick(event) {
+  const clickedTab = event.target.closest('.tabs');
+  if (clickedTab) {
+    setActiveTab(clickedTab);
+    restorePluginOutput(clickedTab.id);
+  }
+}
+
+// Add click event listener to the topbar
+topbar.addEventListener('click', handleTabClick);
+
+
+// Function to restore the plugin output when switching tabs
+function restorePluginOutput(tabId) {
+  const dataTableDiv = document.querySelector('.dataTable');
+  dataTableDiv.innerHTML = tabOutputs[tabId] || '';
+}
+
+
+// Function to change the name of the active tab
+function changeActiveTabName(pluginName) {
+  if (activeTab) {
+    const tabText = activeTab.querySelector('.tab-text');
+    if (tabText) {
+      tabText.textContent = `${pluginName}/${extractFileName(selectedFilePath)}`;
+      tabText.title = ''; // Clear the title attribute
+    }
+  }
+}
+
 
 // Function to update the margin of the "Add Tab" button
 function updateAddTabMargin() {
@@ -259,6 +317,7 @@ function handlePluginClick(event, categoryIndex, pluginIndex, descriptionItem, p
   // Call the Python function to run the plugin
   clearDataTable();
   runPlugin(pluginName);
+  changeActiveTabName(pluginName)
 }
 
 // Function to open a plugin
@@ -597,16 +656,17 @@ function findCategoryItemForPlugin(pluginItem) {
 function handleFileSelect() {
   pywebview.api.openFileDialog().then((filePath) => {
     console.log('File selected');
-    processSelectedFile(filePath);
+    selectedFilePath = filePath;
+    processSelectedFile();
   });
 }
 
-function processSelectedFile(filePath) {
+function processSelectedFile() {
   clearDataTable();
   showCategories();
-  addTabs(filePath);
-  pywebview.api.debug(`File Path: ${filePath}`);
-  pywebview.api.setFilePath(filePath); //Sette filepath i python??
+  addTabs(selectedFilePath);
+  pywebview.api.debug(`File Path: ${selectedFilePath}`);
+  pywebview.api.setFilePath(selectedFilePath); //Sette filepath i python??
 }
 
 function clearDataTable() {
@@ -645,6 +705,9 @@ function displayPluginOutput(output) {
   try {
     // Get the dataTable div element
     const dataTableDiv = document.querySelector('.dataTable');
+
+    // Clear the existing content of the dataTable div
+    dataTableDiv.innerHTML = '';
 
     // Create a new div element for the plugin output
     const pluginOutputDiv = document.createElement('div');
@@ -694,11 +757,17 @@ function displayPluginOutput(output) {
 
     // Append the plugin output div to the dataTable div
     dataTableDiv.appendChild(pluginOutputDiv);
+
+    // Store the plugin output for the active tab
+    if (activeTab) {
+      tabOutputs[activeTab.id] = pluginOutputDiv.innerHTML;
+    }
   } catch (error) {
     // Log the error using the debug function
     pywebview.api.debug(`Error in displayPluginOutput: ${error}`);
   }
 }
+
 
 
 //##################################################################//

@@ -190,6 +190,11 @@ body {
     z-index: 999;
 }
 
+.tabs.active {
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
 .x {
     position: absolute;
     right: 0px;
