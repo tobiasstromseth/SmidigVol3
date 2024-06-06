@@ -439,7 +439,7 @@ function addSearchFunctionality(categoryList) {
     const searchTerm = this.value.toLowerCase();
 
     // Check if the search term length is less than or equal to 2 characters
-    if (searchTerm.length <= 2) {
+    if (searchTerm.length <= 1) {
       // If the search term is too short, clear the search results
       clearSearchResults(searchResults);
     } else {
@@ -494,8 +494,27 @@ function displaySearchResults(filteredPlugins) {
     filteredPlugins.forEach(plugin => {
       // Create a new list item element for the plugin
       const pluginItem = document.createElement('li');
-      // Set the text content of the plugin item to the plugin name and description
-      pluginItem.textContent = `${plugin.name}: ${plugin.description}`;
+      pluginItem.textContent = plugin.name;
+      
+      // Add click event listener to the plugin item
+      pluginItem.addEventListener('click', () => {
+        // Find the corresponding plugin item in the category list
+        const categoryPluginItem = findPluginItemInCategories(plugin.name);
+        
+        if (categoryPluginItem) {
+          // Find the category item that contains the plugin item
+          const categoryItem = findCategoryItemForPlugin(categoryPluginItem);
+          
+          if (categoryItem) {
+            // Simulate a click on the category item to open it
+            categoryItem.click();
+            
+            // Simulate a click on the corresponding plugin item in the category list
+            categoryPluginItem.click();
+          }
+        }
+      });
+      
       // Append the plugin item to the plugin list
       pluginList.appendChild(pluginItem);
     });
@@ -505,6 +524,36 @@ function displaySearchResults(filteredPlugins) {
   }
 }
 
+
+// Function to find the corresponding plugin item in the category list
+function findPluginItemInCategories(pluginName) {
+  // Iterate over each category
+  for (const category of categories) {
+    // Iterate over each plugin in the category
+    for (const plugin of category.plugins) {
+      if (plugin.name === pluginName) {
+        // Find the plugin item element in the DOM
+        const pluginItem = document.getElementById(pluginName);
+        pywebview.api.debug(`Plugin clicked in search: ${pluginName}`);
+        return pluginItem;
+      }
+    }
+  }
+  return null;
+}
+
+// Function to find the category item that contains the given plugin item
+function findCategoryItemForPlugin(pluginItem) {
+  // Traverse up the DOM tree to find the category item
+  let parentElement = pluginItem.parentElement;
+  while (parentElement) {
+    if (parentElement.classList.contains('category-item')) {
+      return parentElement;
+    }
+    parentElement = parentElement.parentElement;
+  }
+  return null;
+}
 
 
 
