@@ -92,7 +92,7 @@ class Api:
 
 def main():
     api = Api()
-    webview.create_window('Repticore', url='index.html', js_api=api, 
+    webview.create_window('Drumlin', url='index.html', js_api=api, 
                         width=1920, height=1080,  
                         background_color='#000000',
                         easy_drag=True,
