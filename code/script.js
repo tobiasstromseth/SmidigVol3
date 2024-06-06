@@ -22,6 +22,7 @@ let categories = [];
 const tabOutputs = {}; //###########mulig denne må endres til å lagre på andre måte fil etc.
 
 let selectedFilePath = ''; // Declare a global variable to store the selected file path
+selectedFileDetected_os = ''
 
 // Get the topbar element
 const topbar = document.getElementById('topbar');
@@ -646,16 +647,46 @@ function findCategoryItemForPlugin(pluginItem) {
 //########################## FILE HANDLING #########################//
 //##################################################################//
 
+function updateInfoBox() {
+  const infoBox = document.getElementById('infoBox');
+  
+  if (selectedFileDetected_os != '') {
+    infoBox.innerHTML = `|OS Detected: ${selectedFileDetected_os}|`;
+    debug(`InfoBox updated: ${selectedFileDetected_os}`);
+  } else {
+    infoBox.innerHTML = "|Processing file...|";
+    debug(`InfoBox updated: Processing file`);
+  }
+}
+
 
 
 
 function handleFileSelect() {
-  pywebview.api.openFileDialog().then((filePath) => {
-    console.log('File selected');
+  debug(`Entering handleFileSelect function`);
+  updateInfoBox();
+
+  pywebview.api.openFileDialog().then((result) => {
+    const [filePath, detected_os] = result;
+    debug(`Received filePath: ${filePath} and detected_os: ${detected_os} from openFileDialog`);
+        
     selectedFilePath = filePath;
+    debug(`Set selectedFilePath to ${filePath}`);
+
+    selectedFileDetected_os = detected_os;
+    debug(`Set selectedFileDetected_os to ${detected_os}`);
+    
+    updateInfoBox();
+    debug(`Called updateInfoBox function`);
+    
     processSelectedFile();
+    debug(`Called processSelectedFile function`);
   });
+
+  debug(`Exiting handleFileSelect function`);
 }
+
+
 
 function processSelectedFile() {
   clearDataTable();

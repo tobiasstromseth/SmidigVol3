@@ -13,13 +13,14 @@ output_queue = queue.Queue()
 class Api:
     def __init__(self):
         self.file_path = None
+        self.detected_os = None
 
     def openFileDialog(self):
         root = tk.Tk()
         root.withdraw()
         file_path = filedialog.askopenfilename()
-        self.setFilePath(file_path)
-        return file_path
+        detected_os = self.setFilePath(file_path)
+        return file_path, detected_os
     
     def log(self):
             #with open("output.txt", "r") as file:
@@ -34,7 +35,8 @@ class Api:
     def setFilePath(self, file_path):
         self.file_path = file_path
         print(f'File path set: {self.file_path}')
-        identify_os(self.file_path)
+        detected_os = identify_os(self.file_path)
+        return detected_os
 
     def moveFileToFolder(self):
         if self.file_path is None:

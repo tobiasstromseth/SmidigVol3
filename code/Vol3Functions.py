@@ -24,7 +24,7 @@ def identify_os(file_path):
     # Check if memory_file_path and vol_file_path are set
     if not memory_file_path or not vol_file_path:
         print("Warning", "Please select a memory file first and ensure vol.py is found.")
-        return
+        return "os not detected"
     
     # Dictionary mapping operating system names to their respective pslist commands
     os_commands = {
@@ -47,17 +47,17 @@ def identify_os(file_path):
                 output = future.result()
                 # Check if the output contains "PID" indicating a successful command
                 if "PID" in output:
-                    detected_os = os_name
+                    detected_os = os_name.lower()
                     print(f"OS Detected: {detected_os}")
-                    detected_os = detected_os.lower()
-                    break  # Break the loop if an operating system is successfully detected
+                    return detected_os  # Return the detected OS as a string
             except Exception as e:
                 continue  # Continue to the next future if an exception occurs
                 
-    # If no operating system is detected, print "Unknown"            
-    if not detected_os:
-        print("OS Detected: Unknown") 
-        print("Info", "Unable to determine the operating system.")
+    # If no operating system is detected, return "os not detected"            
+    print("OS Detected: Unknown") 
+    print("Info", "Unable to determine the operating system.")
+    return "os not detected"
+
 
 # Helper function to run a command and return the output
 def run_command(command):

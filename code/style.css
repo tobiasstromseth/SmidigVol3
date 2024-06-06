@@ -248,6 +248,15 @@ body {
     z-index: 1000;
 }
 
+#infoBox {
+    position: absolute;
+    left: 65px;
+    height: 100%;
+    width: auto;
+    font-size: 12px;
+}
+
+
 
 #resizeBtn {
     position: absolute;
