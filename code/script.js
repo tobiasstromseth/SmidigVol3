@@ -84,10 +84,47 @@ function logAndShowTerminal() {
       terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
 
       // Show the terminal container
-      let terminalContainer = document.getElementById('terminal-container');
+      
+      let terminalContainer = document.getElementById('hidden');
       terminalContainer.style.display = 'flex'; // Change display to flex to show it
   });
 }
+
+function exitButton() {
+//picking up the id of terminal-container
+  let terminal = document.getElementById('hidden');
+
+//her the terminal is resetting back to the original state and also goin invisible again.
+  terminal.innerHTML = ogTerm;
+  terminal.style.display = 'none';
+}
+
+function exitLowTerm() {
+  //picking up the id of terminal-container
+  let lowTermBar = document.getElementById('low-hidden');
+  
+  //her the terminal is resetting back to the original state and also goin invisible again.
+    lowTermBar.innerHTML = ogTerm;
+    lowTermBar.style.display = 'none';
+  }
+
+function minButton() {
+
+  let terminal = document.getElementById('hidden');
+  let lowTermBar = document.getElementById('low-hidden');
+
+  terminal.style.display = 'none';
+  lowTermBar.style.display = 'flex';
+} 
+
+function maxButton() {
+
+  let terminal = document.getElementById('hidden');
+  let lowTermBar = document.getElementById('low-hidden');
+
+  terminal.style.display = 'flex';
+  lowTermBar.style.display = 'none';
+} 
 
 
 //##################################################################//
