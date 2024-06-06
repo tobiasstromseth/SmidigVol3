@@ -125,7 +125,7 @@ body {
 #topbar {
     position: absolute;
     left: 65px;
-    width: 96.5%;
+    width: calc(100% - 65px);
     height: 25px;
     background-color: var(--topbar-color);
     display: flex;
@@ -159,6 +159,8 @@ body {
     padding: 0;
     background-color: var(--tabs-color);
     width: 10%;
+    min-width: 80px;
+    max-width: 120px;
     height: 100%;
     cursor: pointer;
     flex-shrink: 0;
@@ -218,9 +220,8 @@ body {
 }
 
 #bottomBar {
-    position: absolute;
-    left: 65px;
-    width: 96.5%;
+    position: fixed;
+    width: 100%; 
     height: 15px;
     bottom: 0;
     background-color: var(--topbar-color);
@@ -228,17 +229,17 @@ body {
     justify-content: flex-start;
     align-items: center;
     box-sizing: border-box;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: hidden;
     white-space: nowrap;
-    z-index: 3;
+    z-index: 1000;
 }
+
 
 #resizeBtn {
     position: absolute;
     right: 0;
     height: 100%;
-    width: 1%;
+    width: 15px;
     background-color: #333;
 }
 
