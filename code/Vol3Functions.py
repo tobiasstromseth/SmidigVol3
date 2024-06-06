@@ -4,6 +4,7 @@ import os
 import json
 from unidecode import unidecode
 import re
+import hashlib
 
 # Tving Python til å bruke UTF-8 for all tekstbehandling
 os.environ["PYTHONIOENCODING"] = "utf-8"
@@ -11,11 +12,33 @@ os.environ["PYTHONUTF8"] = "1"
 
 memory_file_path = None
 vol_file_path = r'code\Volatility3\vol.py'
+file_hash = None
+
+
+def calculate_file_hash(file_path):
+    global file_hash
+    
+    # Create a hash object
+    sha256_hash = hashlib.sha256()
+    
+    # Open the file in binary mode
+    with open(file_path, "rb") as file:
+        # Read the file in chunks
+        for chunk in iter(lambda: file.read(4096), b""):
+            # Update the hash object with the chunk
+            sha256_hash.update(chunk)
+    
+    # Get the hexadecimal representation of the hash
+    file_hash = sha256_hash.hexdigest()
+    
+    print(f"File hash: {file_hash}")
 
 
 # Function to identify the operating system using imageinfo
 def identify_os(file_path):
     global memory_file_path, detected_os
+
+    calculate_file_hash(file_path)
 
     memory_file_path = os.path.normpath(file_path)
     memory_file_path = r'{}'.format(memory_file_path)
@@ -144,10 +167,10 @@ def run_volatility_command(command):
     command_found = False
     for saved_command, file_path in file_info_list:
         print(file_path, memory_file_path)
-        if saved_command == f'{detected_os}.{command}' and file_path == f'{memory_file_path}.json':
+        if saved_command == f'{detected_os}.{command}' and file_path == f'{file_hash}.json':
             print('Command already run: fetching from json')
             clean_memory_file_path = memory_file_path.replace(':', '_').replace('\\', '-')
-            file_name = f'{json_directory}\command{saved_command}file{clean_memory_file_path}.json'
+            file_name = f'{json_directory}\command{saved_command}file{file_hash}.json'
             with open(file_name, 'r', encoding='utf-8') as f:
                 json_data = json.load(f)
                 print(json.dumps(json_data, indent=4, ensure_ascii=False))
@@ -170,7 +193,7 @@ def run_volatility_command(command):
             output = re.sub(r'[^\x00-\x7f]', '?', output)
         
         clean_memory_file_path = memory_file_path.replace(':', '_').replace('\\', '-') 
-        file_name = f'{json_directory}\command{full_command}file{clean_memory_file_path}'
+        file_name = f'{json_directory}\command{full_command}file{file_hash}'
         json_data = save_output_to_json(output, file_name)
         print(json_data)
         return json.dumps(json_data)

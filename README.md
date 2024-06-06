@@ -22,6 +22,7 @@ Use Cases:
 -   Python
 -   PyWebView
 -   unidecode
+-   hashlib
 
 ### Executing program
 
