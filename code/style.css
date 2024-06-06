@@ -389,7 +389,7 @@ body {
 /*############################### Data_table #################################################################*/
 /*################################################################################################################################*/
 
-.dataTable {
+#dataTable {
     position: fixed;
     top: 50px;
     left: 65px;
@@ -552,3 +552,20 @@ tr:hover {
 #low-hidden {
     display: none;
 }
+
+
+
+
+
+.noselect {
+    -webkit-user-select: none; /* For Safari */
+    -moz-user-select: none; /* For Firefox */
+    -ms-user-select: none; /* For Internet Explorer/Edge */
+    user-select: none; /* Standard syntax */
+    outline: none; /* Remove the outline when the element is focused */
+  }
+  
+  .noselect:active, .noselect:focus {
+    background-color: transparent; /* Remove the blue background when the element is clicked or focused */
+  }
+  

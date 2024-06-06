@@ -122,13 +122,13 @@ function addTabs() {
 
   // Create a new tab element
   const newTab = document.createElement('div');
-  newTab.className = 'tabs';
+  newTab.className = 'tabs noselect';
   
   newTab.id = `tab${tabCount}`;
       
   // Create a span element for the tab text
   const tabText = document.createElement('span');
-  tabText.className = 'tab-text';
+  tabText.className = 'tab-text noselect';
 
   if (selectedFilePath) {
     tabText.textContent = `${extractFileName(selectedFilePath)}`;
@@ -139,7 +139,7 @@ function addTabs() {
       
   // Create a close button element for the tab
   const closeBtn = document.createElement('div');
-  closeBtn.className = 'x';
+  closeBtn.className = 'x noselect';
   closeBtn.id = `x${tabCount}`;
   closeBtn.textContent = 'x';
   closeBtn.setAttribute('onclick', `removeTab(${tabCount})`);
@@ -677,8 +677,8 @@ function clearDataTable() {
 function restoreDataTableUploadFile() {
   const dataTable = document.querySelector('.dataTable');
   dataTable.innerHTML = `
-    <input type="file" id="fileInput" style="display: none" />
-    <button id="selectFileBtn">Velg fil</button>
+    <input type="file" id="fileInput" class="noselect" style="display: none" />
+    <button id="selectFileBtn" class="noselect>Velg fil</button>
   `;
   
   const selectFileBtn = document.getElementById('selectFileBtn');
@@ -875,3 +875,17 @@ function resize(e) {
 function stopResize() {
   isResizing = false;
 }
+
+
+
+
+
+
+
+// Hent dataTable div-elementet
+const dataTableDiv = document.getElementById('dataTable');
+
+// Legg til hendelseslytter på dataTable div
+dataTableDiv.addEventListener('mousedown', function(event) {
+  event.stopPropagation();
+});
