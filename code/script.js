@@ -229,22 +229,22 @@ function updateAddTabMargin() {
     if (tabCount > 0) {
       // If at least one tab is open
       addTabBtn.style.marginLeft = '-10px';
-      pywebview.api.debug(`Category open, tabs open.\n  shownCategory: ${shownCategory}`);
+      debug(`Category open, tabs open.\n  shownCategory: ${shownCategory}`);
     } else {
       // If no tabs are open
       addTabBtn.style.marginLeft = '0px';
-      pywebview.api.debug(`Category open, no tabs open.\n  shownCategory: ${shownCategory}`);
+      debug(`Category open, no tabs open.\n  shownCategory: ${shownCategory}`);
     }
   } else if (shownCategory === false) {
     // If no categories are open
     if (tabCount > 0) {
       // If at least one tab is open
       addTabBtn.style.marginLeft = '-10px';
-      pywebview.api.debug(`No categories open, tabs open.\n  shownCategory: ${shownCategory}`);
+      debug(`No categories open, tabs open.\n  shownCategory: ${shownCategory}`);
     } else {
       // If no tabs are open
       addTabBtn.style.marginLeft = '-10px';
-      pywebview.api.debug(`No categories open, no tabs open.\n  shownCategory: ${shownCategory}`);
+      debug(`No categories open, no tabs open.\n  shownCategory: ${shownCategory}`);
     }
   }
 }
@@ -445,7 +445,7 @@ function showCategories() {
   shownCategory = categoryList.classList.contains('show');
   // Update the margin of the add tab button
   updateAddTabMargin();
-  pywebview.api.debug(`shownCategory in showCategories: ${shownCategory}`);
+  debug(`shownCategory in showCategories: ${shownCategory}`);
 }
 
 // Function to hide the category list
@@ -586,9 +586,9 @@ function handleSearchResultClick(plugin) {
       const isCategoryOpen = categoryItem.classList.contains('selected');
       const isPluginSame = categoryPluginItem === document.querySelector('.plugin-item.open');
 
-      pywebview.api.debug(`Plugin clicked in search: ${plugin.name}`);
-      pywebview.api.debug(`Category open: ${isCategoryOpen}`);
-      pywebview.api.debug(`Plugin same: ${isPluginSame}`);
+      debug(`Plugin clicked in search: ${plugin.name}`);
+      debug(`Category open: ${isCategoryOpen}`);
+      debug(`Plugin same: ${isPluginSame}`);
 
       if (!isCategoryOpen) {
         closeOpenPlugin();
@@ -619,7 +619,7 @@ function findPluginItemInCategories(pluginName) {
       if (plugin.name === pluginName) {
         // Find the plugin item element in the DOM
         const pluginItem = document.getElementById(pluginName);
-        pywebview.api.debug(`Plugin clicked in search: ${pluginName}`);
+        debug(`Plugin clicked in search: ${pluginName}`);
         return pluginItem;
       }
     }
@@ -661,7 +661,7 @@ function processSelectedFile() {
   clearDataTable();
   showCategories();
   addTabs(selectedFilePath);
-  pywebview.api.debug(`File Path: ${selectedFilePath}`);
+  debug(`File Path: ${selectedFilePath}`);
   pywebview.api.setFilePath(selectedFilePath); //Sette filepath i python??
 }
 
@@ -760,7 +760,7 @@ function displayPluginOutput(output) {
     }
   } catch (error) {
     // Log the error using the debug function
-    pywebview.api.debug(`Error in displayPluginOutput: ${error}`);
+    debug(`Error in displayPluginOutput: ${error}`);
   }
 }
 
@@ -779,7 +779,7 @@ function logAndShowTerminal() {
       terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
 
       // Show the terminal container
-      
+      debug(`Terminal click. Response: ${response}`)
       let terminalContainer = document.getElementById('hidden');
       terminalContainer.style.display = 'flex'; // Change display to flex to show it
   });
@@ -899,4 +899,12 @@ function handleHomeBtn() {
   changeActiveTabName("Home")
   hideCategoryList(categoryList, topbar, dataTable)
   restoreDataTableUploadFile()
+}
+
+//##################################################################//
+//############################## DEBUG #############################//
+//##################################################################//
+
+function debug(debugText) {
+  pywebview.api.debug(debugText);
 }
