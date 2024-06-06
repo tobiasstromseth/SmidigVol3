@@ -23,6 +23,7 @@
     --pluginDescription-color: #00000013;
 
     --searchResults-color: #222;
+    --searchResultsHover-color: #111;
 
     --dataTable-color: #222;
     --rowSeperator-color: #000000;
@@ -373,6 +374,11 @@ body {
     padding-left: 20px;
     background-color: var(--searchResults-color);
     color: var(--text-color);
+    cursor: pointer;
+}
+
+#searchResults li:hover {
+    background-color: var(--searchResultsHover-color);
 }
 
 /*#################################################################################################################################*/
@@ -511,31 +517,28 @@ tr:hover {
     overflow-y: auto;
 }
 
-#close-term {
+.terminalBtn {
     z-index: 4;
     position: absolute;
     width: 20px;
     top: 1px;
-    right: 3px;
     background-color: #ffdd00;
 }
 
-#min-term {
-    z-index: 4;
-    position: absolute;
-    width: 20px;
-    top: 1px;
-    right: 28px;
-    background-color: #ffdd00;
+#exitTerminalBtn {  
+    right: 3px;    
 }
 
-#max-term {
-    z-index: 4;
-    position: absolute;
-    width: 20px;
-    top: 1px;
+#minTerminalBtn {
     right: 28px;
-    background-color: #ffdd00;
+}
+
+#maxTerminalBtn {
+    right: 28px;
+}
+
+#exitLowTerminalBtn {
+    right: 3px; 
 }
 
 #hidden {
