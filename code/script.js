@@ -28,6 +28,7 @@ topbar.addEventListener('wheel', (event) => {
 });
 
 
+
 document.getElementById('min-btn').addEventListener('click', () => {
   pywebview.api.minimize();
 });
@@ -123,15 +124,15 @@ function addTabs(filePath = '') {
     }
         
     // Create a close button element for the tab
-    const closeBtn = document.createElement('div');
-    closeBtn.className = 'x';
-    closeBtn.id = `x${tabCount}`;
-    closeBtn.textContent = 'x';
-    closeBtn.setAttribute('onclick', `removeTab(${tabCount})`);
+    const closeTabBtn = document.createElement('div');
+    closeTabBtn.className = 'x';
+    closeTabBtn.id = `x${tabCount}`;
+    closeTabBtn.textContent = 'x';
+    closeTabBtn.setAttribute('onclick', `removeTab(${tabCount})`);
         
     // Append the tab text and close button to the new tab element
     newTab.appendChild(tabText);
-    newTab.appendChild(closeBtn);
+    newTab.appendChild(closeTabBtn);
         
     // Insert the new tab element right before the "add tab" button
     addTabBtn.parentNode.insertBefore(newTab, addTabBtn);
@@ -638,7 +639,9 @@ function logAndShowTerminal() {
 
 
 
-//###############esize
+//##################################################################//
+//######################## RESIZEING (TYSK) ########################//
+//##################################################################//
 
 const resizeBtn = document.getElementById('resizeBtn');
 
