@@ -21,6 +21,9 @@ let categories = [];
 // Get the topbar element
 const topbar = document.getElementById('topbar');
 
+// variable to keep track of original state of terminal, before any message is written to it
+const ogTerm = document.getElementById('hidden').innerHTML;
+
 // Add wheel event listener to the topbar
 topbar.addEventListener('wheel', (event) => {
   event.preventDefault();
@@ -73,58 +76,6 @@ xhr.open('GET', 'mockDatabase.json', true);
 // Send the request
 xhr.send();
 
-//##################################################################//
-//######################### TERMINAL FUNCTION #########################//
-//##################################################################//
-function logAndShowTerminal() {
-  pywebview.api.log().then(function(response) {
-      // Update the terminal window with the response
-      let terminal = document.getElementById('terminal');
-      terminal.innerText += response + "\n";
-      terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
-
-      // Show the terminal container
-      
-      let terminalContainer = document.getElementById('hidden');
-      terminalContainer.style.display = 'flex'; // Change display to flex to show it
-  });
-}
-
-function exitButton() {
-//picking up the id of terminal-container
-  let terminal = document.getElementById('hidden');
-
-//her the terminal is resetting back to the original state and also goin invisible again.
-  terminal.innerHTML = ogTerm;
-  terminal.style.display = 'none';
-}
-
-function exitLowTerm() {
-  //picking up the id of terminal-container
-  let lowTermBar = document.getElementById('low-hidden');
-  
-  //her the terminal is resetting back to the original state and also goin invisible again.
-    lowTermBar.innerHTML = ogTerm;
-    lowTermBar.style.display = 'none';
-  }
-
-function minButton() {
-
-  let terminal = document.getElementById('hidden');
-  let lowTermBar = document.getElementById('low-hidden');
-
-  terminal.style.display = 'none';
-  lowTermBar.style.display = 'flex';
-} 
-
-function maxButton() {
-
-  let terminal = document.getElementById('hidden');
-  let lowTermBar = document.getElementById('low-hidden');
-
-  terminal.style.display = 'flex';
-  lowTermBar.style.display = 'none';
-} 
 
 
 //##################################################################//
@@ -198,20 +149,6 @@ function addTabs(filePath = '') {
         console.log(tabCount);
         updateAddTabMargin();
     });
-}
-
-// function to get the terminal to show, remove display hidden and makes it flex instead -- Made by Ole
-function logAndShowTerminal() {
-  pywebview.api.log().then(function(response) {
-      // Update the terminal window with the response
-      let terminal = document.getElementById('terminal');
-      terminal.innerText += response + "\n";
-      terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
-
-      // Show the terminal container
-      let terminalContainer = document.getElementById('terminal-container');
-      terminalContainer.style.display = 'flex'; // Change display to flex to show it
-  });
 }
 
 // Function to remove a tab
@@ -759,6 +696,12 @@ function displayPluginOutput(output) {
   }
 }
 
+
+//##################################################################//
+//######################### TERMINAL FUNCTION #########################//
+//##################################################################//
+
+
 function logAndShowTerminal() {
   pywebview.api.log().then(function(response) {
       // Update the terminal window with the response
@@ -767,14 +710,47 @@ function logAndShowTerminal() {
       terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
 
       // Show the terminal container
-      let terminalContainer = document.getElementById('terminal-container');
+      
+      let terminalContainer = document.getElementById('hidden');
       terminalContainer.style.display = 'flex'; // Change display to flex to show it
   });
 }
 
+function exitButton() {
+//picking up the id of terminal-container
+  let terminal = document.getElementById('hidden');
 
+//her the terminal is resetting back to the original state and also goin invisible again.
+  terminal.innerHTML = ogTerm;
+  terminal.style.display = 'none';
+}
 
+function exitLowTerm() {
+  //picking up the id of terminal-container
+  let lowTermBar = document.getElementById('low-hidden');
+  
+  //her the terminal is resetting back to the original state and also goin invisible again.
+    lowTermBar.innerHTML = ogTerm;
+    lowTermBar.style.display = 'none';
+  }
 
+function minButton() {
+
+  let terminal = document.getElementById('hidden');
+  let lowTermBar = document.getElementById('low-hidden');
+
+  terminal.style.display = 'none';
+  lowTermBar.style.display = 'flex';
+} 
+
+function maxButton() {
+
+  let terminal = document.getElementById('hidden');
+  let lowTermBar = document.getElementById('low-hidden');
+
+  terminal.style.display = 'flex';
+  lowTermBar.style.display = 'none';
+} 
 
 
 //##################################################################//
@@ -826,10 +802,3 @@ function resize(e) {
 function stopResize() {
   isResizing = false;
 }
-
-
-
-
-
-
-

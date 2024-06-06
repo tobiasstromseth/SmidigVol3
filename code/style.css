@@ -377,59 +377,69 @@ body {
     right: 0;
     bottom: 0;
     overflow: auto;
-    background-color: #333;
-    color: #ccc;
+    background-color: var(--dataTable-color);
+    color: var(--text-color);
     font-family: Arial, sans-serif;
-  }
-  
-  
-  .plugin-output {
+}
+
+.plugin-output {
     height: 100%;
     overflow: auto;
-  }
-  
-  table {
+}
+
+table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  th, td {
+}
+
+th,
+td {
     padding: 8px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  th {
+    border-bottom: 1px solid var(--rowSeperator-color);
+}
+
+th {
     position: sticky;
     top: 0;
-    background-color: #444;
-    color: #fff;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #444;
-  }
-  
-  tr:hover {
-    background-color: #555;
-  }
-  
-  .table-container {
-    max-height: 100%; 
+    background-color: var(--tableHead-color);
+    color: var(--text-color);
+}
+
+tr:nth-child(even) {
+    background-color: var(--everyOtherRow-color);
+}
+
+tr:hover {
+    background-color: var(--tableRowHover-color);
+}
+
+.table-container {
+    max-height: 100%;
     overflow-y: auto;
-  }
-  
+}
 
+.plugin-output .table-container::-webkit-scrollbar {
+    width: 8px;
+    height: 2px;
+    background-color: transparent;
+}
 
+.plugin-output .table-container::-webkit-scrollbar-track {
+    background: transparent;
+}
 
-
+.plugin-output .table-container::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-color);
+    border-radius: 20px;
+}
 
 #selectFileBtn {
     display: block;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: var(--selectFileBtn-color);
+    color: var(--secondaryText-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -444,7 +454,6 @@ body {
 /*#################################################################################################################################*/
 /*############################### Terminal_window -- Made by Ole #################################################################*/
 /*################################################################################################################################*/
-
 
 .terminal-and-lowbar {
     width: 400px;
