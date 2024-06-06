@@ -75,6 +75,9 @@ class Api:
 
     def close(self):
         webview.windows[0].destroy()
+    
+    def resize_window(self, width, height):
+        webview.windows[0].resize(width, height)
 
     def log(self):
         #with open("output.txt", "r") as file:
@@ -86,8 +89,6 @@ class Api:
         output_queue.put(value)
         return value
     
-    def resize_window(self, width, height):
-        webview.windows[0].resize(width, height)
 
 def main():
     api = Api()

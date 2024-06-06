@@ -28,6 +28,7 @@ topbar.addEventListener('wheel', (event) => {
 });
 
 
+
 document.getElementById('min-btn').addEventListener('click', () => {
   pywebview.api.minimize();
 });
@@ -138,15 +139,15 @@ function addTabs(filePath = '') {
     }
         
     // Create a close button element for the tab
-    const closeBtn = document.createElement('div');
-    closeBtn.className = 'x';
-    closeBtn.id = `x${tabCount}`;
-    closeBtn.textContent = 'x';
-    closeBtn.setAttribute('onclick', `removeTab(${tabCount})`);
+    const closeTabBtn = document.createElement('div');
+    closeTabBtn.className = 'x';
+    closeTabBtn.id = `x${tabCount}`;
+    closeTabBtn.textContent = 'x';
+    closeTabBtn.setAttribute('onclick', `removeTab(${tabCount})`);
         
     // Append the tab text and close button to the new tab element
     newTab.appendChild(tabText);
-    newTab.appendChild(closeBtn);
+    newTab.appendChild(closeTabBtn);
         
     // Insert the new tab element right before the "add tab" button
     addTabBtn.parentNode.insertBefore(newTab, addTabBtn);
@@ -467,7 +468,7 @@ function addSearchFunctionality(categoryList) {
     const searchTerm = this.value.toLowerCase();
 
     // Check if the search term length is less than or equal to 2 characters
-    if (searchTerm.length <= 2) {
+    if (searchTerm.length <= 1) {
       // If the search term is too short, clear the search results
       clearSearchResults(searchResults);
     } else {
@@ -508,31 +509,103 @@ function filterPlugins(searchTerm) {
 
 // Function to display the search results
 function displaySearchResults(filteredPlugins) {
-  // Get a reference to the search results element
   const searchResults = document.getElementById('searchResults');
-  // Clear the existing search results
   searchResults.innerHTML = '';
 
-  // Check if there are any filtered plugins
   if (filteredPlugins.length > 0) {
-    // Create a new unordered list element for the plugin list
-    const pluginList = document.createElement('ul');
-
-    // Iterate over each filtered plugin
-    filteredPlugins.forEach(plugin => {
-      // Create a new list item element for the plugin
-      const pluginItem = document.createElement('li');
-      // Set the text content of the plugin item to the plugin name and description
-      pluginItem.textContent = `${plugin.name}: ${plugin.description}`;
-      // Append the plugin item to the plugin list
-      pluginList.appendChild(pluginItem);
-    });
-
-    // Append the plugin list to the search results
+    const pluginList = createSearchResultsList(filteredPlugins);
     searchResults.appendChild(pluginList);
   }
 }
 
+// Function to create the search results list
+function createSearchResultsList(filteredPlugins) {
+  const pluginList = document.createElement('ul');
+
+  filteredPlugins.forEach(plugin => {
+    const pluginItem = createSearchResultItem(plugin);
+    pluginList.appendChild(pluginItem);
+  });
+
+  return pluginList;
+}
+
+// Function to create a search result item
+function createSearchResultItem(plugin) {
+  const pluginItem = document.createElement('li');
+  pluginItem.textContent = plugin.name;
+
+  pluginItem.addEventListener('click', () => {
+    handleSearchResultClick(plugin);
+  });
+
+  return pluginItem;
+}
+
+// Function to handle the click event on a search result item
+function handleSearchResultClick(plugin) {
+  const categoryPluginItem = findPluginItemInCategories(plugin.name);
+
+  if (categoryPluginItem) {
+    const categoryItem = findCategoryItemForPlugin(categoryPluginItem);
+
+    if (categoryItem) {
+      const isCategoryOpen = categoryItem.classList.contains('selected');
+      const isPluginSame = categoryPluginItem === document.querySelector('.plugin-item.open');
+
+      pywebview.api.debug(`Plugin clicked in search: ${plugin.name}`);
+      pywebview.api.debug(`Category open: ${isCategoryOpen}`);
+      pywebview.api.debug(`Plugin same: ${isPluginSame}`);
+
+      if (!isCategoryOpen) {
+        closeOpenPlugin();
+        closeOpenCategory();
+        categoryItem.click();
+      }
+
+      if (!isPluginSame) {
+        closeOpenPlugin();
+        categoryPluginItem.click();
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+// Function to find the corresponding plugin item in the category list
+function findPluginItemInCategories(pluginName) {
+  // Iterate over each category
+  for (const category of categories) {
+    // Iterate over each plugin in the category
+    for (const plugin of category.plugins) {
+      if (plugin.name === pluginName) {
+        // Find the plugin item element in the DOM
+        const pluginItem = document.getElementById(pluginName);
+        pywebview.api.debug(`Plugin clicked in search: ${pluginName}`);
+        return pluginItem;
+      }
+    }
+  }
+  return null;
+}
+
+// Function to find the category item that contains the given plugin item
+function findCategoryItemForPlugin(pluginItem) {
+  // Traverse up the DOM tree to find the category item
+  let parentElement = pluginItem.parentElement;
+  while (parentElement) {
+    if (parentElement.classList.contains('category-item')) {
+      return parentElement;
+    }
+    parentElement = parentElement.parentElement;
+  }
+  return null;
+}
 
 
 
@@ -667,20 +740,26 @@ function logAndShowTerminal() {
 
 
 
-//###############esize
+//##################################################################//
+//######################## RESIZEING (TYSK) ########################//
+//##################################################################//
 
+// Get reference to the resize button element
 const resizeBtn = document.getElementById('resizeBtn');
 
+// Initialize variables for tracking resize state and mouse position
 let isResizing = false;
 let lastMouseX = 0;
 let lastMouseY = 0;
 let initialWidth = window.innerWidth;
 let initialHeight = window.innerHeight;
 
+// Add event listeners for mousedown, mousemove, and mouseup events
 resizeBtn.addEventListener('mousedown', startResize);
 document.addEventListener('mousemove', resize);
 document.addEventListener('mouseup', stopResize);
 
+// Function to start the resize operation when mousedown event is triggered on the resize button
 function startResize(e) {
   isResizing = true;
   lastMouseX = e.clientX;
@@ -689,12 +768,16 @@ function startResize(e) {
   initialHeight = window.innerHeight;
 }
 
+// Function to handle the resize operation when mousemove event is triggered
 function resize(e) {
+  // If not currently resizing, return early
   if (!isResizing) return;
 
+  // Calculate the change in mouse position
   const deltaX = e.clientX - lastMouseX;
   const deltaY = e.clientY - lastMouseY;
   
+  // Calculate the new window dimensions based on the mouse movement
   const newWidth = initialWidth + deltaX;
   const newHeight = initialHeight + deltaY;
   
@@ -702,9 +785,11 @@ function resize(e) {
   pywebview.api.resize_window(newWidth, newHeight);
 }
 
+// Function to stop the resize operation when mouseup event is triggered
 function stopResize() {
   isResizing = false;
 }
+
 
 
 
