@@ -45,19 +45,21 @@
         <input type="file" id="fileInput" style="display: none" />
         <button id="selectFileBtn">Velg fil</button>
 
-        <div class="terminal-container" id="hidden">
+        <div class="terminal-and-lowbar"  id="hidden">
+            <div class="terminal-bar">
+                <button id="close-term" onclick="exitButton(this)">x</button>
+                <button id="min-term"  onclick="minButton(this)">-</button>
+            </div>  
             <div id="terminal"></div>
-            <button id="close-term" onclick="exitButton(this)">x</button>
-            <button id="min-term"  onclick="minButton(this)">-</button>
-        </div>  
-    
-        <div class="term-bar" id="low-hidden">
+            
+        </div>
+
+        <div class="term-low-bar" id="low-hidden">
             <button id="max-term" onclick="maxButton(this)">+</button>
             <button id="close-term" onclick="exitLowTerm()(this)">x</button>
         </div>
     
     </div>
-    
     
     <div id="bottomBar">
         <div id="resizeBtn"></div>
