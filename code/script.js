@@ -104,10 +104,6 @@ function extractFileName(filePath) {
 // Function to handle opening a new tab
 function openNewTab() {
   addTabs();
-  const categoryList = document.getElementById('category-list');
-  const topbar = document.getElementById('topbar');
-  const dataTable = document.getElementById('dataTable')
-  hideCategoryList(categoryList, topbar, dataTable);
   restoreDataTableUploadFile();
 }
 
@@ -670,15 +666,15 @@ function processSelectedFile() {
 }
 
 function clearDataTable() {
-  const dataTable = document.querySelector('.dataTable');
+  const dataTable = document.getElementById('dataTable');
   dataTable.innerHTML = '';
 }
 
 function restoreDataTableUploadFile() {
-  const dataTable = document.querySelector('.dataTable');
+  const dataTable = document.getElementById('dataTable');
   dataTable.innerHTML = `
-    <input type="file" id="fileInput" class="noselect" style="display: none" />
-    <button id="selectFileBtn" class="noselect>Velg fil</button>
+  <input type="file" id="fileInput" class="noselect" style="display: none" />
+  <button id="selectFileBtn" class="noselect">Choose file</button>
   `;
   
   const selectFileBtn = document.getElementById('selectFileBtn');
@@ -877,9 +873,9 @@ function stopResize() {
 }
 
 
-
-
-
+//##################################################################//
+//################## ALLOWING COPY FROM DATATABLE ##################//
+//##################################################################//
 
 
 // Hent dataTable div-elementet
@@ -889,3 +885,18 @@ const dataTableDiv = document.getElementById('dataTable');
 dataTableDiv.addEventListener('mousedown', function(event) {
   event.stopPropagation();
 });
+
+
+//##################################################################//
+//######################### HOME SWEET HOME ########################//
+//##################################################################//
+
+
+function handleHomeBtn() {
+  const categoryList = document.getElementById('category-list');
+  const topbar = document.getElementById('topbar');
+  const dataTable = document.getElementById('dataTable')
+  changeActiveTabName("Home")
+  hideCategoryList(categoryList, topbar, dataTable)
+  restoreDataTableUploadFile()
+}
