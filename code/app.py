@@ -20,6 +20,16 @@ class Api:
         file_path = filedialog.askopenfilename()
         self.setFilePath(file_path)
         return file_path
+    
+    def log(self):
+            #with open("output.txt", "r") as file:
+                #value = file.read()
+            value = "Hello World"
+            # Print to terminal
+            print(value)
+            # Capture the printed output
+            output_queue.put(value)
+            return value
 
     def setFilePath(self, file_path):
         self.file_path = file_path
@@ -65,6 +75,9 @@ class Api:
 
     def close(self):
         webview.windows[0].destroy()
+    
+    def resize_window(self, width, height):
+        webview.windows[0].resize(width, height)
 
     def log(self):
         #with open("output.txt", "r") as file:
@@ -76,12 +89,10 @@ class Api:
         output_queue.put(value)
         return value
     
-    def resize_window(self, width, height):
-        webview.windows[0].resize(width, height)
 
 def main():
     api = Api()
-    webview.create_window('Repticore', url='index.html', js_api=api, 
+    webview.create_window('Drumlin', url='index.html', js_api=api, 
                         width=1920, height=1080,  
                         background_color='#000000',
                         easy_drag=True,

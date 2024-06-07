@@ -18,14 +18,23 @@ let categories = [];
 
  let shownCategory = false
 
+// Object to store the plugin output for each tab
+const tabOutputs = {}; //###########mulig denne må endres til å lagre på andre måte fil etc.
+
+let selectedFilePath = ''; // Declare a global variable to store the selected file path
+
 // Get the topbar element
 const topbar = document.getElementById('topbar');
+
+// variable to keep track of original state of terminal, before any message is written to it
+const ogTerm = document.getElementById('hidden').innerHTML;
 
 // Add wheel event listener to the topbar
 topbar.addEventListener('wheel', (event) => {
   event.preventDefault();
   topbar.scrollLeft += event.deltaY;
 });
+
 
 
 document.getElementById('min-btn').addEventListener('click', () => {
@@ -78,6 +87,9 @@ xhr.send();
 //######################### TABS FUNCTIONS #########################//
 //##################################################################//
 
+let activeTab = null;
+
+
 // Function for extracting filename from filepath
 function extractFileName(filePath) {
   // Split the file path by / or \
@@ -92,59 +104,59 @@ function extractFileName(filePath) {
 // Function to handle opening a new tab
 function openNewTab() {
   addTabs();
-  const categoryList = document.getElementById('category-list');
-  const topbar = document.getElementById('topbar');
-  const dataTable = document.getElementById('dataTable')
-  hideCategoryList(categoryList, topbar, dataTable);
+  restoreDataTableUploadFile();
 }
 
 // Function to add new tabs
-function addTabs(filePath = '') {
-    // Get the topbar and "add tab" button elements
-    const topbar = document.getElementById('topbar');
-    const addTabBtn = document.getElementById('addTab1');
-    
-    // Update the tab count based on the number of child elements in the topbar
-    tabCount = topbar.childElementCount;
+function addTabs() {
+  // Get the topbar and "add tab" button elements
+  const topbar = document.getElementById('topbar');
+  const addTabBtn = document.getElementById('addTab1');
+  
+  // Update the tab count based on the number of child elements in the topbar
+  tabCount = topbar.childElementCount;
 
-    // Create a new tab element
-    const newTab = document.createElement('div');
-    newTab.className = 'tabs';
-    
-    newTab.id = `tab${tabCount}`;
-        
-    // Create a paragraph element for the tab text
-    const tabText = document.createElement('p');
+  // Create a new tab element
+  const newTab = document.createElement('div');
+  newTab.className = 'tabs noselect';
+  
+  newTab.id = `tab${tabCount}`;
+      
+  // Create a span element for the tab text
+  const tabText = document.createElement('span');
+  tabText.className = 'tab-text noselect';
 
-    if (filePath) {
-      tabText.textContent = `${extractFileName(filePath)}`;
-    } else {
-      tabText.textContent = `New Tab ${tabCount}`;
-    }
-        
-    // Create a close button element for the tab
-    const closeBtn = document.createElement('div');
-    closeBtn.className = 'x';
-    closeBtn.id = `x${tabCount}`;
-    closeBtn.textContent = 'x';
-    closeBtn.setAttribute('onclick', `removeTab(${tabCount})`);
-        
-    // Append the tab text and close button to the new tab element
-    newTab.appendChild(tabText);
-    newTab.appendChild(closeBtn);
-        
-    // Insert the new tab element right before the "add tab" button
-    addTabBtn.parentNode.insertBefore(newTab, addTabBtn);
+  if (selectedFilePath) {
+    tabText.textContent = `${extractFileName(selectedFilePath)}`;
+    tabText.title = `${extractFileName(selectedFilePath)}`;
+  } else {
+    tabText.textContent = `New Tab ${tabCount}`;
+  }
+      
+  // Create a close button element for the tab
+  const closeBtn = document.createElement('div');
+  closeBtn.className = 'x noselect';
+  closeBtn.id = `x${tabCount}`;
+  closeBtn.textContent = 'x';
+  closeBtn.setAttribute('onclick', `removeTab(${tabCount})`);
+      
+  // Append the tab text and close button to the new tab element
+  newTab.appendChild(tabText);
+  newTab.appendChild(closeBtn);
+      
+  // Insert the new tab element right before the "add tab" button
+  addTabBtn.parentNode.insertBefore(newTab, addTabBtn);
 
-    // Get all the tab elements
-    const tabElements = document.querySelectorAll('.tabs');
+  // Get all the tab elements
+  const tabElements = document.querySelectorAll('.tabs');
 
-    // Iterate through the tab elements and set the z-index dynamically
-    tabElements.forEach((tab, index) => {
-        tab.style.zIndex = tabElements.length - index;
-        console.log(tabCount);
-        updateAddTabMargin();
-    });
+  // Iterate through the tab elements and set the z-index dynamically
+  tabElements.forEach((tab, index) => {
+      tab.style.zIndex = tabElements.length - index;
+      console.log(tabCount);
+      updateAddTabMargin();
+  });
+  setActiveTab(newTab);
 }
 
 // Function to remove a tab
@@ -157,7 +169,56 @@ function removeTab(tabNumber) {
     tabCount--;
     updateAddTabMargin();
   }
+  if (activeTab && activeTab.id === `tab${tabNumber}`) {
+    const previousTab = activeTab.previousElementSibling;
+    if (previousTab && previousTab.classList.contains('tabs')) {
+      setActiveTab(previousTab);
+    } else {
+      activeTab = null;
+    }
+  }
 }
+
+// Function to set the active tab
+function setActiveTab(tab) {
+  if (activeTab) {
+    activeTab.classList.remove('active');
+  }
+  tab.classList.add('active');
+  activeTab = tab;
+}
+
+// Update the handleTabClick function to restore the plugin output
+function handleTabClick(event) {
+  const clickedTab = event.target.closest('.tabs');
+  if (clickedTab) {
+    setActiveTab(clickedTab);
+    restorePluginOutput(clickedTab.id);
+  }
+}
+
+// Add click event listener to the topbar
+topbar.addEventListener('click', handleTabClick);
+
+
+// Function to restore the plugin output when switching tabs
+function restorePluginOutput(tabId) {
+  const dataTableDiv = document.querySelector('.dataTable');
+  dataTableDiv.innerHTML = tabOutputs[tabId] || '';
+}
+
+
+// Function to change the name of the active tab
+function changeActiveTabName(pluginName) {
+  if (activeTab) {
+    const tabText = activeTab.querySelector('.tab-text');
+    if (tabText) {
+      tabText.textContent = `${pluginName}/${extractFileName(selectedFilePath)}`;
+      tabText.title = `${pluginName}/${extractFileName(selectedFilePath)}`; // Clear the title attribute
+    }
+  }
+}
+
 
 // Function to update the margin of the "Add Tab" button
 function updateAddTabMargin() {
@@ -168,22 +229,22 @@ function updateAddTabMargin() {
     if (tabCount > 0) {
       // If at least one tab is open
       addTabBtn.style.marginLeft = '-10px';
-      pywebview.api.debug(`Category open, tabs open.\n  shownCategory: ${shownCategory}`);
+      debug(`Category open, tabs open.\n  shownCategory: ${shownCategory}`);
     } else {
       // If no tabs are open
       addTabBtn.style.marginLeft = '0px';
-      pywebview.api.debug(`Category open, no tabs open.\n  shownCategory: ${shownCategory}`);
+      debug(`Category open, no tabs open.\n  shownCategory: ${shownCategory}`);
     }
   } else if (shownCategory === false) {
     // If no categories are open
     if (tabCount > 0) {
       // If at least one tab is open
       addTabBtn.style.marginLeft = '-10px';
-      pywebview.api.debug(`No categories open, tabs open.\n  shownCategory: ${shownCategory}`);
+      debug(`No categories open, tabs open.\n  shownCategory: ${shownCategory}`);
     } else {
       // If no tabs are open
       addTabBtn.style.marginLeft = '-10px';
-      pywebview.api.debug(`No categories open, no tabs open.\n  shownCategory: ${shownCategory}`);
+      debug(`No categories open, no tabs open.\n  shownCategory: ${shownCategory}`);
     }
   }
 }
@@ -250,7 +311,9 @@ function handlePluginClick(event, categoryIndex, pluginIndex, descriptionItem, p
   const pluginName = pluginItem.getAttribute('data-plugin-name');
   
   // Call the Python function to run the plugin
+  clearDataTable();
   runPlugin(pluginName);
+  changeActiveTabName(pluginName)
 }
 
 // Function to open a plugin
@@ -382,24 +445,24 @@ function showCategories() {
   shownCategory = categoryList.classList.contains('show');
   // Update the margin of the add tab button
   updateAddTabMargin();
-  pywebview.api.debug(`shownCategory in showCategories: ${shownCategory}`);
+  debug(`shownCategory in showCategories: ${shownCategory}`);
 }
 
 // Function to hide the category list
 function hideCategoryList(categoryList, topbar, dataTable) {
-  pluginsBtn = document.getElementById("pluginsBtn")
+  pluginsBtn = document.getElementById("pluginsBtn");
   // Remove the 'show' class from the category list
   categoryList.classList.remove('show');
   // Adjust the left position of the topbar
   topbar.style.left = '65px';
-  dataTable.style.left = '65px'
+  dataTable.style.left = '65px';
   pluginsBtn.classList.remove('selected');
 }
 
 // Function to display the category list
 function displayCategoryList(categoryList, topbar, dataTable) {
   // Set the HTML content of the category list
-  pluginsBtn = document.getElementById("pluginsBtn")
+  pluginsBtn = document.getElementById("pluginsBtn");
   categoryList.innerHTML = `
     <div class="search-container">
       <input type="text" id="searchInput" placeholder="Search...">
@@ -438,7 +501,7 @@ function addSearchFunctionality(categoryList) {
     const searchTerm = this.value.toLowerCase();
 
     // Check if the search term length is less than or equal to 2 characters
-    if (searchTerm.length <= 2) {
+    if (searchTerm.length <= 1) {
       // If the search term is too short, clear the search results
       clearSearchResults(searchResults);
     } else {
@@ -479,31 +542,103 @@ function filterPlugins(searchTerm) {
 
 // Function to display the search results
 function displaySearchResults(filteredPlugins) {
-  // Get a reference to the search results element
   const searchResults = document.getElementById('searchResults');
-  // Clear the existing search results
   searchResults.innerHTML = '';
 
-  // Check if there are any filtered plugins
   if (filteredPlugins.length > 0) {
-    // Create a new unordered list element for the plugin list
-    const pluginList = document.createElement('ul');
-
-    // Iterate over each filtered plugin
-    filteredPlugins.forEach(plugin => {
-      // Create a new list item element for the plugin
-      const pluginItem = document.createElement('li');
-      // Set the text content of the plugin item to the plugin name and description
-      pluginItem.textContent = `${plugin.name}: ${plugin.description}`;
-      // Append the plugin item to the plugin list
-      pluginList.appendChild(pluginItem);
-    });
-
-    // Append the plugin list to the search results
+    const pluginList = createSearchResultsList(filteredPlugins);
     searchResults.appendChild(pluginList);
   }
 }
 
+// Function to create the search results list
+function createSearchResultsList(filteredPlugins) {
+  const pluginList = document.createElement('ul');
+
+  filteredPlugins.forEach(plugin => {
+    const pluginItem = createSearchResultItem(plugin);
+    pluginList.appendChild(pluginItem);
+  });
+
+  return pluginList;
+}
+
+// Function to create a search result item
+function createSearchResultItem(plugin) {
+  const pluginItem = document.createElement('li');
+  pluginItem.textContent = plugin.name;
+
+  pluginItem.addEventListener('click', () => {
+    handleSearchResultClick(plugin);
+  });
+
+  return pluginItem;
+}
+
+// Function to handle the click event on a search result item
+function handleSearchResultClick(plugin) {
+  const categoryPluginItem = findPluginItemInCategories(plugin.name);
+
+  if (categoryPluginItem) {
+    const categoryItem = findCategoryItemForPlugin(categoryPluginItem);
+
+    if (categoryItem) {
+      const isCategoryOpen = categoryItem.classList.contains('selected');
+      const isPluginSame = categoryPluginItem === document.querySelector('.plugin-item.open');
+
+      debug(`Plugin clicked in search: ${plugin.name}`);
+      debug(`Category open: ${isCategoryOpen}`);
+      debug(`Plugin same: ${isPluginSame}`);
+
+      if (!isCategoryOpen) {
+        closeOpenPlugin();
+        closeOpenCategory();
+        categoryItem.click();
+      }
+
+      if (!isPluginSame) {
+        closeOpenPlugin();
+        categoryPluginItem.click();
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+// Function to find the corresponding plugin item in the category list
+function findPluginItemInCategories(pluginName) {
+  // Iterate over each category
+  for (const category of categories) {
+    // Iterate over each plugin in the category
+    for (const plugin of category.plugins) {
+      if (plugin.name === pluginName) {
+        // Find the plugin item element in the DOM
+        const pluginItem = document.getElementById(pluginName);
+        debug(`Plugin clicked in search: ${pluginName}`);
+        return pluginItem;
+      }
+    }
+  }
+  return null;
+}
+
+// Function to find the category item that contains the given plugin item
+function findCategoryItemForPlugin(pluginItem) {
+  // Traverse up the DOM tree to find the category item
+  let parentElement = pluginItem.parentElement;
+  while (parentElement) {
+    if (parentElement.classList.contains('category-item')) {
+      return parentElement;
+    }
+    parentElement = parentElement.parentElement;
+  }
+  return null;
+}
 
 
 
@@ -517,28 +652,28 @@ function displaySearchResults(filteredPlugins) {
 function handleFileSelect() {
   pywebview.api.openFileDialog().then((filePath) => {
     console.log('File selected');
-    processSelectedFile(filePath);
+    selectedFilePath = filePath;
+    processSelectedFile();
   });
 }
 
-function processSelectedFile(filePath) {
+function processSelectedFile() {
   clearDataTable();
   showCategories();
-  addTabs(filePath);
-  pywebview.api.debug(`File Path: ${filePath}`);
-  pywebview.api.setFilePath(filePath); //Sette filepath i python??
+  addTabs(selectedFilePath);
+  debug(`File Path: ${selectedFilePath}`);
 }
 
 function clearDataTable() {
-  const dataTable = document.querySelector('.dataTable');
+  const dataTable = document.getElementById('dataTable');
   dataTable.innerHTML = '';
 }
 
 function restoreDataTableUploadFile() {
-  const dataTable = document.querySelector('.dataTable');
+  const dataTable = document.getElementById('dataTable');
   dataTable.innerHTML = `
-    <input type="file" id="fileInput" style="display: none" />
-    <button id="selectFileBtn">Velg fil</button>
+  <input type="file" id="fileInput" class="noselect" style="display: none" />
+  <button id="selectFileBtn" class="noselect">Choose file</button>
   `;
   
   const selectFileBtn = document.getElementById('selectFileBtn');
@@ -565,6 +700,9 @@ function displayPluginOutput(output) {
   try {
     // Get the dataTable div element
     const dataTableDiv = document.querySelector('.dataTable');
+
+    // Clear the existing content of the dataTable div
+    dataTableDiv.innerHTML = '';
 
     // Create a new div element for the plugin output
     const pluginOutputDiv = document.createElement('div');
@@ -614,11 +752,23 @@ function displayPluginOutput(output) {
 
     // Append the plugin output div to the dataTable div
     dataTableDiv.appendChild(pluginOutputDiv);
+
+    // Store the plugin output for the active tab
+    if (activeTab) {
+      tabOutputs[activeTab.id] = pluginOutputDiv.innerHTML;
+    }
   } catch (error) {
     // Log the error using the debug function
-    pywebview.api.debug(`Error in displayPluginOutput: ${error}`);
+    debug(`Error in displayPluginOutput: ${error}`);
   }
 }
+
+
+
+//##################################################################//
+//######################### TERMINAL FUNCTION #########################//
+//##################################################################//
+
 
 function logAndShowTerminal() {
   pywebview.api.log().then(function(response) {
@@ -628,30 +778,69 @@ function logAndShowTerminal() {
       terminal.scrollTop = terminal.scrollHeight; // Auto-scroll to the bottom
 
       // Show the terminal container
-      let terminalContainer = document.getElementById('terminal-container');
+      debug(`Terminal click. Response: ${response}`)
+      let terminalContainer = document.getElementById('hidden');
       terminalContainer.style.display = 'flex'; // Change display to flex to show it
   });
 }
 
+function exitTerminalBtn() {
+//picking up the id of terminal-container
+  let terminal = document.getElementById('hidden');
+
+//her the terminal is resetting back to the original state and also goin invisible again.
+  terminal.innerHTML = ogTerm;
+  terminal.style.display = 'none';
+}
+
+function exitLowTerminalBtn() {
+  //picking up the id of terminal-container
+  let lowTermBar = document.getElementById('low-hidden');
+  
+  //her the terminal is resetting back to the original state and also goin invisible again.
+    lowTermBar.innerHTML = ogTerm;
+    lowTermBar.style.display = 'none';
+  }
+
+function minTerminalBtn() {
+
+  let terminal = document.getElementById('hidden');
+  let lowTermBar = document.getElementById('low-hidden');
+
+  terminal.style.display = 'none';
+  lowTermBar.style.display = 'flex';
+} 
+
+function maxTerminalBtn() {
+
+  let terminal = document.getElementById('hidden');
+  let lowTermBar = document.getElementById('low-hidden');
+
+  terminal.style.display = 'flex';
+  lowTermBar.style.display = 'none';
+} 
 
 
+//##################################################################//
+//######################## RESIZEING (TYSK) ########################//
+//##################################################################//
 
-
-
-//###############esize
-
+// Get reference to the resize button element
 const resizeBtn = document.getElementById('resizeBtn');
 
+// Initialize variables for tracking resize state and mouse position
 let isResizing = false;
 let lastMouseX = 0;
 let lastMouseY = 0;
 let initialWidth = window.innerWidth;
 let initialHeight = window.innerHeight;
 
+// Add event listeners for mousedown, mousemove, and mouseup events
 resizeBtn.addEventListener('mousedown', startResize);
 document.addEventListener('mousemove', resize);
 document.addEventListener('mouseup', stopResize);
 
+// Function to start the resize operation when mousedown event is triggered on the resize button
 function startResize(e) {
   isResizing = true;
   lastMouseX = e.clientX;
@@ -660,12 +849,16 @@ function startResize(e) {
   initialHeight = window.innerHeight;
 }
 
+// Function to handle the resize operation when mousemove event is triggered
 function resize(e) {
+  // If not currently resizing, return early
   if (!isResizing) return;
 
+  // Calculate the change in mouse position
   const deltaX = e.clientX - lastMouseX;
   const deltaY = e.clientY - lastMouseY;
   
+  // Calculate the new window dimensions based on the mouse movement
   const newWidth = initialWidth + deltaX;
   const newHeight = initialHeight + deltaY;
   
@@ -673,12 +866,44 @@ function resize(e) {
   pywebview.api.resize_window(newWidth, newHeight);
 }
 
+// Function to stop the resize operation when mouseup event is triggered
 function stopResize() {
   isResizing = false;
 }
 
 
+//##################################################################//
+//################## ALLOWING COPY FROM DATATABLE ##################//
+//##################################################################//
 
 
+// Hent dataTable div-elementet
+const dataTableDiv = document.getElementById('dataTable');
+
+// Legg til hendelseslytter på dataTable div
+dataTableDiv.addEventListener('mousedown', function(event) {
+  event.stopPropagation();
+});
 
 
+//##################################################################//
+//######################### HOME SWEET HOME ########################//
+//##################################################################//
+
+
+function handleHomeBtn() {
+  const categoryList = document.getElementById('category-list');
+  const topbar = document.getElementById('topbar');
+  const dataTable = document.getElementById('dataTable')
+  changeActiveTabName("Home")
+  hideCategoryList(categoryList, topbar, dataTable)
+  restoreDataTableUploadFile()
+}
+
+//##################################################################//
+//############################## DEBUG #############################//
+//##################################################################//
+
+function debug(debugText) {
+  pywebview.api.debug(debugText);
+}

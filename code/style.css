@@ -23,6 +23,7 @@
     --pluginDescription-color: #00000013;
 
     --searchResults-color: #222;
+    --searchResultsHover-color: #111;
 
     --dataTable-color: #222;
     --rowSeperator-color: #000000;
@@ -42,6 +43,7 @@ body {
     color: var(--text-color);
     font-family: Helvetica, sans-serif;
     margin-top: 25px;
+    overflow-x: hidden;
 }
 
 /*#################################################################################################################################*/
@@ -125,14 +127,14 @@ body {
 #topbar {
     position: absolute;
     left: 65px;
-    width: 96.5%;
+    width: calc(100% - 65px);
     height: 25px;
     background-color: var(--topbar-color);
     display: flex;
     justify-content: flex-start;
     align-items: center;
     box-sizing: border-box;
-    overflow-x: auto;
+/*  overflow-x: auto;    */
     overflow-y: hidden;
     white-space: nowrap;
     z-index: 3;
@@ -159,6 +161,8 @@ body {
     padding: 0;
     background-color: var(--tabs-color);
     width: 10%;
+    min-width: 80px;
+    max-width: 120px;
     height: 100%;
     cursor: pointer;
     flex-shrink: 0;
@@ -173,9 +177,21 @@ body {
     z-index: 999;
 }
 
+.tab-text {
+    display: inline-block;
+    max-width: calc(100% - 10px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .tabs:hover {
     background-color: var(--tabsHover-color);
     z-index: 999;
+}
+
+.tabs.active {
+    background-color: var(--tabsHover-color);
 }
 
 .x {
@@ -218,9 +234,8 @@ body {
 }
 
 #bottomBar {
-    position: absolute;
-    left: 65px;
-    width: 96.5%;
+    position: fixed;
+    width: 100%; 
     height: 15px;
     bottom: 0;
     background-color: var(--topbar-color);
@@ -228,17 +243,17 @@ body {
     justify-content: flex-start;
     align-items: center;
     box-sizing: border-box;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: hidden;
     white-space: nowrap;
-    z-index: 3;
+    z-index: 1000;
 }
+
 
 #resizeBtn {
     position: absolute;
     right: 0;
     height: 100%;
-    width: 1%;
+    width: 15px;
     background-color: #333;
 }
 
@@ -363,15 +378,20 @@ body {
     padding-left: 20px;
     background-color: var(--searchResults-color);
     color: var(--text-color);
+    cursor: pointer;
+}
+
+#searchResults li:hover {
+    background-color: var(--searchResultsHover-color);
 }
 
 /*#################################################################################################################################*/
 /*############################### Data_table #################################################################*/
 /*################################################################################################################################*/
 
-.dataTable {
+#dataTable {
     position: fixed;
-    top: 25px;
+    top: 50px;
     left: 65px;
     right: 0;
     bottom: 0;
@@ -456,51 +476,98 @@ tr:hover {
 /*############################### Terminal_window -- Made by Ole #################################################################*/
 /*################################################################################################################################*/
 
+.terminal-and-lowbar {
+    width: 400px;
+    height: 200px;
+    margin-left: 5px;
+    margin-top: 300px;
+}
 
-#terminal-container {
-    margin-top: auto;
-    display: none;
+.terminal-bar {
+    width: 330px;
+    height: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    width: 150px;
-    height: 150px;
+    background-color: #ffdd00;
+}
+
+.term-low-bar {
+    width: 330px;
+    height: 5px;
     padding: 10px;
-    border-radius: 5px;
-    background-color: #444;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 5px;
+    margin-top: 505px;
+    position: fixed;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffdd00;
 }
 
 #terminal {
-    width: 140px;
-    height: 150px;
-    background-color: black;
-    color: white;
+    margin-top: 23px;
+    width: 340px;
+    height: 187px;
     font-size: 9px;
     padding: 5px;
+    position: absolute;
+    z-index: 2;
+    background-color: black;
+    color: white;
     overflow-y: auto;
-    white-space: pre-wrap;
-    border-radius: 5px;
 }
 
-.hidden {
+.terminalBtn {
+    z-index: 4;
+    position: absolute;
+    width: 20px;
+    top: 1px;
+    background-color: #ffdd00;
+}
+
+#exitTerminalBtn {  
+    right: 3px;    
+}
+
+#minTerminalBtn {
+    right: 28px;
+}
+
+#maxTerminalBtn {
+    right: 28px;
+}
+
+#exitLowTerminalBtn {
+    right: 3px; 
+}
+
+#hidden {
     display: none;
 }
 
-/*#################################################################################################*/
-/*########################### Vertical Scrollbar - Output #########################################*/
-/*#################################################################################################*/
-
-#sidebar {
-    margin:4px, 4px;
-        padding:4px;
-        background-color: green;
-        width: 500px;
-        height: 110px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        text-align:justify;
+#low-hidden {
+    display: none;
 }
+
+
+
+
+
+.noselect {
+    -webkit-user-select: none; /* For Safari */
+    -moz-user-select: none; /* For Firefox */
+    -ms-user-select: none; /* For Internet Explorer/Edge */
+    user-select: none; /* Standard syntax */
+    outline: none; /* Remove the outline when the element is focused */
+  }
+  
+  .noselect:active, .noselect:focus {
+    background-color: transparent; /* Remove the blue background when the element is clicked or focused */
+  }
+  
