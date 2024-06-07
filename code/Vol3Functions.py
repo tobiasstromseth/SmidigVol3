@@ -188,7 +188,7 @@ def get_file_info(directory):
             # Extract the command and file path from the filename
             command, file_path = filename.split('file', 1)
             command = command.replace('command', '')
-            file_path = file_path.replace('_', ':').replace('-', '\\')
+            file_path = file_path.replace('_', ':').replace('-', '\\') ###############Bruke hash av filen
             
             # Append the command and file path as a tuple to the list
             file_info.append((command, file_path))
@@ -197,31 +197,3 @@ def get_file_info(directory):
 
 
 
-
-
-
-
-
-def main():
-    volatility_commands = [
-        ("pslist", "pslist.PsList"), 
-        ("psscan", "psscan.PsScan"), 
-        ("pstree", "pstree.PsTree"),
-        ("info", "info"),
-    ]
-
-
-    identify_os()
-    run_volatility_command('psscan.PsScan')
-
-    json_directory = r"code\pluginOutput"
-    file_info_list = get_file_info(json_directory)
-
-    # Print the file information
-    for command, file_path in file_info_list:
-        print(f"Command: {command}")
-        print(f"File Path: {file_path}")
-        print()
-
-if __name__ == "__main__":
-    main()

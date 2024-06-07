@@ -23,6 +23,7 @@
     --pluginDescription-color: #00000013;
 
     --searchResults-color: #222;
+    --searchResultsHover-color: #111;
 
     --dataTable-color: #222;
     --rowSeperator-color: #000000;
@@ -41,16 +42,51 @@ body {
     padding: 0;
     color: var(--text-color);
     font-family: Helvetica, sans-serif;
+    margin-top: 25px;
+    overflow-x: hidden;
 }
 
 /*#################################################################################################################################*/
 /*#################################################### Left menu #################################################################*/
 /*################################################################################################################################*/
+#title-bar {
+    background-color: #ffdd00;
+    color: var(--secondaryText-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    -webkit-app-region: drag;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 15px; /* Sett en fast høyde på tittellinjen */
+    z-index: 2;
+}
+
+#title {
+    font-weight: bold;
+}
+
+#title-bar-btns {
+    -webkit-app-region: no-drag;
+}
+
+#title-bar-btns button {
+    background-color: #ffdd00;
+    color: var(--secondaryText-color);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0 5px;
+}
 
 #menu {
     position: fixed;
     top: 0;
     left: 0;
+    margin-top: 25px;
     width: 65px;
     height: 100vh;
     background-color: var(--menu-color);
@@ -89,20 +125,19 @@ body {
 /*########################################################################################################################*/
 
 #topbar {
-    position: fixed;
-    top: 0;
+    position: absolute;
     left: 65px;
-    width: 96.5%;
+    width: calc(100% - 65px);
     height: 25px;
     background-color: var(--topbar-color);
     display: flex;
     justify-content: flex-start;
     align-items: center;
     box-sizing: border-box;
-    overflow-x: auto;
+/*  overflow-x: auto;    */
     overflow-y: hidden;
     white-space: nowrap;
-    border-bottom-right-radius: 15px;
+    z-index: 3;
 }
 
 #topbar::-webkit-scrollbar {
@@ -126,6 +161,8 @@ body {
     padding: 0;
     background-color: var(--tabs-color);
     width: 10%;
+    min-width: 80px;
+    max-width: 120px;
     height: 100%;
     cursor: pointer;
     flex-shrink: 0;
@@ -140,9 +177,21 @@ body {
     z-index: 999;
 }
 
+.tab-text {
+    display: inline-block;
+    max-width: calc(100% - 10px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .tabs:hover {
     background-color: var(--tabsHover-color);
     z-index: 999;
+}
+
+.tabs.active {
+    background-color: var(--tabsHover-color);
 }
 
 .x {
@@ -182,6 +231,30 @@ body {
     font-size: 13px;
     border-bottom-right-radius: 10px;
     margin-left: -10px;
+}
+
+#bottomBar {
+    position: fixed;
+    width: 100%; 
+    height: 15px;
+    bottom: 0;
+    background-color: var(--topbar-color);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+
+#resizeBtn {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 15px;
+    background-color: #333;
 }
 
 /*#################################################################################################################################*/
@@ -305,15 +378,20 @@ body {
     padding-left: 20px;
     background-color: var(--searchResults-color);
     color: var(--text-color);
+    cursor: pointer;
+}
+
+#searchResults li:hover {
+    background-color: var(--searchResultsHover-color);
 }
 
 /*#################################################################################################################################*/
 /*############################### Data_table #################################################################*/
 /*################################################################################################################################*/
 
-.dataTable {
+#dataTable {
     position: fixed;
-    top: 25px;
+    top: 50px;
     left: 65px;
     right: 0;
     bottom: 0;
@@ -392,3 +470,102 @@ tr:hover {
 }
 
 
+/*#################################################################################################################################*/
+/*############################### Terminal_window -- Made by Ole #################################################################*/
+/*################################################################################################################################*/
+
+.terminal-and-lowbar {
+    width: 400px;
+    height: 200px;
+    margin-left: 5px;
+    margin-top: 300px;
+}
+
+.terminal-bar {
+    width: 330px;
+    height: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffdd00;
+}
+
+.term-low-bar {
+    width: 330px;
+    height: 5px;
+    padding: 10px;
+    margin-left: 5px;
+    margin-top: 505px;
+    position: fixed;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffdd00;
+}
+
+#terminal {
+    margin-top: 23px;
+    width: 340px;
+    height: 187px;
+    font-size: 9px;
+    padding: 5px;
+    position: absolute;
+    z-index: 2;
+    background-color: black;
+    color: white;
+    overflow-y: auto;
+}
+
+.terminalBtn {
+    z-index: 4;
+    position: absolute;
+    width: 20px;
+    top: 1px;
+    background-color: #ffdd00;
+}
+
+#exitTerminalBtn {  
+    right: 3px;    
+}
+
+#minTerminalBtn {
+    right: 28px;
+}
+
+#maxTerminalBtn {
+    right: 28px;
+}
+
+#exitLowTerminalBtn {
+    right: 3px; 
+}
+
+#hidden {
+    display: none;
+}
+
+#low-hidden {
+    display: none;
+}
+
+
+
+
+
+.noselect {
+    -webkit-user-select: none; /* For Safari */
+    -moz-user-select: none; /* For Firefox */
+    -ms-user-select: none; /* For Internet Explorer/Edge */
+    user-select: none; /* Standard syntax */
+    outline: none; /* Remove the outline when the element is focused */
+  }
+  
+  .noselect:active, .noselect:focus {
+    background-color: transparent; /* Remove the blue background when the element is clicked or focused */
+  }
+  
