@@ -1,6 +1,6 @@
 output.txt
 code/pluginOutput
-code/Volatility3
+code/Volatility3*
 
 # Python generated files
 */__pycache__/
