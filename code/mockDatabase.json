@@ -10,8 +10,8 @@
           "mac",
           "windows"
         ],
-        "osPrefix": true,
-        "description": "Lists the processes present in a memory dump.\n\nThe pslist plugin is designed to enumerate all the processes running in a memory dump. It provides detailed information about each process, including its unique process identifier (PID), parent process identifier (PPID), and other critical attributes. This plugin supports multiple operating systems, making it versatile for analyzing memory dumps from Linux, macOS, and Windows environments.\n\nKey Features:\n\n- Lists all active processes within a memory dump.\n- Provides detailed process information such as PID, PPID, process name, and creation time.\n- Supports multiple operating systems: Linux, macOS, and Windows.\n- Useful for forensic analysis and incident response by identifying running processes at the time of the memory capture.",
+        "osPrefix": false,
+        "description": "Lists the processes present in a memory dump.\n\nThe pslist plugin is designed to enumerate all the processes running in a memory dump. It provides detailed information about each process, including its unique process identifier (PID), parent process identifier (PPID), and other critical attributes. This plugin supports multiple operating systems, making it versatile for analyzing memory dumps from Linux, macOS, and Windows environments.\n\nKey Features:\n\n- Lists all active processes within a memory dump.\n\n- Provides detailed process information such as PID, PPID, process name, and creation time.\n\n- Useful for forensic analysis and incident response by identifying running processes at the time of the memory capture.\n\n- Supports multiple operating systems: Linux, macOS, and Windows.",
         "tags": [
           "processes",
           "list"
@@ -25,8 +25,8 @@
           "mac",
           "windows"
         ],
-        "osPrefix": true,
-        "description": "Plugin for listing processes in a tree based on their parent process ID",
+        "osPrefix": false,
+        "description": "Visualizes the process tree from a memory dump, showing parent-child relationships between processes.\nIt helps identify unusual process hierarchies, assisting in detecting malware and analyzing system behavior.\n\nKey Features:\n\n- Hierarchical Process View: Displays processes in a tree format.\n\n- Detailed Process Info: Shows PID, PPID, process name, and more.\n\n- Cross-Platform Support: Compatible with Windows, Linux, and macOS memory dumps.",
         "tags": [
           "processes",
           "tree"
@@ -40,7 +40,7 @@
           "mac"
         ],
         "osPrefix": false,
-        "description": "Gathers processes along with full command line and start time",
+        "description": "Lists detailed information about processes from a memory dump, including command-line arguments and environment variables.\nThis is useful for in-depth process analysis and detecting suspicious activities.\n\nKey Features:\n\n- Comprehensive Process Info: Shows PID, PPID, process name, command-line arguments, and environment variables.\n\n- Enhanced Analysis: Helps identify processes with suspicious command-line arguments or environment variables.\n\n- Cross-Platform Support: Compatible with Linux and macOS memory dumps.",
         "tags": [
           "processes",
           "command line",
@@ -54,7 +54,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Displays process command-line arguments",
+        "description": "Extracts the command line arguments of processes from a memory dump.\n\nUseful for understanding how processes were started and detecting malicious activity.\n\nKey Features:\n\n- Command Line Extraction: Retrieves command line arguments for each process.\n\n- Malware Detection: Helps identify suspicious or malicious command line arguments.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "processes",
           "command line",
@@ -68,7 +68,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Display process environment variables",
+        "description": "Extracts environment variables of processes from a memory dump.\n\nUseful for understanding process environments and detecting anomalies.\n\nKey Features:\n\n- Environment Variable Extraction: Retrieves environment variables for each process.\n\n- Anomaly Detection: Helps identify suspicious or unusual environment variables.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "processes",
           "environment variables"
@@ -81,7 +81,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Print the SIDs owning each process",
+        "description": "Extracts Security Identifiers (SIDs) associated with processes from a memory dump.\n\nUseful for understanding process privileges and detecting unauthorized access.\n\nKey Features:\n\n- SID Extraction: Retrieves SIDs for each process.\n\n- Privilege Analysis: Helps identify processes with elevated or unauthorized privileges.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "processes",
           "SIDs"
@@ -94,7 +94,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Prints process privileges",
+        "description": "Lists the privileges of processes from a memory dump.\n\nUseful for identifying processes with elevated privileges and potential security risks.\n\nKey Features:\n\n- Privilege Listing: Retrieves the list of privileges for each process.\n\n- Security Risk Identification: Helps identify processes with elevated or unusual privileges.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "processes",
           "privileges"
@@ -107,7 +107,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Lists the loaded modules in a particular windows memory dump",
+        "description": "Lists the loaded Dynamic Link Libraries (DLLs) for each process from a memory dump.\n\nUseful for identifying loaded modules and detecting suspicious or malicious DLLs.\n\nKey Features:\n\n- DLL Listing: Retrieves the list of loaded DLLs for each process.\n\n- Malicious DLL Detection: Helps identify suspicious or unauthorized DLLs.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "DLLs",
           "modules",
@@ -121,7 +121,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Lists open handles in processes",
+        "description": "Lists the open handles for each process from a memory dump.\n\nUseful for identifying resources a process is interacting with and detecting suspicious activity.\n\nKey Features:\n\n- Handle Listing: Retrieves the list of open handles for each process.\n\n- Resource Interaction: Helps understand the resources and objects processes are interacting with.\n\n- Suspicious Activity Detection: Identifies unusual or unauthorized handle usage.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "processes",
           "handles"
@@ -139,7 +139,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Prints the memory map",
+        "description": "Displays the memory map for each process from a memory dump.\n\nUseful for understanding the memory layout of processes and detecting suspicious memory regions.\n\nKey Features:\n\n- Memory Map Display: Shows the memory layout for each process.\n\n- Suspicious Memory Detection: Helps identify unusual or unauthorized memory regions.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "memory",
           "map"
@@ -154,7 +154,7 @@
           "windows"
         ],
         "osPrefix": false,
-        "description": "Dumps the addressable memory for a process",
+        "description": "Extracts the memory of a process from a memory dump.\n\nUseful for in-depth analysis and forensic investigation of process memory.\n\nKey Features:\n\n- Memory Extraction: Dumps the memory of specified processes.\n\n- Forensic Analysis: Facilitates detailed examination of process memory contents.\n\n- Cross-Platform Support: Compatible with Windows, Linux, and macOS memory dumps.",
         "tags": [
           "memory",
           "dump",
@@ -168,7 +168,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Dump the VAD info",
+        "description": "Displays information about the Virtual Address Descriptors (VADs) for each process from a memory dump.\n\nUseful for understanding memory allocation and identifying suspicious memory regions.\n\nKey Features:\n\n- VAD Information: Shows details of Virtual Address Descriptors for each process.\n\n- Memory Allocation Analysis: Helps understand how processes allocate and use memory.\n\n- Suspicious Region Detection: Identifies unusual or unauthorized memory regions.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "memory",
           "VAD"
@@ -181,7 +181,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Walk the VAD tree",
+        "description": "Walks the Virtual Address Descriptor (VAD) tree for each process from a memory dump.\n\nUseful for analyzing the structure and hierarchy of memory allocations.\n\nKey Features:\n\n- VAD Tree Walk: Traverses the VAD tree for each process.\n\n- Memory Structure Analysis: Provides insights into the structure and hierarchy of memory allocations.\n\n- Suspicious Activity Detection: Identifies unusual or unauthorized memory allocations.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "memory",
           "VAD",
@@ -195,7 +195,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Scan all the VAD regions with a Yara signature",
+        "description": "Scans the Virtual Address Descriptor (VAD) regions of processes using Yara rules.\n\nUseful for detecting patterns of malicious code or data within process memory.\n\nKey Features:\n\n- Yara Scan: Scans VAD regions using custom Yara rules.\n\n- Malicious Pattern Detection: Identifies patterns of malicious code or data.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "memory",
           "VAD",
@@ -209,7 +209,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Find hidden and injected code",
+        "description": "Identifies and extracts suspicious or potentially malicious memory regions from a memory dump.\n\nUseful for detecting code injection and other malicious activities.\n\nKey Features:\n\n- Malicious Memory Detection: Identifies suspicious or potentially malicious memory regions.\n\n- Code Injection Detection: Helps detect code injections within process memory.\n\n- Memory Extraction: Extracts identified memory regions for further analysis.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "memory",
           "code injection",
@@ -228,7 +228,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Scans for MFT entries in a disk image",
+        "description": "Parses the Master File Table (MFT) from a memory dump to extract file system metadata.\n\nUseful for forensic analysis of file system activities.\n\nKey Features:\n\n- MFT Parsing: Extracts and parses the Master File Table.\n\n- File System Metadata: Retrieves metadata about files, including timestamps and attributes.\n\n- Forensic Analysis: Helps understand file system activities and modifications.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "disk",
           "MFT"
@@ -241,7 +241,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Scans for FILE_OBJECT objects using pool tag scanning",
+        "description": "Scans for file objects in a memory dump.\n\nUseful for identifying files that were open or accessed during the time of the memory capture.\n\nKey Features:\n\n- File Object Scanning: Identifies file objects in memory.\n\n- Accessed File Detection: Detects files that were open or accessed at the time of memory capture.\n\n- Forensic Analysis: Assists in tracing file usage and activity.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "disk",
           "files"
@@ -254,7 +254,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Dump files from disk image",
+        "description": "Extracts files from memory dumps.\n\nUseful for recovering files and analyzing file contents directly from a memory capture.\n\nKey Features:\n\n- File Extraction: Retrieves files from memory dumps.\n\n- File Content Analysis: Allows examination of file contents extracted from memory.\n\n- Forensic Recovery: Useful for recovering lost or deleted files.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "disk",
           "files",
@@ -273,7 +273,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Display SSDT entries",
+        "description": "Lists the System Service Descriptor Table (SSDT) entries from a memory dump.\n\nUseful for identifying hooked or modified system calls.\n\nKey Features:\n\n- SSDT Listing: Retrieves entries from the System Service Descriptor Table.\n\n- Hook Detection: Identifies hooked or modified system calls.\n\n- Kernel Analysis: Helps understand kernel-level modifications.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "kernel",
           "ssdt"
@@ -286,7 +286,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Scans for driver objects",
+        "description": "Scans for driver objects in a memory dump.\n\nUseful for identifying loaded drivers and detecting suspicious or unauthorized drivers.\n\nKey Features:\n\n- Driver Object Scanning: Identifies driver objects in memory.\n\n- Loaded Driver Detection: Detects drivers that were loaded at the time of memory capture.\n\n- Suspicious Driver Identification: Helps identify unauthorized or malicious drivers.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "kernel",
           "drivers"
@@ -299,7 +299,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Scans for kernel modules",
+        "description": "Scans for kernel modules in a memory dump.\n\nUseful for identifying loaded modules and detecting suspicious or unauthorized kernel modules.\n\nKey Features:\n\n- Kernel Module Scanning: Identifies kernel modules in memory.\n\n- Loaded Module Detection: Detects modules that were loaded at the time of memory capture.\n\n- Suspicious Module Identification: Helps identify unauthorized or malicious kernel modules.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "kernel",
           "modules"
@@ -312,7 +312,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Print kernel callbacks",
+        "description": "Lists callback functions registered by drivers in a memory dump.\n\nUseful for identifying potentially malicious callbacks and understanding driver behavior.\n\nKey Features:\n\n- Callback Listing: Retrieves registered callback functions from drivers.\n\n- Malicious Callback Detection: Helps identify potentially malicious or unauthorized callbacks.\n\n- Driver Behavior Analysis: Provides insights into driver activities and behavior.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "kernel",
           "callbacks"
@@ -330,7 +330,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Scans for network objects",
+        "description": "Scans for network connections in a memory dump.\n\nUseful for identifying active network connections and detecting suspicious network activity.\n\nKey Features:\n\n- Network Connection Scanning: Identifies active network connections in memory.\n\n- Suspicious Activity Detection: Helps detect unauthorized or malicious network activity.\n\n- Connection Details: Provides detailed information about each network connection, including IP addresses, ports, and protocols.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "networking",
           "sockets",
@@ -345,7 +345,7 @@
           "mac"
         ],
         "osPrefix": false,
-        "description": "Prints list of open sockets",
+        "description": "Lists the socket objects from a memory dump.\n\nUseful for identifying open network sockets and analyzing network communication.\n\nKey Features:\n\n- Socket Listing: Retrieves open socket objects in memory.\n\n- Network Communication Analysis: Provides insights into network communication activities.\n\n- Suspicious Socket Detection: Helps identify unauthorized or malicious sockets.\n\n- Cross-Platform Support: Compatible with Linux and macOS memory dumps.",
         "tags": [
           "networking",
           "sockets"
@@ -358,7 +358,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Scans for socket objects",
+        "description": "Scans for socket objects in a memory dump.\n\nUseful for identifying open network sockets and detecting suspicious network activity.\n\nKey Features:\n\n- Socket Object Scanning: Identifies open socket objects in memory.\n\n- Suspicious Activity Detection: Helps detect unauthorized or malicious network activity.\n\n- Network Communication Analysis: Provides insights into network communication activities.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "networking",
           "sockets"
@@ -371,7 +371,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Scans for connection objects",
+        "description": "Scans for network connections in a memory dump.\n\nUseful for identifying active network connections and detecting unauthorized communication.\n\nKey Features:\n\n- Network Connection Scanning: Identifies active network connections in memory.\n\n- Unauthorized Communication Detection: Helps detect unauthorized or suspicious network activity.\n\n- Connection Details: Provides information about each network connection, including IP addresses, ports, and states.\n\n- Cross-Platform Support: Compatible with Windows memory dumps.",
         "tags": [
           "networking",
           "connections"
@@ -389,7 +389,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Print list of registry hives",
+        "description": "Lists the registry hives in a memory dump.\n\nUseful for locating and analyzing Windows registry data for forensic purposes.\n\nKey Features:\n\n- Registry Hive Listing: Identifies and lists registry hives in memory.\n\n- Forensic Analysis: Facilitates the analysis of Windows registry data.\n\n- Registry Data Location: Helps locate important registry information.\n\n- Cross-Platform Support: Primarily for Windows memory dumps.",
         "tags": [
           "registry",
           "hives"
@@ -402,7 +402,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Print a registry key",
+        "description": "Prints the contents of a registry key from a memory dump.\n\nUseful for examining specific registry keys and their values for forensic analysis.\n\nKey Features:\n\n- Registry Key Printing: Retrieves and displays the contents of specified registry keys.\n\n- Detailed Value Information: Provides detailed information about the values stored within the registry keys.\n\n- Forensic Examination: Helps in the forensic analysis of registry data.\n\n- Cross-Platform Support: Primarily for Windows memory dumps.",
         "tags": [
           "registry",
           "keys"
@@ -415,7 +415,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Print userassist registry keys",
+        "description": "Extracts UserAssist registry data from a memory dump.\n\nUseful for identifying user activity and application usage on a Windows system.\n\nKey Features:\n\n- User Activity Extraction: Retrieves UserAssist registry data to identify user activity.\n\n- Application Usage Analysis: Provides insights into application usage and frequency.\n\n- Forensic Analysis: Helps in the forensic investigation of user actions on a system.\n\n- Cross-Platform Support: Primarily for Windows memory dumps.",
         "tags": [
           "registry",
           "userassist"
@@ -428,7 +428,7 @@
           "windows"
         ],
         "osPrefix": true,
-        "description": "Prints ShellBags info",
+        "description": "Extracts ShellBags data from a memory dump.\n\nUseful for reconstructing user folder view settings and accessing history on a Windows system.\n\nKey Features:\n\n- ShellBags Extraction: Retrieves ShellBags data to identify user folder view settings.\n\n- User Activity Reconstruction: Helps reconstruct user activity and folder access history.\n\n- Forensic Analysis: Aids in the forensic investigation of user interactions with the file system.\n\n- Cross-Platform Support: Primarily for Windows memory dumps.",
         "tags": [
           "registry",
           "shellbags"
