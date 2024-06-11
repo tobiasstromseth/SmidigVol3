@@ -30,8 +30,8 @@ def calculate_file_hash(file_path):
     
     # Get the hexadecimal representation of the hash
     file_hash = sha256_hash.hexdigest()
-    
-    print(f"File hash: {file_hash}")
+
+    return file_hash
 
 
 # Function to identify the operating system using imageinfo

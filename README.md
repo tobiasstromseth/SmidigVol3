@@ -24,6 +24,7 @@ Use Cases:
 -   PyWebView
 -   unidecode
 -   hashlib
+-   js2py #For Testing#
 
 ### Executing program
 
