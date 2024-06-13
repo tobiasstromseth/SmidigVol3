@@ -12,49 +12,44 @@ providing a graphical alternative to the traditional command-line interface.
 
 Use Cases:
 
--   Digital Forensics Investigations: Helps forensic analysts examine memory dumps to uncover evidence of malicious activity.
--   Incident Response: Assists security teams in quickly identifying and responding to security incidents by analyzing volatile data.
--   Malware Analysis: Enables researchers to dissect malware behaviors and their impacts on system memory.
+- Digital Forensics Investigations: Helps forensic analysts examine memory dumps to uncover evidence of malicious activity.
+- Incident Response: Assists security teams in quickly identifying and responding to security incidents by analyzing volatile data.
+- Malware Analysis: Enables researchers to dissect malware behaviors and their impacts on system memory.
 
 ## Getting Started
 
 ### Dependencies
 
--   Python
--   PyWebView
--   unidecode
--   hashlib
--   js2py #For Testing#
+- Python
+- PyWebView
+- unidecode
+- hashlib
+- js2py #For Testing#
 
 ### Executing program
 
--   How to run the program
+- How to run the program
 
--   git clone https://github.com/volatilityfoundation/volatility3.git "path\to\code"
--   python -m pip install -r code\Volatility3\requirements.txt
--   python setup.py install
+- git clone https://github.com/volatilityfoundation/volatility3.git "path\to\code"
+- python -m pip install -r code\Volatility3\requirements.txt
+- python setup.py install
 
--   Start the program by executing the file called app.py
+- Start the program by executing the file called app.py
 
 ## Authors
 
 Contributors names and contact info
 
--   Benjamin Arshad
+- Benjamin Arshad
 
--   Filip Borgen
+- Filip Borgen
 
--   Julie Brommeland
+- Julie Brommeland
 
--   Ole Kristoffer Rosnes
+- Ole Kristoffer Rosnes
 
--   Petter Holstad Andersen
+- Petter Holstad Andersen
 
--   Tobias Strømseth
+- Tobias Strømseth
 
-<<<<<<< HEAD
-
--   # Øystein Harald Arntzen
-    > > > > > > > # Ole
--   Øystein Harald Arntzen
-    > > > > > > > c28df0bff101a5588d968307995f2ed2408699a9
+- Øystein Harald Arntzen
