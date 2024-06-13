@@ -162,7 +162,7 @@ body {
     background-color: var(--tabs-color);
     width: 10%;
     min-width: 80px;
-    max-width: 120px;
+    max-width: 200px;
     height: 100%;
     cursor: pointer;
     flex-shrink: 0;
