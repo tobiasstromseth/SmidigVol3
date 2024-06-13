@@ -1,57 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Drumlin</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Repticore</title>
-    <link rel="stylesheet" href="style.css" />
-</head>
-
-<body>
-    <div id="title-bar">
-        <div id="title">Repticore</div>
-        <div id="title-bar-btns">
-            <button id="min-btn">-</button>
-            <button id="max-btn">+</button>
-            <button id="close-btn">x</button>
-        </div>
-    </div>
-    <div class="div" id="menu">
-        <div class="menuBtn" id="homeBtn">
-            <img src="img\home_24dp_FILL0_wght100_GRAD-25_opsz24.svg" alt="" />
-        </div>
-        <div class="menuBtn" id="pluginsBtn" onclick="showCategories()">
-            <img src="img\extension_24dp_FILL0_wght100_GRAD-25_opsz24.svg" alt="" />
-        </div>
-        <div class="menuBtn" id="addFileBtn">
-            <img src="img\note_add_24dp_FILL0_wght100_GRAD-25_opsz24.svg" alt="" />
-        </div>
-        <div class="menuBtn" id="exportBtn">
-            <img src="img\file_save_24dp_FILL0_wght100_GRAD-25_opsz20.svg" alt="" />
-        </div>
-        <div class="menuBtn" id="terminalBtn" onclick="logAndShowTerminal()">
-            <img src="img\file_save_24dp_FILL0_wght100_GRAD-25_opsz20.svg" alt="" />
+    <body>
+        <!-- Title bar with minimize, maximize and close buttons -->
+        <div id="title-bar" class="noselect">
+            <div id="title" class="noselect">Drumlin</div>
+            <div id="title-bar-btns" class="noselect">
+                <button id="min-btn" class="noselect">-</button>
+                <button id="max-btn" class="noselect">+</button>
+                <button id="close-btn" class="noselect">x</button>
+            </div>
         </div>
 
-    </div>
-    <div id="topbar">
-        <div class="addTab" id="addTab1">
-            <div class="xx" id="addTabBtn" onclick="openNewTab()">+</div>
+        <!-- Menu bar with various buttons -->
+        <div class="div" id="menu">
+            <div
+                class="menuBtn noselect"
+                id="homeBtn"
+                onclick="handleHomeBtn()"
+            >
+                <img
+                    src="img\home_24dp_FILL0_wght100_GRAD-25_opsz24.svg"
+                    alt=""
+                />
+            </div>
+            <div
+                class="menuBtn noselect"
+                id="pluginsBtn"
+                onclick="showCategories()"
+            >
+                <img
+                    src="img\extension_24dp_FILL0_wght100_GRAD-25_opsz24.svg"
+                    alt=""
+                />
+            </div>
+            <div class="menuBtn noselect" id="addFileBtn">
+                <img
+                    src="img\note_add_24dp_FILL0_wght100_GRAD-25_opsz24.svg"
+                    alt=""
+                />
+            </div>
+            <div class="menuBtn noselect" id="exportBtn">
+                <img
+                    src="img\file_save_24dp_FILL0_wght100_GRAD-25_opsz20.svg"
+                    alt=""
+                />
+            </div>
+            <div
+                class="menuBtn noselect"
+                id="terminalBtn"
+                onclick="logAndShowTerminal()"
+            >
+                <img
+                    src="img\terminal_24dp_FILL0_wght100_GRAD-25_opsz24.svg"
+                    alt=""
+                />
+            </div>
+            <div class="menuBtn noselect" id="bookmarksBtn" onclick="">
+                <img
+                    src="img\bookmark_24dp_FILL0_wght100_GRAD-25_opsz24.svg"
+                    alt=""
+                />
+            </div>
         </div>
-    </div>
-    <ul id="category-list"></ul>
-    <div class="dataTable" id="dataTable">
-        <input type="file" id="fileInput" style="display: none" />
-        <button id="selectFileBtn">Velg fil</button>
-        <div id="terminal-container" class="hidden">
-            <div id="terminal"></div>
-        </div>
-    </div>
-    <div id="bottomBar">
-        <div id="resizeBtn"></div>
-    </div>
-    <script src="script.js"></script>
-</body>
 
+        <!-- Top bar with button to add new tab -->
+        <div id="topbar">
+            <div class="addTab noselect" id="addTab1">
+                <div class="xx noselect" id="addTabBtn" onclick="openNewTab()">
+                    +
+                </div>
+            </div>
+        </div>
+
+        <!-- Category list -->
+        <ul id="category-list" class="noselect"></ul>
+
+        <!-- Data table section -->
+        <div class="dataTable no-drag" id="dataTable">
+            <input
+                type="file"
+                id="fileInput"
+                class="noselect"
+                style="display: none"
+            />
+            <button id="selectFileBtn" class="noselect">Choose file</button>
+
+            <!-- Terminal section -->
+            <div class="terminal-and-lowbar noselect" id="hidden">
+                <div class="terminal-bar noselect">
+                    <button
+                        class="terminalBtn noselect"
+                        id="exitTerminalBtn"
+                        onclick="exitTerminalBtn(this)"
+                    >
+                        x
+                    </button>
+                    <button
+                        class="terminalBtn noselect"
+                        id="minTerminalBtn"
+                        onclick="minTerminalBtn(this)"
+                    >
+                        -
+                    </button>
+                </div>
+                <div id="terminal"></div>
+            </div>
+
+            <!-- Minimized terminal bar -->
+            <div class="term-low-bar noselect" id="low-hidden">
+                <button
+                    class="terminalBtn noselect"
+                    id="maxTerminalBtn"
+                    onclick="maxTerminalBtn(this)"
+                >
+                    +
+                </button>
+                <button
+                    class="terminalBtn noselect"
+                    id="exitLowTerminalBtn"
+                    onclick="exitLowTerminalBtn()(this)"
+                >
+                    x
+                </button>
+            </div>
+        </div>
+
+        <!-- Bottom bar with resize button -->
+        <div id="bottomBar">
+            <div id="infoBox">|OS Detected: None|</div>
+            <div id="resizeBtn" title="Drag to resize">
+                <img
+                    src="img\resize_24dp_FILL0_wght100_GRAD-25_opsz24.svg"
+                    alt=""
+                />
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
 </html>

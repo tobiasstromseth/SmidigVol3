@@ -4,6 +4,7 @@ import os
 import json
 from unidecode import unidecode
 import re
+import hashlib
 
 # Tving Python til å bruke UTF-8 for all tekstbehandling
 os.environ["PYTHONIOENCODING"] = "utf-8"
@@ -11,11 +12,33 @@ os.environ["PYTHONUTF8"] = "1"
 
 memory_file_path = None
 vol_file_path = r'code\Volatility3\vol.py'
+file_hash = None
+
+
+def calculate_file_hash(file_path):
+    global file_hash
+    
+    # Create a hash object
+    sha256_hash = hashlib.sha256()
+    
+    # Open the file in binary mode
+    with open(file_path, "rb") as file:
+        # Read the file in chunks
+        for chunk in iter(lambda: file.read(4096), b""):
+            # Update the hash object with the chunk
+            sha256_hash.update(chunk)
+    
+    # Get the hexadecimal representation of the hash
+    file_hash = sha256_hash.hexdigest()
+
+    return file_hash
 
 
 # Function to identify the operating system using imageinfo
 def identify_os(file_path):
     global memory_file_path, detected_os
+
+    calculate_file_hash(file_path)
 
     memory_file_path = os.path.normpath(file_path)
     memory_file_path = r'{}'.format(memory_file_path)
@@ -24,7 +47,7 @@ def identify_os(file_path):
     # Check if memory_file_path and vol_file_path are set
     if not memory_file_path or not vol_file_path:
         print("Warning", "Please select a memory file first and ensure vol.py is found.")
-        return
+        return "os not detected"
     
     # Dictionary mapping operating system names to their respective pslist commands
     os_commands = {
@@ -47,17 +70,17 @@ def identify_os(file_path):
                 output = future.result()
                 # Check if the output contains "PID" indicating a successful command
                 if "PID" in output:
-                    detected_os = os_name
+                    detected_os = os_name.lower()
                     print(f"OS Detected: {detected_os}")
-                    detected_os = detected_os.lower()
-                    break  # Break the loop if an operating system is successfully detected
+                    return detected_os  # Return the detected OS as a string
             except Exception as e:
                 continue  # Continue to the next future if an exception occurs
                 
-    # If no operating system is detected, print "Unknown"            
-    if not detected_os:
-        print("OS Detected: Unknown") 
-        print("Info", "Unable to determine the operating system.")
+    # If no operating system is detected, return "os not detected"            
+    print("OS Detected: Unknown") 
+    print("Info", "Unable to determine the operating system.")
+    return "os not detected"
+
 
 # Helper function to run a command and return the output
 def run_command(command):
@@ -144,10 +167,10 @@ def run_volatility_command(command):
     command_found = False
     for saved_command, file_path in file_info_list:
         print(file_path, memory_file_path)
-        if saved_command == f'{detected_os}.{command}' and file_path == f'{memory_file_path}.json':
+        if saved_command == f'{detected_os}.{command}' and file_path == f'{file_hash}.json':
             print('Command already run: fetching from json')
             clean_memory_file_path = memory_file_path.replace(':', '_').replace('\\', '-')
-            file_name = f'{json_directory}\command{saved_command}file{clean_memory_file_path}.json'
+            file_name = f'{json_directory}\command{saved_command}file{file_hash}.json'
             with open(file_name, 'r', encoding='utf-8') as f:
                 json_data = json.load(f)
                 print(json.dumps(json_data, indent=4, ensure_ascii=False))
@@ -170,7 +193,7 @@ def run_volatility_command(command):
             output = re.sub(r'[^\x00-\x7f]', '?', output)
         
         clean_memory_file_path = memory_file_path.replace(':', '_').replace('\\', '-') 
-        file_name = f'{json_directory}\command{full_command}file{clean_memory_file_path}'
+        file_name = f'{json_directory}\command{full_command}file{file_hash}'
         json_data = save_output_to_json(output, file_name)
         print(json_data)
         return json.dumps(json_data)

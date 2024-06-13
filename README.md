@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+
 # Project Title
 
 Graphical user interface for volatility3
@@ -10,9 +12,9 @@ providing a graphical alternative to the traditional command-line interface.
 
 Use Cases:
 
-- Digital Forensics Investigations: Helps forensic analysts examine memory dumps to uncover evidence of malicious activity.
-- Incident Response: Assists security teams in quickly identifying and responding to security incidents by analyzing volatile data.
-- Malware Analysis: Enables researchers to dissect malware behaviors and their impacts on system memory.
+-   Digital Forensics Investigations: Helps forensic analysts examine memory dumps to uncover evidence of malicious activity.
+-   Incident Response: Assists security teams in quickly identifying and responding to security incidents by analyzing volatile data.
+-   Malware Analysis: Enables researchers to dissect malware behaviors and their impacts on system memory.
 
 ## Getting Started
 
@@ -21,6 +23,8 @@ Use Cases:
 -   Python
 -   PyWebView
 -   unidecode
+-   hashlib
+-   js2py #For Testing#
 
 ### Executing program
 
@@ -48,4 +52,9 @@ Contributors names and contact info
 
 -   Tobias Strømseth
 
+<<<<<<< HEAD
+
+-   # Øystein Harald Arntzen
+    > > > > > > > # Ole
 -   Øystein Harald Arntzen
+    > > > > > > > c28df0bff101a5588d968307995f2ed2408699a9
