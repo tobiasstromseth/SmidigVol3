@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # Project Title
 
 Graphical user interface for volatility3
